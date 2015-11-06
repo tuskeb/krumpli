@@ -12,6 +12,7 @@ public class SpaceGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
+		//Hello world
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 	}
