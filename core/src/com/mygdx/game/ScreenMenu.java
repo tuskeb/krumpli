@@ -22,8 +22,7 @@ public class ScreenMenu extends MyScreen {
     public void render(float delta) {
         super.render(delta);
 
-
-
     }
+
 
 }
