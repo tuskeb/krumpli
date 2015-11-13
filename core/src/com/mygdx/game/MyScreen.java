@@ -20,16 +20,19 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class MyScreen implements Screen {
     public final static float VIRTUAL_WIDTH = 640, VIRTUAL_HEIGHT = 480;
 
-    public static BitmapFont font256bytes, fontHoboStd;
+    public static BitmapFont font256bytes, fontHoboStd, fontshowg;
 
     public static TextButton.TextButtonStyle textButtonStyle;
     public static Label.LabelStyle labelStyle;
+    public static Label.LabelStyle labelNull;
 
     protected OrthographicCamera camera;
     protected Viewport viewport;
     protected SpriteBatch batch;
     protected float elapsedTime = 0;
     public final Game game;
+    private Texture backGroundTexture = new Texture(Gdx.files.internal("Space.jpg"));
+
 
     public MyScreen(Game game) {
         this.game = game;
@@ -47,10 +50,10 @@ public class MyScreen implements Screen {
         //Ez a rész átkonvertálja a vektoros betűket bittérképessé
 
         if (font256bytes == null) {
-            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("256bytes.ttf"));
+            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("SHOWG.TTF"));
             FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
             parameter.size = 50;
-            parameter.characters = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[]"; //Memóriaspórolás céljából csak a hasznosakat konvertáljuk át.
+            parameter.characters = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[]."; //Memóriaspórolás céljából csak a hasznosakat konvertáljuk át.
         /*
 		parameter.shadowColor = Color.BLACK;
 		parameter.shadowOffsetX = 3;
@@ -60,14 +63,25 @@ public class MyScreen implements Screen {
             generator.dispose(); // don't forget to dispose to avoid memory leaks!
         }
         if (fontHoboStd == null) {
-            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("256bytes.ttf"));
+            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("SHOWG.TTF"));
             FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            generator = new FreeTypeFontGenerator(Gdx.files.internal("hobostd.otf"));
+            generator = new FreeTypeFontGenerator(Gdx.files.internal("SHOWG.TTF"));
             parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            parameter.size = 20;
-            parameter.characters = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[]"; //Memóriaspórolás céljából csak a hasznosakat konvertáljuk át.
+            parameter.size = 32;
+            parameter.characters = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[]."; //Memóriaspórolás céljából csak a hasznosakat konvertáljuk át.
             fontHoboStd = generator.generateFont(parameter); // font256bytes size 12 pixels
             fontHoboStd.setColor(0, 0, 0, 1f);
+            generator.dispose(); // don't forget to dispose to avoid memory leaks!
+        }
+        if (fontshowg == null) {
+            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("SHOWG.TTF"));
+            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+            generator = new FreeTypeFontGenerator(Gdx.files.internal("SHOWG.TTF"));
+            parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+            parameter.size = 20;
+            parameter.characters = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[]."; //Memóriaspórolás céljából csak a hasznosakat konvertáljuk át.
+            fontshowg = generator.generateFont(parameter); // font256bytes size 12 pixels
+            fontshowg.setColor(0, 0, 0, 1f);
             generator.dispose(); // don't forget to dispose to avoid memory leaks!
         }
 
@@ -77,21 +91,30 @@ public class MyScreen implements Screen {
         if (textButtonStyle == null) {
             textButtonStyle = new TextButton.TextButtonStyle();
             textButtonStyle.font = fontHoboStd;
-            textButtonStyle.fontColor = Color.BLACK;
-            textButtonStyle.downFontColor = Color.RED;
+            textButtonStyle.fontColor = Color.WHITE;
+            textButtonStyle.downFontColor = Color.GREEN;
             textButtonStyle.overFontColor = Color.valueOf("880000");
-            textButtonStyle.pressedOffsetX = 3;
-            textButtonStyle.pressedOffsetY = 3;
+            textButtonStyle.pressedOffsetX = 1;
+            textButtonStyle.pressedOffsetY = 1;
+            /*
             textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("greenbutton.png")), 0, 0, 255, 47));
             textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("greenbutton.png")), 0, 49, 255, 47));
             textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("greenbutton.png")), 0, 98, 255, 47));
+            */
+
         }
 
         if (labelStyle == null) {
             labelStyle = new Label.LabelStyle();
             labelStyle.font = font256bytes;
             labelStyle.fontColor = Color.WHITE;
-            labelStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("label.png"))));
+            labelStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("Label1.png"))));
+        }
+        if(labelNull == null){
+            labelNull = new Label.LabelStyle();
+            labelNull.font = font256bytes;
+            labelNull.fontColor = Color.WHITE;
+
         }
 
 
@@ -99,11 +122,18 @@ public class MyScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        elapsedTime += Gdx.graphics.getDeltaTime();
-        batch.setProjectionMatrix(camera.combined);
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(backGroundTexture, 0, 0);
+        batch.end();
     }
+    public void create () {
+        batch = new SpriteBatch();
+    }
+
 
     @Override
     public void resize(int width, int height) {
