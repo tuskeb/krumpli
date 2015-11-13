@@ -24,7 +24,7 @@ public class MyScreen implements Screen, InputProcessor {
 	public static final float VIRTUAL_WIDTH = 640, VIRTUAL_HEIGHT = 480;
 	public static final int FPS = 45;
 
-	public static final BitmapFont font256bytes, fontHoboStd;
+	public static final BitmapFont sFont256bytes, sFontHoboStd;
 
 	//Ezek a MyScreen osztályban deklaráltak, mert az összes osztályban akarom őket használni, és statikus, mivel elég csak egyszer betölteni őket.
 
@@ -40,8 +40,8 @@ public class MyScreen implements Screen, InputProcessor {
 		parameter.shadowColor = Color.BLACK;
 		parameter.shadowOffsetX = 3;
 		parameter.shadowOffsetY = 3; ???? */
-		font256bytes = generator.generateFont(parameter); // font256bytes size 12 pixels
-		font256bytes.setColor(0, 0, 0, 0.5f);
+		sFont256bytes = generator.generateFont(parameter); // font256bytes size 12 pixels
+		sFont256bytes.setColor(0, 0, 0, 0.5f);
 		generator.dispose(); // don't forget to dispose to avoid memory leaks!
 
 	}
@@ -53,8 +53,8 @@ public class MyScreen implements Screen, InputProcessor {
 		parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 20;
 		parameter.characters = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[]"; //Memóriaspórolás céljából csak a hasznosakat konvertáljuk át.
-		fontHoboStd = generator.generateFont(parameter); // font256bytes size 12 pixels
-		fontHoboStd.setColor(0, 0, 0, 1f);
+		sFontHoboStd = generator.generateFont(parameter); // font256bytes size 12 pixels
+		sFontHoboStd.setColor(0, 0, 0, 1f);
 		generator.dispose(); // don't forget to dispose to avoid memory leaks!
 	}
 
@@ -62,7 +62,7 @@ public class MyScreen implements Screen, InputProcessor {
 
 	static {
 		sTextButtonStyle = new TextButton.TextButtonStyle();
-		sTextButtonStyle.font = fontHoboStd;
+		sTextButtonStyle.font = sFontHoboStd;
 		sTextButtonStyle.fontColor = Color.BLACK;
 		sTextButtonStyle.downFontColor = Color.RED;
 		sTextButtonStyle.overFontColor = Color.valueOf("880000");
@@ -80,7 +80,7 @@ public class MyScreen implements Screen, InputProcessor {
 
 	static {
 		sLabelStyle = new Label.LabelStyle();
-		sLabelStyle.font = font256bytes;
+		sLabelStyle.font = sFont256bytes;
 		sLabelStyle.fontColor = Color.WHITE;
 		sLabelStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("label.png"))));
 	}
