@@ -7,8 +7,8 @@ import com.badlogic.gdx.Game;
  */
 public class ScreenHelp extends MyScreen {
 
-    public ScreenHelp(Game game) {
-        super(game);
+    public ScreenHelp() {
+        super();
 
     }
 
