@@ -22,8 +22,8 @@ public class ScreenGame extends MyScreen {
 	ActorSurface mActorSurface = new ActorSurface();
 	ActorBackground actorBackground = new ActorBackground();
 
-	public ScreenGame(Game game) {
-		super(game);
+	public ScreenGame() {
+		super();
 
 		mStageGame.addActor(actorBackground);
 		mStageGame.addActor(mActorSurface);

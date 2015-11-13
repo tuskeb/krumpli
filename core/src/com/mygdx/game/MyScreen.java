@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+// https://github.com/libgdx/libgdx/wiki/box2d#creating-a-world
+
 public class MyScreen implements Screen, InputProcessor {
 	public static final float VIRTUAL_WIDTH = 640, VIRTUAL_HEIGHT = 480;
 	public static final int FPS = 45;
@@ -87,10 +89,8 @@ public class MyScreen implements Screen, InputProcessor {
 	protected Viewport mViewport;
 	protected SpriteBatch mBatch;
 	protected float mElapsedTime = 0;
-	public final Game mGame;
 
-	public MyScreen(Game game) {
-		mGame = game;
+	public MyScreen() {
 		mBatch = new SpriteBatch();
 		mCamera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		mViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), mCamera);

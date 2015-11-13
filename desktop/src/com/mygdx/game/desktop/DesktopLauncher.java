@@ -11,6 +11,6 @@ public class DesktopLauncher {
 		config.title = "Krumpli!!";
 		config.foregroundFPS = MyScreen.FPS;
 		config.backgroundFPS = MyScreen.FPS;
-		new LwjglApplication(new SpaceGame(), config);
+		new LwjglApplication(SpaceGame.sGame, config);
 	}
 }
