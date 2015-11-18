@@ -66,13 +66,13 @@ public class DaniMyScreen implements Screen {
         }
         if (labelStyle == null) {
             labelStyle = new Label.LabelStyle();
-            labelStyle.font = font256bytes;
+            labelStyle.font = fontshowg;
             labelStyle.fontColor = Color.WHITE;
             labelStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("Label1.png"))));
         }
         if(labelNull == null){
             labelNull = new Label.LabelStyle();
-            labelNull.font = font256bytes;
+            labelNull.font = fontshowg;
             labelNull.fontColor = Color.WHITE;
 
         }
