@@ -8,9 +8,7 @@ import com.mygdx.game.SpaceGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "Krumpli!!";
-		config.foregroundFPS = MyScreen.FPS;
-		config.backgroundFPS = MyScreen.FPS;
+		System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
 		new LwjglApplication(SpaceGame.sGame, config);
 	}
 }
