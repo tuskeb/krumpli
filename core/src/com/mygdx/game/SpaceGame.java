@@ -24,8 +24,6 @@ public class SpaceGame extends Game implements ApplicationListener {
 
 	}
 
-	;
-
 	public void showScreen(Screens screen) {
 		setScreen(mScreens[screen.value]);
 	}
