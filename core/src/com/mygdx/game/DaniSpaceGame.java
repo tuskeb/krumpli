@@ -53,7 +53,7 @@ public class DaniSpaceGame extends Game implements ApplicationListener {
         setScreen(new ScreenMenu());
     }
 
-
+/*
     @Override
     public void render () {
         Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -63,5 +63,6 @@ public class DaniSpaceGame extends Game implements ApplicationListener {
         //batch.draw(img, 0, 0);
         batch.end();
     }
-
+*/
 }
+

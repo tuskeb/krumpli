@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class ScreenMenu extends MyScreen {
 	private Stage stage;
-	private Batch batch;
+	private SpriteBatch batch;
 	public ScreenMenu() {
 		super();
 		stage = new Stage();
@@ -23,7 +23,7 @@ public class ScreenMenu extends MyScreen {
 
 		batch=new SpriteBatch();
 		//showScreen(Screens.MENU);
-
+//LOL
 	}
 
     /*
