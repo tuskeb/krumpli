@@ -47,7 +47,6 @@ public class DaniSpaceGame extends Game implements ApplicationListener {
                 new ScreenGame()
         };
         teszt = new Stage();
-        teszt.addActor(new ActorBackground());
 
 batch=new SpriteBatch();
         //showScreen(Screens.MENU);
