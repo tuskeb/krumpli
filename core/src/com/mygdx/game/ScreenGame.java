@@ -63,17 +63,26 @@ Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 		pause();
 	}
 
+    float ll = 100;
+
 	@Override
 	public void render(float delta) {
 		super.render(delta);
 
+        spaceShip.body.applyForceToCenter(ll, 10f, false);
+
 		world.step(delta, 1, 1);
 
+        spaceShip.body.applyForceToCenter(ll, 10f, false);
 		gameStage.act(delta);
 
+        spaceShip.body.applyForceToCenter(ll, 10f, false);
         debugRenderer.render(world, camera.combined);
 
+        spaceShip.body.applyForceToCenter(ll, 10f, false);
 		gameStage.draw();
+
+        ll += 100;
 	}
 
 	@Override

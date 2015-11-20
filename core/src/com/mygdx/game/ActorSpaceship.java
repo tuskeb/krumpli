@@ -77,9 +77,11 @@ public class ActorSpaceship extends Actor {
 
 	// http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
 
+    Texture texture = new Texture(Gdx.files.internal("ball.png"));
+
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		batch.draw(new Texture(Gdx.files.internal("ball.png")), getX(), getY());
+		batch.draw(texture, getX(), getY());
 
 		// kirajzoljuk a rakétát
 		// TODO landoló egység rajzolása
@@ -111,13 +113,11 @@ public class ActorSpaceship extends Actor {
 			}
 		}
 
-        body.applyForceToCenter(1000f, 10f, true);
 
 		if (leftRocketState) {
             body.applyForceToCenter(1000f, 10f, true);
 		} else if (rightRocketState) {
 			body.applyForce(-(LANDING_ROCKET_POWER * elapsedTime), 0, 0, 0, true);
-
 		}
 
 		final Vector2 pos = body.getPosition();
