@@ -7,8 +7,10 @@ import com.mygdx.game.SpaceGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
+		System.setProperty("user.name","pendroid");
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
+		config.width = (int)MyScreen.VIRTUAL_WIDTH;
+		config.height = (int)MyScreen.VIRTUAL_HEIGHT;
 		new LwjglApplication(SpaceGame.sGame, config);
 	}
 }

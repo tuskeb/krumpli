@@ -1,12 +1,10 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -14,9 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 // http://www.gamefromscratch.com/post/2014/08/27/LibGDX-Tutorial-13-Physics-with-Box2D-Part-1-A-Basic-Physics-Simulations.aspx
 
 
-public class DaniSpaceGame extends Game implements ApplicationListener {
+public class CubeSpaceGame extends Game implements ApplicationListener {
 
-    public static DaniSpaceGame sGame = new DaniSpaceGame();
+    public static CubeSpaceGame sGame = new CubeSpaceGame();
     private SpriteBatch batch;
     private static Screen[] mScreens;
 
@@ -47,6 +45,7 @@ public class DaniSpaceGame extends Game implements ApplicationListener {
                 new ScreenGame()
         };
         teszt = new Stage();
+        teszt.addActor(new ActorBackground());
 
 batch=new SpriteBatch();
         //showScreen(Screens.MENU);
