@@ -46,23 +46,19 @@ public class DaniSpaceGame extends Game implements ApplicationListener {
                 new ScreenHelp(),
                 new ScreenGame()
         };
-        teszt = new Stage();
-        teszt.addActor(new ActorBackground());
-
-batch=new SpriteBatch();
-        //showScreen(Screens.MENU);
         setScreen(new ScreenMenu());
     }
 
-
+/*
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+        teszt.act(Gdx.graphics.getDeltaTime());
         teszt.draw();
 		//batch.draw(img, 0, 0);
 		batch.end();
 	}
-
+*/
 }
