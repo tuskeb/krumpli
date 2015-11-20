@@ -14,7 +14,7 @@ public class ScreenGame extends MyScreen {
 	// https://github.com/libgdx/libgdx/wiki/A-simple-game
 	// http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
 
-	private World world = new World(new Vector2(0, -10), true);
+	private World world = new World(new Vector2(0, 0), true);
 Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
 	private Stage
@@ -63,26 +63,19 @@ Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 		pause();
 	}
 
-    float ll = 100;
 
 	@Override
 	public void render(float delta) {
 		super.render(delta);
 
-        spaceShip.body.applyForceToCenter(ll, 10f, false);
-
 		world.step(delta, 1, 1);
 
-        spaceShip.body.applyForceToCenter(ll, 10f, false);
 		gameStage.act(delta);
 
-        spaceShip.body.applyForceToCenter(ll, 10f, false);
         debugRenderer.render(world, camera.combined);
 
-        spaceShip.body.applyForceToCenter(ll, 10f, false);
 		gameStage.draw();
 
-        ll += 100;
 	}
 
 	@Override
@@ -92,6 +85,9 @@ Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 			case Input.Keys.BACK:
 
 				break;
+            case Input.Keys.SPACE:
+                spaceShip.setRocketState(ActorSpaceship.RocketType.landing, true);
+                break;
 		}
 
 		return false;

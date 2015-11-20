@@ -43,6 +43,7 @@ public class ActorSpaceship extends Actor {
 		polygonShape.setAsBox(50, 80);
 
 		Fixture fix = body.createFixture(polygonShape, 50);
+        fix.setDensity(1);
 		//fix.setDensity(1);
 		//fix.setFriction(1f);
 		//fix.setRestitution(0.8f);
@@ -101,7 +102,7 @@ public class ActorSpaceship extends Actor {
 
 		if (landingRocketState && mMainRocketOverheatedTime == 0) { // be van kapcsolva a rakét, és nincs túlmelegedve
 			mMainRocketUsingTime += elapsedTime;
-			body.applyForce(0, (LANDING_ROCKET_POWER * elapsedTime) / -1000f, 0, 0, true);
+			body.applyForce(0, (LANDING_ROCKET_POWER * elapsedTime) * -1e7f, 0, 0, true);
 
 			if (mMainRocketUsingTime > 2000) { // többet használtuk, mint 2 másodperc
 				mMainRocketOverheatedTime = 3000;
@@ -115,9 +116,9 @@ public class ActorSpaceship extends Actor {
 
 
 		if (leftRocketState) {
-            body.applyForceToCenter(1000f, 10f, true);
+            body.applyForceToCenter(1e7f, 10f, false);
 		} else if (rightRocketState) {
-			body.applyForce(-(LANDING_ROCKET_POWER * elapsedTime), 0, 0, 0, true);
+            body.applyForceToCenter(-1e7f, 10f, false);
 		}
 
 		final Vector2 pos = body.getPosition();
