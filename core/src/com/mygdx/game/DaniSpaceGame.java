@@ -44,7 +44,8 @@ public class DaniSpaceGame extends Game implements ApplicationListener {
         mScreens = new Screen[]{
                 new ScreenMenu(),
                 new ScreenHelp(),
-                new ScreenGame()
+                new ScreenGame(),
+                //new ScreenStatics()
         };
         teszt = new Stage();
 
