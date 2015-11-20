@@ -34,6 +34,7 @@ public class ActorSpaceship extends Actor {
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.x = 100;
 		bodyDef.position.y = 400;
+
 		//bodyDef.linearDamping = .1f;
 		//bodyDef.angularDamping = .5f;
 
@@ -102,7 +103,7 @@ public class ActorSpaceship extends Actor {
 
 		if (landingRocketState && mMainRocketOverheatedTime == 0) { // be van kapcsolva a rakét, és nincs túlmelegedve
 			mMainRocketUsingTime += elapsedTime;
-			body.applyForce(0, (LANDING_ROCKET_POWER * elapsedTime) * -1e7f, 0, 0, true);
+			body.applyForce(0, (LANDING_ROCKET_POWER * elapsedTime) * 1e7f, 0, 0, true);
 
 			if (mMainRocketUsingTime > 2000) { // többet használtuk, mint 2 másodperc
 				mMainRocketOverheatedTime = 3000;
