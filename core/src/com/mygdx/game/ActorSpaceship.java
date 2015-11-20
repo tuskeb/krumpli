@@ -4,6 +4,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -51,9 +54,48 @@ public class ActorSpaceship extends Actor {
 
 		polygonShape.dispose();
 
+		//Több képet tartalmazó PNG feldarabolása és betöltése
+		textureFire=new TextureAtlas(Gdx.files.internal("fireanimation.atlas"));
+		textureSpeceShip=new TextureRegion(new Texture(Gdx.files.internal("rocket.png")));
+		final TextureAtlas.AtlasRegion region = textureFire.findRegion("0");
+		/*
+		spriteLeftFire = new Sprite(region);
+		spriteRightFire = new Sprite(region);
+		spriteLandingFire = new Sprite(region);
+		*/
+		spriteLeftFire = new Sprite(new Texture("ball.png"));
+		spriteRightFire = new Sprite(new Texture("ball.png"));
+		spriteLandingFire = new Sprite(new Texture("ball.png"));
+		spriteSpaceShip=new Sprite(textureSpeceShip);
+
+		//spriteFromAtlas.setPosition(0, 256);
+
 
 	}
 
+	@Override
+	public void setSize(float width, float height) {
+		super.setSize(width, height);
+		spriteSpaceShip.setSize(width,height);
+		setFire();
+	}
+
+	@Override
+	public void setPosition(float x, float y) {
+		super.setPosition(x, y);
+		spriteSpaceShip.setPosition(x, y);
+		setFire();
+	}
+
+	private void setFire()
+	{
+		spriteLeftFire.setSize(getWidth() / 6,getHeight()/4);
+		spriteRightFire.setSize(getWidth() / 6, getHeight() / 4);
+		spriteLandingFire.setSize(getWidth() / 3,getHeight()/2);
+		spriteLeftFire.setPosition(getX(), getY() - spriteLeftFire.getHeight());
+		spriteRightFire.setPosition(getX()+getWidth()-spriteLeftFire.getWidth(),getY()-spriteLeftFire.getHeight());
+		spriteLandingFire.setPosition(getX()+getWidth()/2-spriteLandingFire.getWidth()/2,getY()-spriteLandingFire.getHeight());
+	}
 
 	public enum RocketType {
 		landing,
@@ -79,12 +121,34 @@ public class ActorSpaceship extends Actor {
 
 	// http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
 
-    Texture texture = new Texture(Gdx.files.internal("ball.png"));
+    TextureRegion textureSpeceShip;
+	TextureAtlas textureFire;
+	Sprite spriteSpaceShip;
+	Sprite spriteLandingFire;
+	Sprite spriteLeftFire;
+	Sprite spriteRightFire;
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		batch.draw(texture, getX(), getY());
+		//batch.draw(textureSpeceShip, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+		spriteSpaceShip.draw(batch);
 
+		spriteLandingFire.draw(batch);
+		spriteLeftFire.draw(batch);
+		spriteRightFire.draw(batch);
+
+		if (landingRocketState)
+		{
+
+		}
+		if (leftRocketState)
+		{
+
+		}
+		if (rightRocketState)
+		{
+
+		}
 		// kirajzoljuk a rakétát
 		// TODO landoló egység rajzolása
 
