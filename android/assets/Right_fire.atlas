@@ -1,0 +1,25 @@
+textureatlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+0
+  rotate: false
+  xy: 154, 0
+  size: 46, 162
+  orig: 46, 162
+  offset: 0, 0
+  index: -1
+1
+  rotate: false
+  xy: 154, 162
+  size: 46, 162
+  orig: 46, 162
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 154, 314
+  size: 46, 162
+  orig: 46, 162
+  offset: 0, 0
+  index: -1
