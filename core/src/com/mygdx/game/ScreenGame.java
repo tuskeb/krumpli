@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -10,24 +11,26 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class ScreenGame extends MyScreen {
 
+	// https://github.com/libgdx/libgdx/wiki/A-simple-game
 	// http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
 
 	private World world = new World(new Vector2(0, -10), true);
+Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
 	private Stage
-			mStageControls = new Stage(),
-			mStageGame = new Stage();
+			controlsStage = new Stage(),
+			gameStage = new Stage();
 
-	ActorSpaceship spaceShip = new ActorSpaceship();
-	ActorSurface surface = new ActorSurface();
-	ActorBackground space = new ActorBackground();
+	private ActorSpaceship spaceShip = new ActorSpaceship(world);
+	private ActorSurface surface = new ActorSurface(world);
+	private ActorBackground space = new ActorBackground(world);
 
 	public ScreenGame() {
 		super();
 
-		mStageGame.addActor(space);
-		mStageGame.addActor(surface);
-		mStageGame.addActor(spaceShip);
+		//gameStage.addActor(space);
+		//gameStage.addActor(surface);
+		gameStage.addActor(spaceShip);
 
 	}
 
@@ -66,9 +69,11 @@ public class ScreenGame extends MyScreen {
 
 		world.step(delta, 1, 1);
 
-		mStageGame.act(delta);
-		mStageGame.draw();
+		gameStage.act(delta);
 
+        debugRenderer.render(world, camera.combined);
+
+		gameStage.draw();
 	}
 
 	@Override

@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 // https://github.com/libgdx/libgdx/wiki/box2d#creating-a-world
 
 public class MyScreen implements Screen, InputProcessor {
-	protected static final float VIRTUAL_WIDTH = 640, VIRTUAL_HEIGHT = 480;
+	public static final float VIRTUAL_WIDTH = 640, VIRTUAL_HEIGHT = 480;
 	private static String CHARS = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[]";
 	protected static final BitmapFont FONT_256_BYTES, FONT_HOBO_STD;
 
@@ -74,9 +74,9 @@ public class MyScreen implements Screen, InputProcessor {
 
 	}
 
-	protected OrthographicCamera camera;
-	protected Viewport viewport;
-	protected SpriteBatch batch;
+	protected final OrthographicCamera camera;
+	protected final Viewport viewport;
+	protected final SpriteBatch batch;
 	//protected float mElapsedTime = 0;
 
 	public MyScreen() {
@@ -84,15 +84,19 @@ public class MyScreen implements Screen, InputProcessor {
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		camera.zoom = VIRTUAL_HEIGHT / Gdx.graphics.getHeight();
-		camera.setToOrtho(true);
+		camera.setToOrtho(false);
 	}
 
 	@Override
 	public void render(float delta) {
 		//mElapsedTime += Gdx.graphics.getDeltaTime();
+		camera.update();
 		batch.setProjectionMatrix(camera.combined);
+
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
 	}
 
 	@Override
