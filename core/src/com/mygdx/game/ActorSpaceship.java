@@ -2,13 +2,20 @@ package com.mygdx.game;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
  * Ez az űrhajó figurája
  */
-public class ActorSpaceship extends MyActor {
+public class ActorSpaceship extends Actor {
 
 	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false;
 
@@ -16,6 +23,34 @@ public class ActorSpaceship extends MyActor {
 
 	private long mMainRocketOverheatedTime = 0;
 	private long mMainRocketUsingTime = 0;
+
+	final Body body;
+	final World world;
+
+	ActorSpaceship(World world) {
+		this.world = world;
+
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyDef.BodyType.DynamicBody;
+		bodyDef.position.x = 100;
+		bodyDef.position.y = 400;
+		//bodyDef.linearDamping = .1f;
+		//bodyDef.angularDamping = .5f;
+
+		this.body = this.world.createBody(bodyDef);
+
+		PolygonShape polygonShape = new PolygonShape();
+		polygonShape.setAsBox(50, 80);
+
+		Fixture fix = body.createFixture(polygonShape, 50);
+		//fix.setDensity(1);
+		//fix.setFriction(1f);
+		//fix.setRestitution(0.8f);
+
+		polygonShape.dispose();
+
+
+	}
 
 
 	public enum RocketType {
@@ -44,9 +79,7 @@ public class ActorSpaceship extends MyActor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-
-		batch.begin();
+		batch.draw(new Texture(Gdx.files.internal("ball.png")), getX(), getY());
 
 		// kirajzoljuk a rakétát
 		// TODO landoló egység rajzolása
@@ -54,7 +87,6 @@ public class ActorSpaceship extends MyActor {
 		// kirajzoljuk a lángokat
 		// TODO lángok rajzolás
 
-		batch.end();
 	}
 
 	@Override
@@ -67,7 +99,6 @@ public class ActorSpaceship extends MyActor {
 
 		if (landingRocketState && mMainRocketOverheatedTime == 0) { // be van kapcsolva a rakét, és nincs túlmelegedve
 			mMainRocketUsingTime += elapsedTime;
-
 			body.applyForce(0, (LANDING_ROCKET_POWER * elapsedTime) / -1000f, 0, 0, true);
 
 			if (mMainRocketUsingTime > 2000) { // többet használtuk, mint 2 másodperc
@@ -80,12 +111,14 @@ public class ActorSpaceship extends MyActor {
 			}
 		}
 
-		if (leftRocketState) {
-			body.applyForce((LANDING_ROCKET_POWER * elapsedTime) / 1000f, 0, 0, 0, true);
-		} else if (rightRocketState) {
-			body.applyForce(-(LANDING_ROCKET_POWER * elapsedTime) / 1000f, 0, 0, 0, true);
-		}
+        body.applyForceToCenter(1000f, 10f, true);
 
+		if (leftRocketState) {
+            body.applyForceToCenter(1000f, 10f, true);
+		} else if (rightRocketState) {
+			body.applyForce(-(LANDING_ROCKET_POWER * elapsedTime), 0, 0, 0, true);
+
+		}
 
 		final Vector2 pos = body.getPosition();
 		setPosition(pos.x, pos.y);
