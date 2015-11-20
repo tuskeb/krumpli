@@ -75,6 +75,7 @@ public class ActorBackground extends MyActor {
 
 
 
+
     @Override
     public void act(float delta) {
         for (Sprite s: csillagok) {
