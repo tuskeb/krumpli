@@ -53,9 +53,9 @@ public class ActorBackground extends MyActor {
 
 
     public ActorBackground() {
-        textureSpace = new Texture(new FileHandle("star.png"));
+        textureSpace = new Texture(new FileHandle("Space.jpg"));
         spriteSpace = new Sprite(textureSpace);
-        textureStars.add(new Texture(new FileHandle("star.png")));
+        textureStars.add(new Texture(new FileHandle("star_white.png")));
         for(int i = 0; i<100; i++)
         {
             csillagok.add(new Sprite(textureStars.get(0)));

@@ -24,7 +24,7 @@ public class MyScreen implements Screen, InputProcessor {
 	//Ez a rész átkonvertálja a vektoros betűket bittérképessé
 
 	static {
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("256bytes.ttf"));
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("SHOWG.TTF"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 50;
 		parameter.characters = CHARS;
@@ -34,9 +34,9 @@ public class MyScreen implements Screen, InputProcessor {
 	}
 
 	static {
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("hobostd.otf"));
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("SHOWG.TTF"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 20;
+		parameter.size = 30;
 		parameter.characters = CHARS;
 		FONT_HOBO_STD = generator.generateFont(parameter);
 		FONT_HOBO_STD.setColor(0, 0, 0, 1f);
@@ -48,17 +48,18 @@ public class MyScreen implements Screen, InputProcessor {
 	static {
 		TEXT_BUTTON_STYLE = new TextButton.TextButtonStyle();
 		TEXT_BUTTON_STYLE.font = FONT_HOBO_STD;
-		TEXT_BUTTON_STYLE.fontColor = Color.BLACK;
+		TEXT_BUTTON_STYLE.fontColor = Color.WHITE;
 		TEXT_BUTTON_STYLE.downFontColor = Color.RED;
 		TEXT_BUTTON_STYLE.overFontColor = Color.valueOf("880000");
 		TEXT_BUTTON_STYLE.pressedOffsetX = 3;
 		TEXT_BUTTON_STYLE.pressedOffsetY = 3;
-
+/*
 		final Texture texture = new Texture(Gdx.files.internal("greenbutton.png"));
 
 		TEXT_BUTTON_STYLE.up = new TextureRegionDrawable(new TextureRegion(texture, 0, 0, 255, 47));
 		TEXT_BUTTON_STYLE.over = new TextureRegionDrawable(new TextureRegion(texture, 0, 49, 255, 47));
 		TEXT_BUTTON_STYLE.down = new TextureRegionDrawable(new TextureRegion(texture, 0, 98, 255, 47));
+*/
 	}
 
 	protected static final Label.LabelStyle LABEL_STYLE;
@@ -68,9 +69,9 @@ public class MyScreen implements Screen, InputProcessor {
 		LABEL_STYLE.font = FONT_256_BYTES;
 		LABEL_STYLE.fontColor = Color.WHITE;
 
-		final Texture texture = new Texture(Gdx.files.internal("label.png"));
+		//final Texture texture = new Texture(Gdx.files.internal("label.png"));
 
-		LABEL_STYLE.background = new TextureRegionDrawable(new TextureRegion(texture));
+		//LABEL_STYLE.background = new TextureRegionDrawable(new TextureRegion(texture));
 
 	}
 
@@ -103,7 +104,7 @@ public class MyScreen implements Screen, InputProcessor {
 	public void resize(int width, int height) {
 		viewport.update(width, height);
 	}
-
+//EZ NEM FONTOS!! xD
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(this);
