@@ -42,13 +42,9 @@ public class CubeSpaceGame extends Game implements ApplicationListener {
 
     @Override
     public void create() {
-        mScreens = new Screen[]{
-                new ScreenMenu(),
-                new ScreenHelp(),
-                new ScreenGame()
-        };
+
         teszt = new Stage();
-        teszt.addActor(new ActorBackground());
+        //teszt.addActor(new ActorBackground());
 
 batch=new SpriteBatch();
         //showScreen(Screens.MENU);
@@ -61,6 +57,7 @@ batch=new SpriteBatch();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+        teszt.act(Gdx.graphics.getDeltaTime());
         teszt.draw();
 		//batch.draw(img, 0, 0);
 		batch.end();
