@@ -76,7 +76,10 @@ public class ActorSpaceship extends Actor {
 	@Override
 	public void setSize(float width, float height) {
 		super.setSize(width, height);
-		spriteSpaceShip.setSize(width,height);
+		spriteSpaceShip.setSize(width, height);
+		//setOrigin(getX()+getWidth() / 2, getY()-getHeight() / 2);
+		spriteSpaceShip.setOrigin(spriteSpaceShip.getWidth()/2,spriteSpaceShip.getHeight()/2);
+		setOrigin(0,0);
 		setFire();
 	}
 
@@ -84,17 +87,35 @@ public class ActorSpaceship extends Actor {
 	public void setPosition(float x, float y) {
 		super.setPosition(x, y);
 		spriteSpaceShip.setPosition(x, y);
+		//setOrigin(getX() + getWidth() / 2, getY() - getHeight() / 2);
+		setOrigin(0, 0);
+		spriteSpaceShip.setOrigin(spriteSpaceShip.getWidth()/2,spriteSpaceShip.getHeight()/2);
+		spriteSpaceShip.setOrigin(0,0);
 		setFire();
+
 	}
 
-	private void setFire()
-	{
+	@Override
+	public void setRotation(float degrees) {
+		super.setRotation(degrees);
+		spriteSpaceShip.setRotation(degrees);
+		spriteLeftFire.setRotation(degrees);
+		spriteRightFire.setRotation(degrees);
+		spriteLandingFire.setRotation(degrees);
+	}
+
+	private void setFire() {
 		spriteLeftFire.setSize(getWidth() / 6,getHeight()/4);
+		//spriteLeftFire.setOrigin(getOriginX(),getOriginY());
 		spriteRightFire.setSize(getWidth() / 6, getHeight() / 4);
 		spriteLandingFire.setSize(getWidth() / 3,getHeight()/2);
 		spriteLeftFire.setPosition(getX(), getY() - spriteLeftFire.getHeight());
-		spriteRightFire.setPosition(getX()+getWidth()-spriteLeftFire.getWidth(),getY()-spriteLeftFire.getHeight());
+		spriteRightFire.setPosition(getX()+getWidth()-spriteRightFire.getWidth(),getY()-spriteRightFire.getHeight());
 		spriteLandingFire.setPosition(getX()+getWidth()/2-spriteLandingFire.getWidth()/2,getY()-spriteLandingFire.getHeight());
+		spriteRightFire.setOrigin(-spriteSpaceShip.getWidth() / 2 + spriteRightFire.getWidth(), spriteSpaceShip.getOriginY() + spriteRightFire.getHeight());
+		spriteLeftFire.setOrigin(spriteSpaceShip.getWidth()/2,spriteSpaceShip.getOriginY() + spriteLeftFire.getHeight());
+		spriteLandingFire.setOrigin(spriteLandingFire.getWidth()/2,spriteSpaceShip.getOriginY() + spriteLandingFire.getHeight());
+
 	}
 
 	public enum RocketType {
@@ -160,6 +181,7 @@ public class ActorSpaceship extends Actor {
 	@Override
 	public void act(float delta) {
 
+		//setRotation(getRotation()+0.5f);
 		//setOrigin(0, 0);
 		//setRotation((float) Math.toDegrees(body.getAngle()));
 

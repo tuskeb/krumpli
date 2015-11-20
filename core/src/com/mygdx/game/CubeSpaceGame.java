@@ -51,8 +51,8 @@ public class CubeSpaceGame extends Game implements ApplicationListener {
         //teszt.addActor(new ActorBackground());
 
         ActorSpaceship actorSpaceship = new ActorSpaceship(new World(new Vector2(0, 0), true));
+        actorSpaceship.setPosition(200,300);
         actorSpaceship.setSize(100,200);
-        actorSpaceship.setPosition(300,150);
         teszt.addActor(actorBackground);
         teszt.addActor(actorSpaceship);
         batch=new SpriteBatch();
