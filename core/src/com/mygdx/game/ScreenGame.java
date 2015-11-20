@@ -23,7 +23,7 @@ Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
 	private ActorSpaceship spaceShip = new ActorSpaceship(world);
 	private ActorSurface surface = new ActorSurface(world);
-	//private ActorBackground space = new ActorBackground(world);
+	private ActorBackground space = new ActorBackground();
 
 	public ScreenGame() {
 		super();

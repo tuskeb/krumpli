@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import javafx.stage.Stage;
+
 
 /**
  * Ez a csillagos égbolt teljes képernyőn
