@@ -47,7 +47,7 @@ public class ActorSpaceship extends Actor {
 		polygonShape.setAsBox(50, 80);
 
 		Fixture fix = body.createFixture(polygonShape, 50);
-        fix.setDensity(1);
+		fix.setDensity(1);
 		//fix.setDensity(1);
 		//fix.setFriction(1f);
 		//fix.setRestitution(0.8f);
@@ -55,18 +55,14 @@ public class ActorSpaceship extends Actor {
 		polygonShape.dispose();
 
 		//Több képet tartalmazó PNG feldarabolása és betöltése
-		textureFire=new TextureAtlas(Gdx.files.internal("fireanimation.atlas"));
-		textureSpeceShip=new TextureRegion(new Texture(Gdx.files.internal("rocket.png")));
+		textureFire = new TextureAtlas(Gdx.files.internal("fireanimation.atlas"));
+		textureSpaceShip = new TextureRegion(new Texture(Gdx.files.internal("rocket.png")));
 		final TextureAtlas.AtlasRegion region = textureFire.findRegion("0");
-		/*
-		spriteLeftFire = new Sprite(region);
-		spriteRightFire = new Sprite(region);
-		spriteLandingFire = new Sprite(region);
-		*/
+
 		spriteLeftFire = new Sprite(new Texture("ball.png"));
 		spriteRightFire = new Sprite(new Texture("ball.png"));
 		spriteLandingFire = new Sprite(new Texture("ball.png"));
-		spriteSpaceShip=new Sprite(textureSpeceShip);
+		spriteSpaceShip = new Sprite(textureSpaceShip);
 
 		//spriteFromAtlas.setPosition(0, 256);
 
@@ -77,9 +73,8 @@ public class ActorSpaceship extends Actor {
 	public void setSize(float width, float height) {
 		super.setSize(width, height);
 		spriteSpaceShip.setSize(width, height);
-		//setOrigin(getX()+getWidth() / 2, getY()-getHeight() / 2);
-		spriteSpaceShip.setOrigin(spriteSpaceShip.getWidth()/2,spriteSpaceShip.getHeight()/2);
-		setOrigin(0,0);
+		spriteSpaceShip.setOrigin(spriteSpaceShip.getWidth() / 2, spriteSpaceShip.getHeight() / 2);
+		//setOrigin(0, 0);
 		setFire();
 	}
 
@@ -88,9 +83,12 @@ public class ActorSpaceship extends Actor {
 		super.setPosition(x, y);
 		spriteSpaceShip.setPosition(x, y);
 		//setOrigin(getX() + getWidth() / 2, getY() - getHeight() / 2);
-		setOrigin(0, 0);
-		spriteSpaceShip.setOrigin(spriteSpaceShip.getWidth()/2,spriteSpaceShip.getHeight()/2);
-		spriteSpaceShip.setOrigin(0,0);
+		//setOrigin(0, 0);
+
+		// A következő sor, fölösleges.
+		spriteSpaceShip.setOrigin(spriteSpaceShip.getWidth() / 2, spriteSpaceShip.getHeight() / 2);
+		spriteSpaceShip.setOrigin(0, 0); // ...vagy ez hibás
+
 		setFire();
 
 	}
@@ -105,24 +103,21 @@ public class ActorSpaceship extends Actor {
 	}
 
 	private void setFire() {
-		spriteLeftFire.setSize(getWidth() / 6,getHeight()/4);
-		//spriteLeftFire.setOrigin(getOriginX(),getOriginY());
-		spriteRightFire.setSize(getWidth() / 6, getHeight() / 4);
-		spriteLandingFire.setSize(getWidth() / 3,getHeight()/2);
+		spriteLeftFire.setSize(getWidth() / 6, getHeight() / 4);
 		spriteLeftFire.setPosition(getX(), getY() - spriteLeftFire.getHeight());
-		spriteRightFire.setPosition(getX()+getWidth()-spriteRightFire.getWidth(),getY()-spriteRightFire.getHeight());
-		spriteLandingFire.setPosition(getX()+getWidth()/2-spriteLandingFire.getWidth()/2,getY()-spriteLandingFire.getHeight());
+		spriteLeftFire.setOrigin(spriteSpaceShip.getWidth() / 2, spriteSpaceShip.getOriginY() + spriteLeftFire.getHeight());
+
+		spriteRightFire.setSize(getWidth() / 6, getHeight() / 4);
+		spriteRightFire.setPosition(getX() + getWidth() - spriteRightFire.getWidth(), getY() - spriteRightFire.getHeight());
 		spriteRightFire.setOrigin(-spriteSpaceShip.getWidth() / 2 + spriteRightFire.getWidth(), spriteSpaceShip.getOriginY() + spriteRightFire.getHeight());
-		spriteLeftFire.setOrigin(spriteSpaceShip.getWidth()/2,spriteSpaceShip.getOriginY() + spriteLeftFire.getHeight());
-		spriteLandingFire.setOrigin(spriteLandingFire.getWidth()/2,spriteSpaceShip.getOriginY() + spriteLandingFire.getHeight());
+
+		spriteLandingFire.setSize(getWidth() / 3, getHeight() / 2);
+		spriteLandingFire.setPosition(getX() + getWidth() / 2 - spriteLandingFire.getWidth() / 2, getY() - spriteLandingFire.getHeight());
+		spriteLandingFire.setOrigin(spriteLandingFire.getWidth() / 2, spriteSpaceShip.getOriginY() + spriteLandingFire.getHeight());
 
 	}
 
-	public enum RocketType {
-		landing,
-		left,
-		right
-	}
+	public enum RocketType {landing, left, right}
 
 	public void setRocketState(RocketType type, boolean state) {
 		switch (type) {
@@ -142,50 +137,28 @@ public class ActorSpaceship extends Actor {
 
 	// http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
 
-    TextureRegion textureSpeceShip;
+	TextureRegion textureSpaceShip;
 	TextureAtlas textureFire;
 	Sprite spriteSpaceShip;
-	Sprite spriteLandingFire;
-	Sprite spriteLeftFire;
-	Sprite spriteRightFire;
+	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire;
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		//batch.draw(textureSpeceShip, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 		spriteSpaceShip.draw(batch);
 
-		spriteLandingFire.draw(batch);
-		spriteLeftFire.draw(batch);
-		spriteRightFire.draw(batch);
+		if (landingRocketState) spriteLandingFire.draw(batch);
 
-		if (landingRocketState)
-		{
-
-		}
-		if (leftRocketState)
-		{
-
-		}
-		if (rightRocketState)
-		{
-
-		}
-		// kirajzoljuk a rakétát
-		// TODO landoló egység rajzolása
-
-		// kirajzoljuk a lángokat
-		// TODO lángok rajzolás
+		if (leftRocketState) spriteLeftFire.draw(batch);
+		else if (rightRocketState) spriteRightFire.draw(batch);
 
 	}
 
 	@Override
 	public void act(float delta) {
 
-		//setRotation(getRotation()+0.5f);
-		//setOrigin(0, 0);
 		//setRotation((float) Math.toDegrees(body.getAngle()));
 
-		float elapsedTime = Gdx.graphics.getDeltaTime();
+		final float elapsedTime = Gdx.graphics.getDeltaTime();
 
 		if (landingRocketState && mMainRocketOverheatedTime == 0) { // be van kapcsolva a rakét, és nincs túlmelegedve
 			mMainRocketUsingTime += elapsedTime;
@@ -203,9 +176,9 @@ public class ActorSpaceship extends Actor {
 
 
 		if (leftRocketState) {
-            body.applyForceToCenter(1e7f, 10f, false);
+			body.applyForceToCenter(1e7f, 10f, false);
 		} else if (rightRocketState) {
-            body.applyForceToCenter(-1e7f, 10f, false);
+			body.applyForceToCenter(-1e7f, 10f, false);
 		}
 
 		final Vector2 pos = body.getPosition();
