@@ -20,6 +20,8 @@ public class CubeSpaceGame extends Game implements ApplicationListener {
 
     private Stage teszt;
 
+
+
     public enum Screens {
         MENU(0), HELP(1), GAME(2);
 
@@ -30,6 +32,7 @@ public class CubeSpaceGame extends Game implements ApplicationListener {
         }
 
     }
+
 
     ;
 
