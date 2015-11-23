@@ -23,7 +23,7 @@ public class DaniSpaceGame extends Game implements ApplicationListener {
     private Stage teszt;
 
     public enum Screens {
-        MENU(0), HELP(1), GAME(2);
+        MENU(0), HELP(1), GAME(2), STATS(3);
 
         private int value;
 
@@ -45,7 +45,7 @@ public class DaniSpaceGame extends Game implements ApplicationListener {
                 new ScreenMenu(),
                 new ScreenHelp(),
                 new ScreenGame(),
-                //new ScreenStatics()
+                new ScreenStatictics()
         };
         teszt = new Stage();
 

@@ -52,7 +52,7 @@ public class ScreenMenu extends MyScreen {
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				//TODO Need Statictics class!!
+				DaniSpaceGame.sGame.showScreen(DaniSpaceGame.Screens.STATS);
 			}
 		});
 		table.row();
