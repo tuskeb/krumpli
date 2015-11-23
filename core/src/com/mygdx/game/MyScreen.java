@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
-import javafx.scene.control.*;
 
 // https://github.com/libgdx/libgdx/wiki/box2d#creating-a-world
 
