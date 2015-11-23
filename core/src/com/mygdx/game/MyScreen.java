@@ -38,7 +38,7 @@ public class MyScreen implements Screen, InputProcessor {
 		generator.dispose();
 	}
 
-	protected static TextField.TextFieldStyle JAVA_NYAVANYOG=null; //TODO Need Style!!
+
 	static Skin UISKIN = new Skin(Gdx.files.internal("uiskin.json")); //Ezzel meg az a baj, hogy módosítható, így nem tudok mit kezdeni vele
 
 	static {
@@ -49,6 +49,14 @@ public class MyScreen implements Screen, InputProcessor {
 		FONT_HOBO_STD = generator.generateFont(parameter);
 		FONT_HOBO_STD.setColor(0, 0, 0, 1f);
 		generator.dispose();
+	}
+
+	protected static final TextField.TextFieldStyle JAVA_NYAVANYOG;
+
+	static	{
+		JAVA_NYAVANYOG = new TextField.TextFieldStyle();
+		JAVA_NYAVANYOG.font=FONT_HOBO_STD;
+		JAVA_NYAVANYOG.fontColor = Color.WHITE;
 	}
 
 	protected static final TextButton.TextButtonStyle TEXT_BUTTON_STYLE;
