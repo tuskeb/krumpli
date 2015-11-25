@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -18,9 +19,19 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 /**
  * Ez az űrhajó figurája
  */
-public class ActorSpaceship extends Actor {
+public class ActorSpaceship extends MyActor {
 
-	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false;
+
+
+	private boolean landingRocketState = true, leftRocketState = true, rightRocketState = true;
+	//private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false;
+
+	TextureRegion textureSpaceShip;
+	TextureAtlas textureFire;
+	Sprite spriteSpaceShip;
+	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire;
+	TextureAtlas textureAtlasLeftFire;
+	Animation animationLeftFire;
 
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
@@ -55,13 +66,33 @@ public class ActorSpaceship extends Actor {
 		polygonShape.dispose();
 
 		//Több képet tartalmazó PNG feldarabolása és betöltése
-		textureFire = new TextureAtlas(Gdx.files.internal("fireanimation.atlas"));
+		//textureFire = new TextureAtlas(Gdx.files.internal("fireanimation.atlas"));
 		textureSpaceShip = new TextureRegion(new Texture(Gdx.files.internal("rocket.png")));
-		final TextureAtlas.AtlasRegion region = textureFire.findRegion("0");
 
-		spriteLeftFire = new Sprite(new Texture("ball.png"));
+
+//---- ANIMÁCIÓ ----------------------------------------------------------------------------
+//---- ANIMÁCIÓ ----------------------------------------------------------------------------
+//---- ANIMÁCIÓ ----------------------------------------------------------------------------
+		//Töltsük be az ATLAS fájlt!
+		textureAtlasLeftFire=new TextureAtlas(Gdx.files.internal("Center_fire.atlas"));
+		//Készítsünk hozzá animációt.
+		animationLeftFire = new Animation(1/15f, textureAtlasLeftFire.getRegions());
+		//Készítsünk belőle spriteot, az első kép a 0. indexű legyen. Később majd a spriteban kell cserélgetni a képeket.
+		//Az animáció nem lenne fontos, ha nem számít, hogy melyik képet mikor játszuk le. (amúgy meg ki is lehetne számolni)
+		spriteLeftFire = new Sprite(animationLeftFire.getKeyFrame(0,true));
+//---- ANIMÁCIÓ ----------------------------------------------------------------------------
+//---- ANIMÁCIÓ ----------------------------------------------------------------------------
+//---- ANIMÁCIÓ ----------------------------------------------------------------------------
+
+
+		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		spriteRightFire = new Sprite(new Texture("ball.png"));
+
 		spriteLandingFire = new Sprite(new Texture("ball.png"));
+
 		spriteSpaceShip = new Sprite(textureSpaceShip);
 
 		//spriteFromAtlas.setPosition(0, 256);
@@ -137,19 +168,33 @@ public class ActorSpaceship extends Actor {
 
 	// http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
 
-	TextureRegion textureSpaceShip;
-	TextureAtlas textureFire;
-	Sprite spriteSpaceShip;
-	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire;
+
+
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		super.draw(batch,parentAlpha);
 		spriteSpaceShip.draw(batch);
 
-		if (landingRocketState) spriteLandingFire.draw(batch);
+		if (landingRocketState)
+		{
+			spriteLandingFire.draw(batch);
+		}
 
-		if (leftRocketState) spriteLeftFire.draw(batch);
-		else if (rightRocketState) spriteRightFire.draw(batch);
+		if (leftRocketState)
+		{
+//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
+//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
+			spriteLeftFire.setRegion(animationLeftFire.getKeyFrame(elapsedTime, true));
+//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
+//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
+			spriteLeftFire.draw(batch);
+		}
+
+		if (rightRocketState)
+		{
+			spriteRightFire.draw(batch);
+		}
 
 	}
 
@@ -184,5 +229,30 @@ public class ActorSpaceship extends Actor {
 		final Vector2 pos = body.getPosition();
 		setPosition(pos.x, pos.y);
 
+	}
+
+
+	public boolean isLandingRocketState() {
+		return landingRocketState;
+	}
+
+	public void setLandingRocketState(boolean landingRocketState) {
+		this.landingRocketState = landingRocketState;
+	}
+
+	public boolean isLeftRocketState() {
+		return leftRocketState;
+	}
+
+	public void setLeftRocketState(boolean leftRocketState) {
+		this.leftRocketState = leftRocketState;
+	}
+
+	public boolean isRightRocketState() {
+		return rightRocketState;
+	}
+
+	public void setRightRocketState(boolean rightRocketState) {
+		this.rightRocketState = rightRocketState;
 	}
 }
