@@ -69,13 +69,6 @@ public class MyScreen implements Screen, InputProcessor {
 		TEXT_BUTTON_STYLE.overFontColor = Color.valueOf("880000");
 		TEXT_BUTTON_STYLE.pressedOffsetX = 3;
 		TEXT_BUTTON_STYLE.pressedOffsetY = 3;
-/*
-		final Texture texture = new Texture(Gdx.files.internal("greenbutton.png"));
-
-		TEXT_BUTTON_STYLE.up = new TextureRegionDrawable(new TextureRegion(texture, 0, 0, 255, 47));
-		TEXT_BUTTON_STYLE.over = new TextureRegionDrawable(new TextureRegion(texture, 0, 49, 255, 47));
-		TEXT_BUTTON_STYLE.down = new TextureRegionDrawable(new TextureRegion(texture, 0, 98, 255, 47));
-*/
 	}
 
 	protected static final Label.LabelStyle LABEL_STYLE;
@@ -84,11 +77,6 @@ public class MyScreen implements Screen, InputProcessor {
 		LABEL_STYLE = new Label.LabelStyle();
 		LABEL_STYLE.font = FONT_256_BYTES;
 		LABEL_STYLE.fontColor = Color.WHITE;
-
-		//final Texture texture = new Texture(Gdx.files.internal("label.png"));
-
-		//LABEL_STYLE.background = new TextureRegionDrawable(new TextureRegion(texture));
-
 	}
 
 	protected final OrthographicCamera camera;

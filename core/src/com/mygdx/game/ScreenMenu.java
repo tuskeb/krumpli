@@ -3,6 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -79,6 +81,11 @@ public class ScreenMenu extends MyScreen {
 		});
 		table.row();
 		table.add(button);
+
+		ActorMenuSpaceShip spaceship = new ActorMenuSpaceShip();
+		spaceship.setSize(64, 128);
+		spaceship.setPosition(VIRTUAL_WIDTH - spaceship.getWidth(), VIRTUAL_HEIGHT - spaceship.getHeight());
+		stage.addActor(spaceship);
 
 	}
 
