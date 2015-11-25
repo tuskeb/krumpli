@@ -72,7 +72,7 @@ public class ScreenMenu extends MyScreen {
 		table.add(button);
 
 
-		button = new TextButton("Kilépés (optional)", MyScreen.TEXT_BUTTON_STYLE);
+		button = new TextButton("Kilépés", MyScreen.TEXT_BUTTON_STYLE);
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -83,7 +83,7 @@ public class ScreenMenu extends MyScreen {
 		table.add(button);
 
 		ActorMenuSpaceShip spaceship = new ActorMenuSpaceShip();
-		spaceship.setSize(64, 128);
+		spaceship.setSize(100, 200);
 		spaceship.setPosition(VIRTUAL_WIDTH - spaceship.getWidth(), VIRTUAL_HEIGHT - spaceship.getHeight());
 		stage.addActor(spaceship);
 
