@@ -2,8 +2,8 @@ package com.mygdx.game;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -14,17 +14,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
  * Ez az űrhajó figurája
  */
 public class ActorSpaceship extends MyActor {
 
-
-
-	private boolean landingRocketState = true, leftRocketState = true, rightRocketState = true;
-	//private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false;
+	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false;
 
 	TextureRegion textureSpaceShip;
 	TextureAtlas textureFire;
@@ -46,40 +42,39 @@ public class ActorSpaceship extends MyActor {
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
-		bodyDef.position.x = 100;
-		bodyDef.position.y = 400;
+		bodyDef.position.x = 0;//Gdx.graphics.getWidth() / 2;
+		bodyDef.position.y = Gdx.graphics.getHeight();
 
 		//bodyDef.linearDamping = .1f;
 		//bodyDef.angularDamping = .5f;
 
 		this.body = this.world.createBody(bodyDef);
+this.body.setFixedRotation(true);
 
 		PolygonShape polygonShape = new PolygonShape();
 		polygonShape.setAsBox(50, 80);
 
 		Fixture fix = body.createFixture(polygonShape, 50);
-		fix.setDensity(1);
-		//fix.setDensity(1);
-		//fix.setFriction(1f);
-		//fix.setRestitution(0.8f);
+		fix.setDensity(10);
+		fix.setFriction(2f);
 
 		polygonShape.dispose();
 
 		//Több képet tartalmazó PNG feldarabolása és betöltése
 		//textureFire = new TextureAtlas(Gdx.files.internal("fireanimation.atlas"));
-		textureSpaceShip = new TextureRegion(new Texture(Gdx.files.internal("rocket.png")));
+		textureSpaceShip = new TextureRegion(new Texture("Rocket.png"));
 
 
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 		//Töltsük be az ATLAS fájlt!
-		textureAtlasLeftFire=new TextureAtlas(Gdx.files.internal("Center_fire.atlas"));
+		textureAtlasLeftFire = new TextureAtlas("CenterFire.atlas");
 		//Készítsünk hozzá animációt.
-		animationLeftFire = new Animation(1/15f, textureAtlasLeftFire.getRegions());
+		animationLeftFire = new Animation(1 / 15f, textureAtlasLeftFire.getRegions());
 		//Készítsünk belőle spriteot, az első kép a 0. indexű legyen. Később majd a spriteban kell cserélgetni a képeket.
 		//Az animáció nem lenne fontos, ha nem számít, hogy melyik képet mikor játszuk le. (amúgy meg ki is lehetne számolni)
-		spriteLeftFire = new Sprite(animationLeftFire.getKeyFrame(0,true));
+		spriteLeftFire = new Sprite(animationLeftFire.getKeyFrame(0, true));
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
@@ -87,15 +82,15 @@ public class ActorSpaceship extends MyActor {
 
 		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		spriteRightFire = new Sprite(new Texture("ball.png"));
+		spriteRightFire = new Sprite(new Texture("Ball.png"));
 
-		spriteLandingFire = new Sprite(new Texture("ball.png"));
+		spriteLandingFire = new Sprite(new Texture("Ball.png"));
 
 		spriteSpaceShip = new Sprite(textureSpaceShip);
 
 		//spriteFromAtlas.setPosition(0, 256);
+
+		setSize(spriteSpaceShip.getWidth(), spriteSpaceShip.getHeight());
 
 
 	}
@@ -112,13 +107,13 @@ public class ActorSpaceship extends MyActor {
 	@Override
 	public void setPosition(float x, float y) {
 		super.setPosition(x, y);
-		spriteSpaceShip.setPosition(x, y);
+		spriteSpaceShip.setPosition(x - getOriginX(), y - getOriginX());
 		//setOrigin(getX() + getWidth() / 2, getY() - getHeight() / 2);
 		//setOrigin(0, 0);
 
 		// A következő sor, fölösleges.
-		spriteSpaceShip.setOrigin(spriteSpaceShip.getWidth() / 2, spriteSpaceShip.getHeight() / 2);
-		spriteSpaceShip.setOrigin(0, 0); // ...vagy ez hibás
+		//spriteSpaceShip.setOrigin(spriteSpaceShip.getWidth() / 2, spriteSpaceShip.getHeight() / 2);
+		//spriteSpaceShip.setOrigin(0, 0); // ...vagy ez hibás
 
 		setFire();
 
@@ -161,7 +156,7 @@ public class ActorSpaceship extends MyActor {
 				break;
 			case right:
 				rightRocketState = state;
-				if (rightRocketState) rightRocketState = false;
+				if (rightRocketState) leftRocketState = false;
 				break;
 		}
 	}
@@ -169,20 +164,16 @@ public class ActorSpaceship extends MyActor {
 	// http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
 
 
-
-
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch,parentAlpha);
+		super.draw(batch, parentAlpha);
 		spriteSpaceShip.draw(batch);
 
-		if (landingRocketState)
-		{
+		if (landingRocketState) {
 			spriteLandingFire.draw(batch);
 		}
 
-		if (leftRocketState)
-		{
+		if (leftRocketState) {
 //-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
 //-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
 			spriteLeftFire.setRegion(animationLeftFire.getKeyFrame(elapsedTime, true));
@@ -191,8 +182,7 @@ public class ActorSpaceship extends MyActor {
 			spriteLeftFire.draw(batch);
 		}
 
-		if (rightRocketState)
-		{
+		if (rightRocketState) {
 			spriteRightFire.draw(batch);
 		}
 
@@ -204,10 +194,11 @@ public class ActorSpaceship extends MyActor {
 		//setRotation((float) Math.toDegrees(body.getAngle()));
 
 		final float elapsedTime = Gdx.graphics.getDeltaTime();
+		setRotation((float)Math.toDegrees(body.getAngle()));
 
 		if (landingRocketState && mMainRocketOverheatedTime == 0) { // be van kapcsolva a rakét, és nincs túlmelegedve
 			mMainRocketUsingTime += elapsedTime;
-			body.applyForce(0, (LANDING_ROCKET_POWER * elapsedTime) * 1e7f, 0, 0, true);
+			body.applyForce(0, (LANDING_ROCKET_POWER * elapsedTime) * 5e7f, 0, 0, true);
 
 			if (mMainRocketUsingTime > 2000) { // többet használtuk, mint 2 másodperc
 				mMainRocketOverheatedTime = 3000;
@@ -221,9 +212,9 @@ public class ActorSpaceship extends MyActor {
 
 
 		if (leftRocketState) {
-			body.applyForceToCenter(1e7f, 10f, false);
+			body.applyForceToCenter(2e7f, 0, false);
 		} else if (rightRocketState) {
-			body.applyForceToCenter(-1e7f, 10f, false);
+			body.applyForceToCenter(-2e7f, 0, false);
 		}
 
 		final Vector2 pos = body.getPosition();
@@ -231,28 +222,4 @@ public class ActorSpaceship extends MyActor {
 
 	}
 
-
-	public boolean isLandingRocketState() {
-		return landingRocketState;
-	}
-
-	public void setLandingRocketState(boolean landingRocketState) {
-		this.landingRocketState = landingRocketState;
-	}
-
-	public boolean isLeftRocketState() {
-		return leftRocketState;
-	}
-
-	public void setLeftRocketState(boolean leftRocketState) {
-		this.leftRocketState = leftRocketState;
-	}
-
-	public boolean isRightRocketState() {
-		return rightRocketState;
-	}
-
-	public void setRightRocketState(boolean rightRocketState) {
-		this.rightRocketState = rightRocketState;
-	}
 }

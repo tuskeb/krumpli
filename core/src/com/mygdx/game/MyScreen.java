@@ -29,7 +29,7 @@ public class MyScreen implements Screen, InputProcessor {
 	//Ez a rész átkonvertálja a vektoros betűket bittérképessé
 
 	static {
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("SHOWG.TTF"));
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ShowcardGothic.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 50;
 		parameter.characters = CHARS;
@@ -39,10 +39,10 @@ public class MyScreen implements Screen, InputProcessor {
 	}
 
 
-	static Skin UISKIN = new Skin(Gdx.files.internal("uiskin.json")); //Ezzel meg az a baj, hogy módosítható, így nem tudok mit kezdeni vele
+	//static final Skin SKINS = new Skin(Gdx.files.internal("Skins.json")); // Ezzel meg az a baj, hogy módosítható, így nem tudok mit kezdeni vele
 
 	static {
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("SHOWG.TTF"));
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ShowcardGothic.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 30;
 		parameter.characters = CHARS;
@@ -55,7 +55,7 @@ public class MyScreen implements Screen, InputProcessor {
 
 	static	{
 		JAVA_NYAVANYOG = new TextField.TextFieldStyle();
-		JAVA_NYAVANYOG.font=FONT_HOBO_STD;
+		JAVA_NYAVANYOG.font = FONT_HOBO_STD;
 		JAVA_NYAVANYOG.fontColor = Color.WHITE;
 	}
 

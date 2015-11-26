@@ -16,22 +16,21 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
 
     @Override
     public void act(float delta) {
-        SSstep();
+
+	    if(getY() > 0) {
+		    a += 0.1;
+		    y = getY();
+		    x = getX();
+		    y--;
+		    h = MyScreen.VIRTUAL_HEIGHT;
+
+
+		    setPosition(500 + (float) Math.sin(a) * 10f, (float) y);
+	    }
     }
+
     float a = 0;
-    void SSstep(){
 
-        if(getY() > 0) {
-            a += 0.1;
-            y = getY();
-            x = getX();
-            y--;
-            h = MyScreen.VIRTUAL_HEIGHT;
-
-
-            setPosition(500 + (float) Math.sin(a) * 10f, (float) y);
-        }
-    }
 }
 /*
 allapot+=0.1;

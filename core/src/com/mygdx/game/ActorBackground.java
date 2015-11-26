@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -17,9 +18,9 @@ public class ActorBackground extends MyActor {
 	private Sprite spriteSpace;
 
 	public ActorBackground() {
-		spriteSpace = new Sprite(new Texture(new FileHandle("Space.jpg")));
+		spriteSpace = new Sprite(new Texture("Space.jpg"));
 
-		final Texture starTexture = new Texture(new FileHandle("star_white.png"));
+		final Texture starTexture = new Texture("StarWhite.png");
 		for (int i = 0; i < 100; i++) {
 			stars.add(new Sprite(starTexture));
 		}

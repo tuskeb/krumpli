@@ -16,8 +16,8 @@ public class ScreenGame extends MyScreen {
 	// https://github.com/libgdx/libgdx/wiki/A-simple-game
 	// http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
 
-	private World world = new World(new Vector2(0, 0), true);
-Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
+	private World world = new World(new Vector2(0, -10), true);
+	Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
 	private Stage
 			controlsStage = new Stage(),
@@ -54,6 +54,7 @@ Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 	public void show() {
 		super.show();
 
+
 		// átadjuk neki a vezérlést
 		Gdx.input.setInputProcessor(new InputProcessor() {
 			@Override
@@ -61,7 +62,9 @@ Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 				switch (keycode) {
 					case Input.Keys.ESCAPE:
 					case Input.Keys.BACK:
-
+						if(mIsRunning)
+						pause();
+						else resume();
 						break;
 					case Input.Keys.SPACE:
 						spaceShip.setRocketState(ActorSpaceship.RocketType.landing, true);
@@ -83,11 +86,14 @@ Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
 			@Override
 			public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-				return false;
+				spaceShip.setRocketState(ActorSpaceship.RocketType.landing, true);
+
+				return true;
 			}
 
 			@Override
 			public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+				spaceShip.setRocketState(ActorSpaceship.RocketType.landing, false);
 				return false;
 			}
 
@@ -106,6 +112,7 @@ Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 				return false;
 			}
 		});
+
 	}
 
 
@@ -118,16 +125,35 @@ Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
 	@Override
 	public void render(float delta) {
+
 		super.render(delta);
 
-		world.step(delta, 1, 1);
+		if(mIsRunning) {
 
-		gameStage.act(delta);
+			final float accelY = Gdx.input.getAccelerometerY();
+			if (accelY > 2) {
+				spaceShip.setRocketState(ActorSpaceship.RocketType.left, true);
+			} else if (accelY < -2) {
+				spaceShip.setRocketState(ActorSpaceship.RocketType.right, true);
+			} else {
+				spaceShip.setRocketState(ActorSpaceship.RocketType.left, false);
+				spaceShip.setRocketState(ActorSpaceship.RocketType.right, false);
+			}
 
-        debugRenderer.render(world, camera.combined);
+			world.step(delta, 1, 1);
+
+			gameStage.act(delta);
+
+			debugRenderer.render(world, camera.combined);
+
+		}
 
 		gameStage.draw();
 
+
+		if(!mIsRunning) {
+
+		}
 	}
 
 }
