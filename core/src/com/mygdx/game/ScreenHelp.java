@@ -30,9 +30,9 @@ public class ScreenHelp extends MyScreen{
         b.setSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         stage.addActor(b);
         batch=new SpriteBatch();
-        TABLE_NEVERMIND = new TextField("ASDF", MyScreen.JAVA_NYAVANYOG);
+        TABLE_NEVERMIND = new TextField("Hogyan Játszd?", MyScreen.JAVA_NYAVANYOG);
         TABLE_NEVERMIND2 = new TextField("ASDF2", MyScreen.JAVA_NYAVANYOG);
-        TABLE_NEVERMIND3 = new TextField("ASDF3", MyScreen.JAVA_NYAVANYOG);
+        TABLE_NEVERMIND3 = new TextField("Készítők", MyScreen.JAVA_NYAVANYOG);
 
 
         table = new Table();
