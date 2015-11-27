@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * Created by 13-0123 on 2015.11.25..
  */
 public class ActorMenuSpaceShip extends ActorSpaceship {
-    float allapot;
+    private boolean fireIsInProgress = false;
     float prevY=-1;
 
     double y, x, h;
@@ -19,6 +19,10 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
     @Override
     public void act(float delta) {
 	    if(getY() > 0) {
+            fireIsInProgress = true;
+            if(fireIsInProgress){
+                setRocket();
+            }
 		    a += 0.1;
 		    y = getY();
 		    x = getX();

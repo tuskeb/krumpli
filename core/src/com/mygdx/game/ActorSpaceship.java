@@ -20,17 +20,15 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class ActorSpaceship extends MyActor {
 
-	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false, smoke = false;
-	private int smokeFrame=0;
+	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false, smoke = false, fireIsInProgress = false;;
+	private int smokeFrame=0, fireFrame=0;
 
 
 	TextureRegion textureSpaceShip;
 	Sprite spriteSpaceShip;
 	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire, spriteSmoke;
-	TextureAtlas textureAtlasLeftFire, textureAtlasSmoke;
-	Animation animationLeftFire, animationSmoke;
-
-
+	TextureAtlas textureAtlasLeftFire, textureAtlasRightFire, textureAtlasSmoke;
+	Animation animationLeftFire, animationRightFire, animationSmoke;
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
 	private float mMainRocketOverheatedTime = 0;
@@ -71,21 +69,26 @@ public class ActorSpaceship extends MyActor {
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 		//Töltsük be az ATLAS fájlt!
-		textureAtlasLeftFire = new TextureAtlas("CenterFire.atlas");
+		textureAtlasLeftFire = new TextureAtlas("Left_fire.atlas");
+		textureAtlasRightFire = new TextureAtlas("Right_fire.atlas");
+
+
 		//Készítsünk hozzá animációt.
 		animationLeftFire = new Animation(1 / 15f, textureAtlasLeftFire.getRegions());
+		animationRightFire = new Animation(1 / 15f, textureAtlasLeftFire.getRegions());
 		//Készítsünk belőle spriteot, az első kép a 0. indexű legyen. Később majd a spriteban kell cserélgetni a képeket.
 		//Az animáció nem lenne fontos, ha nem számít, hogy melyik képet mikor játszuk le. (amúgy meg ki is lehetne számolni)
 		spriteLeftFire = new Sprite(animationLeftFire.getKeyFrame(0, true));
+		spriteRightFire = new Sprite(animationLeftFire.getKeyFrame(0, true));
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 
 		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		spriteRightFire = new Sprite(new Texture("Ball.png"));
+		//spriteRightFire = new Sprite(new Texture("Ball.png"));
 
-		spriteLandingFire = new Sprite(new Texture("Ball.png"));
+		//spriteLandingFire = new Sprite(new Texture("Ball.png"));
 
 		spriteSpaceShip = new Sprite(textureSpaceShip);
 
@@ -141,11 +144,11 @@ public class ActorSpaceship extends MyActor {
 		spriteRightFire.setSize(getWidth() / 6, getHeight() / 4);
 		spriteRightFire.setPosition(getX() + getWidth() - spriteRightFire.getWidth(), getY() - spriteRightFire.getHeight());
 		spriteRightFire.setOrigin(-spriteSpaceShip.getWidth() / 2 + spriteRightFire.getWidth(), spriteSpaceShip.getOriginY() + spriteRightFire.getHeight());
-
+/*
 		spriteLandingFire.setSize(getWidth() / 3, getHeight() / 2);
 		spriteLandingFire.setPosition(getX() + getWidth() / 2 - spriteLandingFire.getWidth() / 2, getY() - spriteLandingFire.getHeight());
 		spriteLandingFire.setOrigin(spriteLandingFire.getWidth() / 2, spriteSpaceShip.getOriginY() + spriteLandingFire.getHeight());
-
+*/
 
 		spriteSmoke.setSize(getHeight(), getHeight());
 		spriteSmoke.setPosition(getX() + getWidth() / 2 - spriteSmoke.getWidth() / 2, getY() - spriteSmoke.getHeight() / 2);
@@ -162,11 +165,11 @@ public class ActorSpaceship extends MyActor {
 				break;
 			case left:
 				leftRocketState = state;
-				if (leftRocketState) rightRocketState = false;
+				if (leftRocketState) rightRocketState = true;
 				break;
 			case right:
 				rightRocketState = state;
-				if (rightRocketState) leftRocketState = false;
+				if (rightRocketState) leftRocketState = true;
 				break;
 		}
 	}
@@ -183,6 +186,10 @@ public class ActorSpaceship extends MyActor {
 
 
 	}
+	public void setRocket(){
+		if(fireIsInProgress == false) fireFrame = 0;
+		fireIsInProgress=true;
+	}
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
@@ -197,6 +204,16 @@ public class ActorSpaceship extends MyActor {
 			if (smokeFrame>=textureAtlasSmoke.getRegions().size)
 			{
 				smoke=false;
+			}
+		}
+		if(fireIsInProgress){
+			spriteLeftFire.setRegion(textureAtlasLeftFire.getRegions().get(fireFrame));
+			spriteRightFire.setRegion(textureAtlasRightFire.getRegions().get(fireFrame));
+			fireFrame++;
+			spriteLeftFire.draw(batch);
+			spriteRightFire.draw(batch);
+			if(fireFrame >= textureAtlasRightFire.getRegions().size && fireFrame >= textureAtlasLeftFire.getRegions().size){
+				fireIsInProgress = false;
 			}
 		}
 
