@@ -20,13 +20,16 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class ActorSpaceship extends MyActor {
 
-	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false;
+	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false, smoke = false;
+	private int smokeFrame=0;
+
 
 	TextureRegion textureSpaceShip;
 	Sprite spriteSpaceShip;
-	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire;
-	TextureAtlas textureAtlasLeftFire;
-	Animation animationLeftFire;
+	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire, spriteSmoke;
+	TextureAtlas textureAtlasLeftFire, textureAtlasSmoke;
+	Animation animationLeftFire, animationSmoke;
+
 
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
@@ -88,6 +91,10 @@ public class ActorSpaceship extends MyActor {
 
 		//spriteFromAtlas.setPosition(0, 256);
 
+		textureAtlasSmoke = new TextureAtlas("smoke.atlas");
+		animationSmoke = new Animation(1 / 30f, textureAtlasSmoke.getRegions());
+		spriteSmoke = new Sprite(animationSmoke.getKeyFrame(2, true));
+
 		setSize(spriteSpaceShip.getWidth(), spriteSpaceShip.getHeight());
 
 
@@ -139,6 +146,11 @@ public class ActorSpaceship extends MyActor {
 		spriteLandingFire.setPosition(getX() + getWidth() / 2 - spriteLandingFire.getWidth() / 2, getY() - spriteLandingFire.getHeight());
 		spriteLandingFire.setOrigin(spriteLandingFire.getWidth() / 2, spriteSpaceShip.getOriginY() + spriteLandingFire.getHeight());
 
+
+		spriteSmoke.setSize(getHeight(), getHeight());
+		spriteSmoke.setPosition(getX() + getWidth() / 2 - spriteSmoke.getWidth() / 2, getY() - spriteSmoke.getHeight() / 2);
+
+
 	}
 
 	public enum RocketType {landing, left, right}
@@ -162,10 +174,31 @@ public class ActorSpaceship extends MyActor {
 	// http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
 
 
+	public void setSmoke()
+	{
+		if (smoke==false) smokeFrame=0;
+		smoke=true;
+
+		//animationSmoke.setPlayMode(Animation.PlayMode.NORMAL);
+
+
+	}
+
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		spriteSpaceShip.draw(batch);
+
+		if (smoke)
+		{
+			spriteSmoke.setRegion(textureAtlasSmoke.getRegions().get(smokeFrame));
+			smokeFrame++;
+			spriteSmoke.draw(batch);
+			if (smokeFrame>=textureAtlasSmoke.getRegions().size)
+			{
+				smoke=false;
+			}
+		}
 
 		if (landingRocketState) {
 			spriteLandingFire.draw(batch);

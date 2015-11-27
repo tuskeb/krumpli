@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class ActorMenuSpaceShip extends ActorSpaceship {
     float allapot;
+    float prevY=-1;
+
     double y, x, h;
     public ActorMenuSpaceShip() {
         super(new World(new Vector2(0, 0), true));
@@ -16,7 +18,6 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
 
     @Override
     public void act(float delta) {
-
 	    if(getY() > 0) {
 		    a += 0.1;
 		    y = getY();
@@ -27,6 +28,13 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
 
 		    setPosition(500 + (float) Math.sin(a) * 10f, (float) y);
 	    }
+        else
+        {
+            if (prevY!=getY()) {
+                setSmoke();
+                prevY = getY();
+            }
+        }
     }
 
     float a = 0;
