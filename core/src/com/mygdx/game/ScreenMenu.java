@@ -13,14 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ScreenMenu extends MyScreen {
-	private final SpriteBatch batch;
+	private final SpriteBatch batch = new SpriteBatch();
 	private final Stage stage;
 
 	public ScreenMenu() {
 		super();
 
 		stage = new Stage();
-		batch = new SpriteBatch();
 
 		ActorBackground actorBackground = new ActorBackground();
 		actorBackground.setSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);

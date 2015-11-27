@@ -34,7 +34,7 @@ public class SpaceGame extends Game implements ApplicationListener {
            new ScreenGame()
 		};
 
-		showScreen(Screens.GAME);
+		showScreen(Screens.MENU);
 	}
 
 }
