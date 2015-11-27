@@ -23,7 +23,6 @@ public class ActorSpaceship extends MyActor {
 	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false;
 
 	TextureRegion textureSpaceShip;
-	TextureAtlas textureFire;
 	Sprite spriteSpaceShip;
 	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire;
 	TextureAtlas textureAtlasLeftFire;
@@ -31,8 +30,8 @@ public class ActorSpaceship extends MyActor {
 
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
-	private long mMainRocketOverheatedTime = 0;
-	private long mMainRocketUsingTime = 0;
+	private float mMainRocketOverheatedTime = 0;
+	private float mMainRocketUsingTime = 0;
 
 	final Body body;
 	final World world;
@@ -42,14 +41,14 @@ public class ActorSpaceship extends MyActor {
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
-		bodyDef.position.x = 0;//Gdx.graphics.getWidth() / 2;
-		bodyDef.position.y = Gdx.graphics.getHeight();
+		bodyDef.position.x = Gdx.graphics.getWidth() / 2;
+		bodyDef.position.y = 100;
 
 		//bodyDef.linearDamping = .1f;
 		//bodyDef.angularDamping = .5f;
 
 		this.body = this.world.createBody(bodyDef);
-this.body.setFixedRotation(true);
+        this.body.setFixedRotation(true);
 
 		PolygonShape polygonShape = new PolygonShape();
 		polygonShape.setAsBox(50, 80);
@@ -78,7 +77,6 @@ this.body.setFixedRotation(true);
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
-
 
 		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -191,23 +189,27 @@ this.body.setFixedRotation(true);
 	@Override
 	public void act(float delta) {
 
-		//setRotation((float) Math.toDegrees(body.getAngle()));
-
 		final float elapsedTime = Gdx.graphics.getDeltaTime();
 		setRotation((float)Math.toDegrees(body.getAngle()));
 
 		if (landingRocketState && mMainRocketOverheatedTime == 0) { // be van kapcsolva a rakét, és nincs túlmelegedve
 			mMainRocketUsingTime += elapsedTime;
+
 			body.applyForce(0, (LANDING_ROCKET_POWER * elapsedTime) * 5e7f, 0, 0, true);
 
-			if (mMainRocketUsingTime > 2000) { // többet használtuk, mint 2 másodperc
-				mMainRocketOverheatedTime = 3000;
+			if (mMainRocketUsingTime > 2) { // többet használtuk, mint 2 másodperc
+				mMainRocketOverheatedTime = 3;
+                Gdx.app.log("Rocket", "Felmelegedett");
 			}
+
 		} else if (mMainRocketOverheatedTime > 0) { // túl van melegedve
 			mMainRocketOverheatedTime -= elapsedTime;
 			if (mMainRocketOverheatedTime < 0) {
 				mMainRocketOverheatedTime = 0;
+                mMainRocketUsingTime = 0;
+                Gdx.app.log("Rocket", "Lehűlt");
 			}
+
 		}
 
 
