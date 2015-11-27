@@ -13,34 +13,74 @@ import java.util.ArrayList;
  */
 public class ActorBackground extends MyActor {
 
-	//Sprite T = new Sprite();
-	private ArrayList<Sprite> stars = new ArrayList<Sprite>();
-	private Sprite spriteSpace;
+    static final Texture starTexture = new Texture("StarWhite.png");
+    private final ArrayList<Star> stars = new ArrayList<Star>();
+
+    static final int STAR_MIN_SIZE = 10, STAR_MAX_SIZE = 30, STAR_SPACE = (STAR_MAX_SIZE * STAR_MAX_SIZE * 4);
+    static final float STAR_FACTOR = 6, STAR_SHIFT = STAR_FACTOR * STAR_MAX_SIZE * 10;
+
+    private class Star {
+
+        private final boolean unruly = Math.random() > .9;
+
+        Star() {
+            int size = STAR_MIN_SIZE + (int) (Math.random() * (STAR_MAX_SIZE - STAR_MIN_SIZE));
+            sprite.setSize(size, size);
+            sprite.setAlpha(.8f);
+
+            stars.add(this);
+        }
+
+        private float baseX, baseY, newX, newY, currentX, currentY;
+
+        final Sprite sprite = new Sprite(starTexture);
+
+        void randomizePosition() {
+            baseX = (float) (Math.random() * (ActorBackground.this.getWidth() + 2 * STAR_SHIFT)) - STAR_SHIFT;
+            baseY = (float) (Math.random() * (ActorBackground.this.getHeight()));
+
+            currentX = baseX;
+            currentY = baseY;
+        }
+
+        void act() {
+            /*if (sprite.getX() > getWidth()) { // kicsúszik a képernyőből
+                sprite.setPosition(-sprite.getWidth(), (float) (Math.random() * getHeight()));
+            } else {
+                sprite.setX(sprite.getX() + sprite.getWidth() / 20);
+
+            }*/
+
+            //if(!unruly) {
+            newX = baseX + Gdx.input.getAccelerometerY() * STAR_FACTOR * sprite.getWidth();
+            newY = baseY;
+
+            currentX += (newX - currentX) / 80;
+
+            currentY = newY;
+            //} else {
+
+            //}
+            sprite.setPosition(currentX, currentY);
+
+        }
+
+    }
+
+	private Sprite spriteSpace = new Sprite(new Texture("Space.jpg"));
 
 	public ActorBackground() {
-		spriteSpace = new Sprite(new Texture("Space.jpg"));
-
-		final Texture starTexture = new Texture("StarWhite.png");
-		for (int i = 0; i < 100; i++) {
-			stars.add(new Sprite(starTexture));
-		}
+		for (int i = Gdx.graphics.getWidth() * Gdx.graphics.getHeight() / STAR_SPACE; --i >= 0; ) new Star();
 
 	}
 
 	@Override
 	public void setSize(float width, float height) {
-		super.setSize(width, height);
-		setOrigin(getX() / 2, getY() / 2);
-		setBounds(getX(), getY(), width, height);
+        super.setSize(width, height);
+        setOrigin(getX() / 2, getY() / 2);
 
-		// Úgy érzékelem, hogy fölösleges a `bounds`.
-		// bounds=new Rectangle((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
+        for (Star star : stars) star.randomizePosition();
 
-		for (Sprite star : stars) {
-			star.setPosition((float) (Math.random() * width), (float) (Math.random() * height));
-			int size = 1 + (int) (Math.random() * 20);
-			star.setSize(size, size);
-		}
 
 		spriteSpace.setSize(width, height);
 	}
@@ -49,26 +89,18 @@ public class ActorBackground extends MyActor {
 	public void setPosition(float x, float y) {
 		super.setPosition(x, y);
 		setOrigin(getX() / 2, getY() / 2);
-		//bounds=new Rectangle((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
 	}
 
 	@Override
 	public void draw(Batch batch, float alpha) {
 		spriteSpace.draw(batch);
-		for (Sprite star : stars) star.draw(batch);
+		for (Star star : stars) star.sprite.draw(batch);
 	}
 
 
 	@Override
 	public void act(float delta) {
-		for (Sprite star : stars) {
-			if (star.getX() > getWidth() * .9) { // kicsúszik a képernyőből
-				// Miért `-star.getWidth()`? Miért nem 0?
-				star.setPosition(-star.getWidth(), (float) (Math.random() * getHeight()));
-			} else {
-				star.setX(star.getX() + star.getWidth() / 10);
-			}
-		}
+		for (Star star : stars) star.act();
 
 	}
 }
