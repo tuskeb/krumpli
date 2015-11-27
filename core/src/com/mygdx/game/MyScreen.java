@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 // https://github.com/libgdx/libgdx/wiki/box2d#creating-a-world
 
-public class MyScreen implements Screen, InputProcessor {
+public class MyScreen implements Screen {
 	public static final float VIRTUAL_WIDTH = 640, VIRTUAL_HEIGHT = 480;
 	private static String CHARS = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[]";
 	protected static final BitmapFont FONT_256_BYTES, FONT_HOBO_STD;
@@ -108,71 +108,31 @@ public class MyScreen implements Screen, InputProcessor {
 	public void resize(int width, int height) {
 		viewport.update(width, height);
 	}
-//EZ NEM FONTOS!! xD
-	@Override
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
+    @Override
 	public void show() {
-		Gdx.input.setInputProcessor(this);
-		Gdx.input.setCatchBackKey(true);
-	}
-
-
-	@Override
-	public void hide() {
 
 	}
 
-	@Override
-	public void pause() {
 
-	}
-
-	@Override
-	public void resume() {
-
-	}
-
-	@Override
-	public void dispose() {
-
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		return false;
-	}
 }

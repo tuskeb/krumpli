@@ -14,29 +14,33 @@ import java.util.ArrayList;
 public class ActorBackground extends MyActor {
 
     static final Texture starTexture = new Texture("StarWhite.png");
-    private static ArrayList<Star> stars = new ArrayList<Star>();
+    private final ArrayList<Star> stars = new ArrayList<Star>();
 
-    static final int STAR_MIN_SIZE = 5, STAR_MAX_SIZE = 20;
-    static final float STAR_FACTOR = 2, STAR_SHIFT = STAR_FACTOR * (STAR_MAX_SIZE - STAR_MIN_SIZE);
+    static final int STAR_MIN_SIZE = 10, STAR_MAX_SIZE = 30, STAR_SPACE = (STAR_MAX_SIZE * STAR_MAX_SIZE * 4);
+    static final float STAR_FACTOR = 6, STAR_SHIFT = STAR_FACTOR * STAR_MAX_SIZE * 10;
 
     private class Star {
 
-
+        private final boolean unruly = Math.random() > .9;
 
         Star() {
+            int size = STAR_MIN_SIZE + (int) (Math.random() * (STAR_MAX_SIZE - STAR_MIN_SIZE));
+            sprite.setSize(size, size);
+            sprite.setAlpha(.8f);
 
+            stars.add(this);
         }
 
-        private float baseX, baseY;
+        private float baseX, baseY, newX, newY, currentX, currentY;
 
         final Sprite sprite = new Sprite(starTexture);
 
-        void randomize() {
+        void randomizePosition() {
             baseX = (float) (Math.random() * (ActorBackground.this.getWidth() + 2 * STAR_SHIFT)) - STAR_SHIFT;
-            baseY = (float) (Math.random() * (ActorBackground.this.getHeight() + 2 * STAR_SHIFT)) - STAR_SHIFT;
+            baseY = (float) (Math.random() * (ActorBackground.this.getHeight()));
 
-            int size = STAR_MIN_SIZE + (int) (Math.random() * (STAR_MAX_SIZE - STAR_MIN_SIZE));
-            sprite.setSize(size, size);
+            currentX = baseX;
+            currentY = baseY;
         }
 
         void act() {
@@ -44,31 +48,39 @@ public class ActorBackground extends MyActor {
                 sprite.setPosition(-sprite.getWidth(), (float) (Math.random() * getHeight()));
             } else {
                 sprite.setX(sprite.getX() + sprite.getWidth() / 20);
+
             }*/
 
-            sprite.setPosition(baseX + Gdx.input.getAccelerometerY() * STAR_FACTOR, baseY + Gdx.input.getAccelerometerX() * STAR_FACTOR);
+            //if(!unruly) {
+            newX = baseX + Gdx.input.getAccelerometerY() * STAR_FACTOR * sprite.getWidth();
+            newY = baseY;
+
+            currentX += (newX - currentX) / 80;
+
+            currentY = newY;
+            //} else {
+
+            //}
+            sprite.setPosition(currentX, currentY);
 
         }
 
     }
 
-	//Sprite T = new Sprite();
-	private Sprite spriteSpace;
+	private Sprite spriteSpace = new Sprite(new Texture("Space.jpg"));
 
 	public ActorBackground() {
-		spriteSpace = new Sprite(new Texture("Space.jpg"));
-
-		for (int i = 0; i < 100; i++) new Star();
+		for (int i = Gdx.graphics.getWidth() * Gdx.graphics.getHeight() / STAR_SPACE; --i >= 0; ) new Star();
 
 	}
 
 	@Override
 	public void setSize(float width, float height) {
-		super.setSize(width, height);
-		setOrigin(getX() / 2, getY() / 2);
-		setBounds(getX(), getY(), width, height);
+        super.setSize(width, height);
+        setOrigin(getX() / 2, getY() / 2);
 
-		for (Star star : stars) star.randomize();
+        for (Star star : stars) star.randomizePosition();
+
 
 		spriteSpace.setSize(width, height);
 	}
@@ -88,10 +100,7 @@ public class ActorBackground extends MyActor {
 
 	@Override
 	public void act(float delta) {
-
-		for (Star star : stars) {
-            star.act();
-		}
+		for (Star star : stars) star.act();
 
 	}
 }
