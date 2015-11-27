@@ -9,7 +9,7 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
         super(new World(new Vector2(0, 0), true));
     }
 
-    float i;
+    private float i;
 
     @Override
     public void act(float delta) {
@@ -23,24 +23,6 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
         }
     }
 
-    float a = 0;
-
 }
-/*
-allapot+=0.1;
-        y--;
-        x= Gdx.graphics.getWidth()/2 + (float)Math.sin(allapot)*100;
-        if (y<-h)
-        {
 
-            y = Gdx.graphics.getHeight()+h;
-        }
-
-*/
-/*
-float a = 0;
-        a += 0.01;
-        if(getY() > 0) setPosition(getX()+a,getY()-(float)Math.sin(a));
-        if(getX() < 0) setPosition(getX()-a, getY()-a);
- */
 
