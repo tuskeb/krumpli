@@ -9,15 +9,18 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
         super(new World(new Vector2(0, 0), true));
     }
 
+    float i;
+
     @Override
     public void act(float delta) {
 
-	    if(getY() > 0) {
-		    a += 0.02;
-		    setPosition(Gdx.graphics.getWidth() * .88f + (float) Math.sin(a) * 16f, getY() - 1);
-	    } else if(getY() < 0){
-
-
+        if (getY() > 0) {
+            i += 0.02;
+            setPosition(Gdx.graphics.getWidth() * .88f + (float) Math.sin(i) * 16f, getY() - 1);
+        } else if (getY() == 0) {
+            setY(-1);
+            setSmoke();
+        }
     }
 
     float a = 0;
