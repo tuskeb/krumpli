@@ -30,9 +30,9 @@ public class ScreenGame extends MyScreen {
 	public ScreenGame() {
 		super();
 
-		//gameStage.addActor(space);
-		//gameStage.addActor(surface);
 		gameStage.addActor(spaceShip);
+		//gameStage.addActor(space);
+		gameStage.addActor(surface);
 
 	}
 

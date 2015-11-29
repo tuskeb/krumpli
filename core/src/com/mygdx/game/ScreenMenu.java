@@ -60,7 +60,7 @@ public class ScreenMenu extends MyScreen {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                DaniSpaceGame.sGame.showScreen(DaniSpaceGame.Screens.GAME);
+                SpaceGame.sGame.showScreen(SpaceGame.Screens.GAME);
             }
         });
         table.row().height(ROW_HEIGHT);
@@ -71,7 +71,7 @@ public class ScreenMenu extends MyScreen {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                DaniSpaceGame.sGame.showScreen(DaniSpaceGame.Screens.STATS);
+	            SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
             }
         });
         table.row().height(ROW_HEIGHT);
@@ -82,7 +82,7 @@ public class ScreenMenu extends MyScreen {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                DaniSpaceGame.sGame.showScreen(DaniSpaceGame.Screens.HELP);
+	            SpaceGame.sGame.showScreen(SpaceGame.Screens.HELP);
             }
         });
         table.row().height(ROW_HEIGHT);
