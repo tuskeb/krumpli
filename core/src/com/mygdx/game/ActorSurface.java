@@ -82,7 +82,7 @@ public class ActorSurface extends Actor {
 			--i;
 			ground[i] = groundSegments.get(i);
 
-			--i;
+		--i;
 			ground[i] = groundSegments.get(i);
 		}
 
@@ -107,15 +107,16 @@ public class ActorSurface extends Actor {
 
 		Fixture fix = body.createFixture(polygonShape, 50);
 		fix.setDensity(2);
-
+//HB
 		polygonShape.dispose();
 	}
+		int velSzam (int a, int b){return (int)(Math.random()*(b-a+1)+a);}
 
 	@Override
 	public void act(float delta) {
-
+		//DaniProm:Szerintem nem kell mozognia a földnek
 	}
-
+//36303559202
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 /*

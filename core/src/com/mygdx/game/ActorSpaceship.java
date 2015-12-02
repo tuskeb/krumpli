@@ -62,7 +62,7 @@ public class ActorSpaceship extends MyActor {
 
 		//Több képet tartalmazó PNG feldarabolása és betöltése
 		//textureFire = new TextureAtlas(Gdx.files.internal("fireanimation.atlas"));
-		textureSpaceShip = new TextureRegion(new Texture("Rocket.png"));
+		textureSpaceShip = new TextureRegion(new Texture("rocket.png"));
 
 
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
