@@ -112,6 +112,7 @@ public class ScreenGame extends MyScreen {
 
 	@Override
 	public void render(float delta) {
+super.render(delta);
 
 		super.render(delta);
 

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.EarClippingTriangulator;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -39,6 +40,9 @@ public class ActorSurface extends Actor {
 
 
 	ActorSurface(World world) {
+
+		setX(0);
+		setY(0);
 
 		this.world = world;
 
@@ -77,13 +81,18 @@ public class ActorSurface extends Actor {
 		groundSegments.add((float)Gdx.graphics.getWidth());
 		groundSegments.add(0f);
 
-		final float [] ground = new float[groundSegments.size() + 2];
-		for (int i = groundSegments.size();i > 0;) {
-			--i;
+		final float [] ground = new float[groundSegments.size()];
+		//final float [] vertices = new float[] {10, 100, 60, 200, 120, 130, 150, 30, 90, 3 /* ezek szerint konkáv alakzatok nincsenek? állítsd 70-re/3-ra*/}; // Fák.
+		for (int i = 0;i < groundSegments.size();) {
 			ground[i] = groundSegments.get(i);
+			//vertices[i] = new i >= 2 ? ground[i] - ground[i - 2] : ground[i];
+			i++;
 
-		--i;
 			ground[i] = groundSegments.get(i);
+			//vertices[i] = i >= 2 ? ground[i] - ground[i - 2] : ground[i];
+			i++;
+
+
 		}
 
 		/*ArrayList<Short> triangles = new ArrayList<Short>();
@@ -99,24 +108,44 @@ public class ActorSurface extends Actor {
 		PolygonRegion polyReg = new PolygonRegion(new TextureRegion(textureSolid), ground, earClippingTriangulator.computeTriangles(ground).toArray());
 		poly = new PolygonSprite(polyReg);
 		poly.setOrigin(0, 0);
+		poly.setX(0);
+		poly.setY(0);
 		polyBatch = new PolygonSpriteBatch();
 
+		// convert ground segments to vertices
 
 		PolygonShape polygonShape = new PolygonShape();
-		polygonShape.set(ground);
+		Vector2[] vertices = new Vector2[8];
+// http://stackoverflow.com/questions/9579724/creating-a-polygonshape-in-libgdx-using-the-box2d-ligdx-modified-classes-but
+		// ennek nem így kellene megjelennie minden bizonnyal...
+		// http://stackoverflow.com/questions/16721382/collision-in-libgdx-box2d-failing-for-some-bodies
+		// ez egy nem járható út, hogy...
+		vertices[0] = new Vector2(82f  , 0f  );
+		vertices[1] = new Vector2(146f , 40f  );
+		vertices[2] = new Vector2(385f , 268f);
+		vertices[3] = new Vector2(322f , 341f);
+		vertices[4] = new Vector2(225f , 322f);
+		vertices[5] = new Vector2(282f , 398f);
+		vertices[6] = new Vector2(161f , 457f);
+		vertices[7] = new Vector2(135f , 298f);
 
-		Fixture fix = body.createFixture(polygonShape, 50);
-		fix.setDensity(2);
-//HB
+		polygonShape.set(vertices);
+
+		Fixture fix = body.createFixture(polygonShape, 0);
+
 		polygonShape.dispose();
 	}
-		int velSzam (int a, int b){return (int)(Math.random()*(b-a+1)+a);}
+
+		//int velSzam (int a, int b){return (int)(Math.random()*(b-a+1)+a);}
 
 	@Override
 	public void act(float delta) {
 		//DaniProm:Szerintem nem kell mozognia a földnek
 	}
-//36303559202
+
+	// KÉRLEK NE IROGASSATOK BELE FONTOS INFORMÁCIÓKAT, MERT SZÁJBARÚGOK VALAKIT! EZEK MINDENKI SZÁMÁRA LÁTSZÓDNAK. KÖSZÖNÖM! (bocsánat, csak így is mérges vagyok már)
+    // 3630mármindegy
+
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 /*
@@ -126,8 +155,8 @@ public class ActorSurface extends Actor {
 		shapeRenderer.end();
 		*/
 		polyBatch.begin();
-		poly.draw(polyBatch);
+		//poly.draw(polyBatch);
 		polyBatch.end();
-		//poly.rotate(1.1f);
+
 	}
 }
