@@ -275,7 +275,7 @@ public class ActorSpaceship extends MyActor {
 		final float elapsedTime = Gdx.graphics.getDeltaTime();
 		setRotation((float)Math.toDegrees(body.getAngle()));
 
-		if (landingRocketState && mMainRocketOverheatedTime == 0) { // be van kapcsolva a rakét, és nincs túlmelegedve
+		if (landingRocketState && mMainRocketOverheatedTime == 0) { // be van kapcsolva a rakéta, és nincs túlmelegedve
 			mMainRocketUsingTime += elapsedTime;
 
 			body.applyForce(0, (LANDING_ROCKET_POWER * elapsedTime) * 5e7f, 0, 0, true);
