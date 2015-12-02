@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
+import sun.rmi.runtime.Log;
 import sun.security.jgss.GSSCaller;
 
 //36303948028 tuskeb Tel
@@ -28,8 +29,7 @@ public class ScreenHelp extends MyScreen{
     private Skin skin;
     private Stage stage;
     private Table table;
-    private Label TABLE_NEVERMIND, TABLE_NEVERMIND2, TABLE_NEVERMIND3;
-    private Label TABLE_SZOVEG1;
+    private Label TABLE_NEVERMIND, TABLE_NEVERMIND2, TABLE_NEVERMIND3, TABLE_SZOVEG1, TABLE_SZOVEG2, TABLE_SZOVEG3;
     private TextButton button;
     public ScreenHelp() {
         super();
@@ -42,6 +42,7 @@ public class ScreenHelp extends MyScreen{
         TABLE_NEVERMIND2 = new Label("", MyScreen.LABEL_STYLE);
         TABLE_NEVERMIND3 = new Label("KÉSZÍTŐK", MyScreen.LABEL_STYLE);
         TABLE_SZOVEG1 = new Label("ASDFGHJKLKJHGFDFGHJKLJHGFDFGHJ\nASDFGHJKLKJHGFDFGHJKLJHGFDFGHJ\nASDFGHJKLKJHGFDFGHJKLJHGFDFGHJ", MyScreen.LABEL_STYLE2); //30 kar
+        TABLE_SZOVEG2 = new Label("", MyScreen.LABEL_STYLE2);
 
 
 
@@ -61,16 +62,18 @@ public class ScreenHelp extends MyScreen{
         table.add(TABLE_NEVERMIND2);
         table.row();
         table.add(TABLE_NEVERMIND3);
+        table.row();
 
-        button = new TextButton("EASTER EGGS", MyScreen.TEXT_BUTTON_STYLE);
+        button = new TextButton("EGYÉB FUNKCIÓK", MyScreen.TEXT_BUTTON_STYLE);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 SpaceGame.sGame.showScreen(SpaceGame.Screens.EGGS);
             }
         });
-        stage.addActor(button); button.setVisible(false);
-        if(Gdx.input.isTouched(1)){ button.setVisible(true);button.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight());}
+        button.setPosition(0,0);
+        stage.addActor(button);
+
 
 
     }
@@ -89,7 +92,7 @@ public class ScreenHelp extends MyScreen{
                 {
                     case Input.Keys.BACK:
                     case Input.Keys.ESCAPE:
-                        SpaceGame.sGame.showScreen(SpaceGame.Screens.MENU);
+                        SpaceGame.sGame.showScreen(SpaceGame.Screens.HELP);
                         break;
                 }
                 return false;
@@ -130,6 +133,7 @@ public class ScreenHelp extends MyScreen{
                 return false;
             }
         });
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override

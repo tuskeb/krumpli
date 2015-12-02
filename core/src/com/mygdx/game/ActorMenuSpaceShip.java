@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class ActorMenuSpaceShip extends ActorSpaceship {
     private float baseX, baseY, newX, newY, currentX, currentY;
+    private boolean spriteSpaceShipB;
     public ActorMenuSpaceShip() {
         super(new World(new Vector2(0, 0), true));
         setRocketState(RocketType.landing, true);
@@ -17,8 +18,8 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
 
     @Override
     public void act(float delta) {
-        if (Gdx.input.isTouched(2)) {setBumm();}
-
+        if (Gdx.input.isTouched(2)) {setBumm(); spriteSpaceShipB = false;}
+        if(spriteSpaceShipB == false && Gdx.input.isTouched(3)){}
         if (getY() > 0) {
             i += 0.02;
             setPosition(Gdx.graphics.getWidth() * .88f + (float) Math.sin(i) * 16f, getY() - 1);

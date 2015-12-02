@@ -20,16 +20,16 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class ActorSpaceship extends MyActor {
 
-	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false, smoke = false, fireIsInProgress = false, bumm=false;;
+	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false, smoke = false, fireIsInProgress = false, bumm=false, overHeating=false;
 	private int smokeFrame=0, fireFrame=0, bummFrame=0;
 
 
 
 	TextureRegion textureSpaceShip;
 	Sprite spriteSpaceShip;
-	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire, spriteSmoke, spriteBumm;
-	TextureAtlas textureAtlasLeftFire, textureAtlasRightFire, textureAtlasLandingFire, textureAtlasSmoke, textureAtlasBumm;
-	Animation animationLeftFire, animationLandingFire, animationRightFire, animationSmoke, animationBumm;
+	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire, spriteSmoke, spriteBumm, spriteOverHeating;
+	TextureAtlas textureAtlasLeftFire, textureAtlasRightFire, textureAtlasLandingFire, textureAtlasSmoke, textureAtlasBumm, textureAtlasOverHeating;
+	Animation animationLeftFire, animationLandingFire, animationRightFire, animationSmoke, animationBumm, animationOverHeating;
 
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
@@ -109,6 +109,12 @@ public class ActorSpaceship extends MyActor {
 		//animationBumm = new Animation(1 / 30f, textureAtlasBumm.getRegions());
 		spriteBumm = new Sprite(textureAtlasBumm.getRegions().get(0));
 
+		textureAtlasOverHeating = new TextureAtlas("tulmelegedes.atlas");
+		animationOverHeating = new Animation(1 / 30f, textureAtlasOverHeating.getRegions());
+		spriteOverHeating = new Sprite(animationOverHeating.getKeyFrame(2, true));
+
+
+
 		setSize(spriteSpaceShip.getWidth(), spriteSpaceShip.getHeight());
 
 
@@ -166,7 +172,10 @@ public class ActorSpaceship extends MyActor {
 
 
 		spriteBumm.setSize(getHeight() * 3, getHeight() * 3);
-		spriteBumm.setPosition(getX()-spriteBumm.getWidth()/2+getWidth()/2,getY()-spriteBumm.getHeight()/2+getHeight()/2);
+		spriteBumm.setPosition(getX() - spriteBumm.getWidth() / 2 + getWidth() / 2, getY() - spriteBumm.getHeight() / 2 + getHeight() / 2);
+
+		spriteOverHeating.setSize(getHeight()/4, getWidth()/4);
+		spriteOverHeating.setPosition(getX()+spriteSpaceShip.getWidth()/2-spriteOverHeating.getWidth()/2, getY());
 	}
 
 	public enum RocketType {landing, left, right}
@@ -197,6 +206,7 @@ public class ActorSpaceship extends MyActor {
 
 		//animationSmoke.setPlayMode(Animation.PlayMode.NORMAL);
 	}
+
 
 	public void setBumm() {
 		bumm=true;
@@ -256,6 +266,11 @@ public class ActorSpaceship extends MyActor {
 			if (rightRocketState) {
 				spriteRightFire.setRegion(animationRightFire.getKeyFrame(elapsedTime, true));
 				spriteRightFire.draw(batch);
+			}
+
+			if(overHeating){
+				spriteOverHeating.setRegion(animationOverHeating.getKeyFrame(elapsedTime, true));
+				spriteOverHeating.draw(batch);
 			}
 		}
 		if (bumm) {
