@@ -224,7 +224,7 @@ public class ActorSpaceship extends MyActor {
 				spriteSmoke.setRegion(textureAtlasSmoke.getRegions().get(smokeFrame));
 				smokeFrame++;
 				spriteSmoke.draw(batch);
-				if (smokeFrame > textureAtlasSmoke.getRegions().size) {
+				if (textureAtlasSmoke.getRegions().size == smokeFrame) {
 					smoke = false;
 				}
 			}
