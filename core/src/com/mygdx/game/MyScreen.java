@@ -4,16 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.awt.*;
 
 
 // https://github.com/libgdx/libgdx/wiki/box2d#creating-a-world
@@ -67,6 +70,15 @@ public class MyScreen implements Screen {
 		JAVA_NYAVANYOG2.fontColor = Color.WHITE;
 	}
 
+	protected static final TextArea.TextFieldStyle JAVA_NYAVANYOG3;
+
+	static	{
+		JAVA_NYAVANYOG3 = new TextArea.TextFieldStyle();
+		JAVA_NYAVANYOG3.font = FONT_HOBO_STD;
+
+		JAVA_NYAVANYOG3.fontColor = Color.WHITE;
+	}
+
 	protected static final TextButton.TextButtonStyle TEXT_BUTTON_STYLE;
 
 	static {
@@ -98,6 +110,7 @@ public class MyScreen implements Screen {
 		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		camera.zoom = VIRTUAL_HEIGHT / Gdx.graphics.getHeight();
 		camera.setToOrtho(false);
+		Gdx.input.setCatchBackKey(true);
 	}
 
 	@Override
