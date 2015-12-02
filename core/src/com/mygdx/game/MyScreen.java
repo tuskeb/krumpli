@@ -24,7 +24,7 @@ import java.awt.*;
 public class MyScreen implements Screen {
 	public static final float VIRTUAL_WIDTH = 640, VIRTUAL_HEIGHT = 480;
 	private static String CHARS = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[]";
-	protected static final BitmapFont FONT_256_BYTES, FONT_HOBO_STD;
+	protected static final BitmapFont FONT_256_BYTES, FONT_HOBO_STD, FONT_CALIBRI;
 
 	//Ezek a MyScreen osztályban deklaráltak, mert az összes osztályban akarom őket használni, és statikus, mivel elég csak egyszer betölteni őket.
 
@@ -34,7 +34,7 @@ public class MyScreen implements Screen {
 	static {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ShowcardGothic.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 50;
+		parameter.size = 45;
 		parameter.characters = CHARS;
 		FONT_256_BYTES = generator.generateFont(parameter);
 		FONT_256_BYTES.setColor(0, 0, 0, .5f);
@@ -42,15 +42,23 @@ public class MyScreen implements Screen {
 	}
 
 
-	//static final Skin SKINS = new Skin(Gdx.files.internal("Skins.json")); // Ezzel meg az a baj, hogy módosítható, így nem tudok mit kezdeni vele
-
 	static {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ShowcardGothic.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 30;
+		parameter.size = 40;
 		parameter.characters = CHARS;
 		FONT_HOBO_STD = generator.generateFont(parameter);
 		FONT_HOBO_STD.setColor(0, 0, 0, 1f);
+		generator.dispose();
+	}
+
+	static {
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("calibri.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = 40;
+		parameter.characters = CHARS;
+		FONT_CALIBRI = generator.generateFont(parameter);
+		FONT_CALIBRI.setColor(0, 0, 0, 1f);
 		generator.dispose();
 	}
 
@@ -75,7 +83,6 @@ public class MyScreen implements Screen {
 	static	{
 		JAVA_NYAVANYOG3 = new TextArea.TextFieldStyle();
 		JAVA_NYAVANYOG3.font = FONT_HOBO_STD;
-
 		JAVA_NYAVANYOG3.fontColor = Color.WHITE;
 	}
 
@@ -85,7 +92,7 @@ public class MyScreen implements Screen {
 		TEXT_BUTTON_STYLE = new TextButton.TextButtonStyle();
 		TEXT_BUTTON_STYLE.font = FONT_HOBO_STD;
 		TEXT_BUTTON_STYLE.fontColor = Color.WHITE;
-		TEXT_BUTTON_STYLE.downFontColor = Color.RED;
+		TEXT_BUTTON_STYLE.downFontColor = Color.GREEN;
 		TEXT_BUTTON_STYLE.overFontColor = Color.valueOf("880000");
 		TEXT_BUTTON_STYLE.pressedOffsetX = 3;
 		TEXT_BUTTON_STYLE.pressedOffsetY = 3;
@@ -97,6 +104,14 @@ public class MyScreen implements Screen {
 		LABEL_STYLE = new Label.LabelStyle();
 		LABEL_STYLE.font = FONT_256_BYTES;
 		LABEL_STYLE.fontColor = Color.WHITE;
+	}
+
+	protected static final Label.LabelStyle LABEL_STYLE2;
+
+	static {
+		LABEL_STYLE2 = new Label.LabelStyle();
+		LABEL_STYLE2.font = FONT_CALIBRI;
+		LABEL_STYLE2.fontColor = Color.WHITE;
 	}
 
 	protected final OrthographicCamera camera;

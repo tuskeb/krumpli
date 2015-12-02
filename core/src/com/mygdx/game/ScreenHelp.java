@@ -12,9 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.utils.Align;
 
+import sun.security.jgss.GSSCaller;
 
-
+//36303948028 tuskeb Tel
 /**
  * A súgó képernyője
  */
@@ -23,33 +25,34 @@ public class ScreenHelp extends MyScreen{
     private Skin skin;
     private Stage stage;
     private Table table;
-    private TextField TABLE_NEVERMIND, TABLE_NEVERMIND2, TABLE_NEVERMIND3;
-    private TextField TABLE_SZOVEG1;
+    private Label TABLE_NEVERMIND, TABLE_NEVERMIND2, TABLE_NEVERMIND3;
+    private Label TABLE_SZOVEG1;
     public ScreenHelp() {
         super();
         stage = new Stage();
         ActorBackground b = new ActorBackground();
-        b.setSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        b.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.addActor(b);
         batch=new SpriteBatch();
-        TABLE_NEVERMIND = new TextField("Hogyan Játszd?", MyScreen.JAVA_NYAVANYOG);
-        TABLE_NEVERMIND2 = new TextField("", MyScreen.JAVA_NYAVANYOG);
-        TABLE_NEVERMIND3 = new TextField("KÉSZÍTŐK", MyScreen.JAVA_NYAVANYOG2);
-        TABLE_SZOVEG1 = new TextField("", MyScreen.JAVA_NYAVANYOG2);
+        TABLE_NEVERMIND = new Label("Hogyan Játszd?", MyScreen.LABEL_STYLE);
+        TABLE_NEVERMIND2 = new Label("", MyScreen.LABEL_STYLE);
+        TABLE_NEVERMIND3 = new Label("KÉSZÍTŐK", MyScreen.LABEL_STYLE);
+        TABLE_SZOVEG1 = new Label("ASDFGHJKLKJHGFDFGHJKLJHGFDFGHJ\nASDFGHJKLKJHGFDFGHJKLJHGFDFGHJ\nASDFGHJKLKJHGFDFGHJKLJHGFDFGHJ", MyScreen.LABEL_STYLE2); //30 kar
+
 
 
         table = new Table();
-        table.setWidth(VIRTUAL_WIDTH);
-        table.setHeight(VIRTUAL_HEIGHT);
+        table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         table.setFillParent(true);
         stage.addActor(table);
 
         Label label1 = new Label("SÚGÓ",MyScreen.LABEL_STYLE);
-        label1.setAlignment(100, 100);
-        label1.setPosition(320, 240);
+        label1.setAlignment(Align.center, Align.center);
         table.add(label1).width(500f).height(130f);
         table.row();
         table.add(TABLE_NEVERMIND);
+        table.row();
+        table.add(TABLE_SZOVEG1);
         table.row();
         table.add(TABLE_NEVERMIND2);
         table.row();
