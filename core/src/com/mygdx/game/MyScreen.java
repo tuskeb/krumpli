@@ -24,7 +24,7 @@ import java.awt.*;
 public class MyScreen implements Screen {
 	public static final float VIRTUAL_WIDTH = 640, VIRTUAL_HEIGHT = 480;
 	private static String CHARS = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[]";
-	protected static final BitmapFont FONT_256_BYTES, FONT_HOBO_STD, FONT_CALIBRI;
+	protected static final BitmapFont FONT_256_BYTES, FONT_HOBO_STD, FONT_HOBO_STD_TOP, FONT_CALIBRI;
 
 	//Ezek a MyScreen osztályban deklaráltak, mert az összes osztályban akarom őket használni, és statikus, mivel elég csak egyszer betölteni őket.
 
@@ -49,6 +49,16 @@ public class MyScreen implements Screen {
 		parameter.characters = CHARS;
 		FONT_HOBO_STD = generator.generateFont(parameter);
 		FONT_HOBO_STD.setColor(0, 0, 0, 1f);
+		generator.dispose();
+	}
+
+	static {
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ShowcardGothic.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = 60;
+		parameter.characters = CHARS;
+		FONT_HOBO_STD_TOP = generator.generateFont(parameter);
+		FONT_HOBO_STD_TOP.setColor(0, 0, 0, 1f);
 		generator.dispose();
 	}
 
@@ -104,6 +114,14 @@ public class MyScreen implements Screen {
 		LABEL_STYLE = new Label.LabelStyle();
 		LABEL_STYLE.font = FONT_256_BYTES;
 		LABEL_STYLE.fontColor = Color.WHITE;
+	}
+
+	protected static final Label.LabelStyle LABEL_STYLE_TOP;
+
+	static {
+		LABEL_STYLE_TOP = new Label.LabelStyle();
+		LABEL_STYLE_TOP.font = FONT_HOBO_STD;
+		LABEL_STYLE_TOP.fontColor = Color.WHITE;
 	}
 
 	protected static final Label.LabelStyle LABEL_STYLE2;

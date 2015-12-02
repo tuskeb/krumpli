@@ -52,67 +52,54 @@ public class ScreenGame extends MyScreen {
 
 	@Override
 	public void show() {
-		super.show();
-
-
-		// átadjuk neki a vezérlést
 		Gdx.input.setInputProcessor(new InputProcessor() {
-            @Override
-            public boolean keyDown(int keycode) {
-                switch (keycode) {
-                    case Input.Keys.ESCAPE:
-                    case Input.Keys.BACK:
-                        if (mIsRunning) pause();
-                        else resume();
-                        break;
-                    case Input.Keys.SPACE:
-                        spaceShip.setRocketState(ActorSpaceship.RocketType.landing, true);
-                        break;
-                }
+			@Override
+			public boolean keyDown(int keycode) {
+				switch (keycode)
+				{
+					case Input.Keys.BACK:
+					case Input.Keys.ESCAPE:
+						SpaceGame.sGame.showScreen(SpaceGame.Screens.MENU);
+						break;
+				}
+				return false;
+			}
 
-                return false;
-            }
+			@Override
+			public boolean keyUp(int keycode) {
+				return false;
+			}
 
-            @Override
-            public boolean keyUp(int keycode)
-            {
-                return false;
-            }
+			@Override
+			public boolean keyTyped(char character) {
+				return false;
+			}
 
-            @Override
-            public boolean keyTyped(char character) {
-                return false;
-            }
+			@Override
+			public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+				return false;
+			}
 
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                spaceShip.setRocketState(ActorSpaceship.RocketType.landing, true);
+			@Override
+			public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+				return false;
+			}
 
-                return true;
-            }
+			@Override
+			public boolean touchDragged(int screenX, int screenY, int pointer) {
+				return false;
+			}
 
-            @Override
-            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-                spaceShip.setRocketState(ActorSpaceship.RocketType.landing, false);
-                return false;
-            }
+			@Override
+			public boolean mouseMoved(int screenX, int screenY) {
+				return false;
+			}
 
-            @Override
-            public boolean touchDragged(int screenX, int screenY, int pointer) {
-                return false;
-            }
-
-            @Override
-            public boolean mouseMoved(int screenX, int screenY) {
-                return false;
-            }
-
-            @Override
-            public boolean scrolled(int amount) {
-                return false;
-            }
-        });
-
+			@Override
+			public boolean scrolled(int amount) {
+				return false;
+			}
+		});
 	}
 
 

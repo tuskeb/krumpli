@@ -5,38 +5,30 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
 /**
- * Created by 13-0123 on 2015.11.23..
+ * Created by 13-0123 on 2015.12.02..
  */
-public class ScreenStatictics extends MyScreen{
+public class ScreenEasterEggs extends MyScreen {
     private SpriteBatch batch;
     private Skin skin;
     private Stage stage;
-    ScreenStatictics(){
-        super();
-        stage = new Stage();
-        ActorBackground b = new ActorBackground();
-        b.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        stage.addActor(b);
-        batch=new SpriteBatch();
-        Label nevermind = new Label("COMING SOON!", LABEL_STYLE_TOP);
-        nevermind.setAlignment(Align.center, Align.center);
-        stage.addActor(nevermind);
-    }
-    @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
-        stage.getViewport().update(width, height);
-    }
+    ScreenEasterEggs(){
+            super();
+            stage = new Stage();
+            ActorBackground b = new ActorBackground();
+            b.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            stage.addActor(b);
+            batch=new SpriteBatch();
+            Label nevermind = new Label("COMING SOON!", LABEL_STYLE_TOP);
+            nevermind.setAlignment(Align.center, Align.center);
+            stage.addActor(nevermind);
+
+        }
 
     @Override
     public void show() {

@@ -13,7 +13,7 @@ public class SpaceGame extends Game implements ApplicationListener {
 	private static Screen[] mScreens;
 
 	public enum Screens {
-		MENU(0), HELP(1), GAME(2), STAT(3);
+		MENU(0), HELP(1), GAME(2), STAT(3), EGGS(4);
 
 		private int value;
 
@@ -29,9 +29,11 @@ public class SpaceGame extends Game implements ApplicationListener {
 	@Override
 	public void create() {
 		mScreens = new Screen[]{
-           new ScreenMenu(),
-           new ScreenHelp(),
-           new ScreenGame()
+           		new ScreenMenu(),
+           		new ScreenHelp(),
+           		new ScreenGame(),
+				new ScreenStatictics(),
+				new ScreenEasterEggs()
 		};
 
 		showScreen(Screens.MENU);

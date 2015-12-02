@@ -7,11 +7,14 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
 import sun.security.jgss.GSSCaller;
@@ -27,6 +30,7 @@ public class ScreenHelp extends MyScreen{
     private Table table;
     private Label TABLE_NEVERMIND, TABLE_NEVERMIND2, TABLE_NEVERMIND3;
     private Label TABLE_SZOVEG1;
+    private TextButton button;
     public ScreenHelp() {
         super();
         stage = new Stage();
@@ -46,8 +50,8 @@ public class ScreenHelp extends MyScreen{
         table.setFillParent(true);
         stage.addActor(table);
 
-        Label label1 = new Label("SÚGÓ",MyScreen.LABEL_STYLE);
-        label1.setAlignment(Align.center, Align.center);
+        Label label1 = new Label("SÚGÓ",MyScreen.LABEL_STYLE_TOP);
+        label1.setAlignment(Align.top, Align.center);
         table.add(label1).width(500f).height(130f);
         table.row();
         table.add(TABLE_NEVERMIND);
@@ -57,6 +61,16 @@ public class ScreenHelp extends MyScreen{
         table.add(TABLE_NEVERMIND2);
         table.row();
         table.add(TABLE_NEVERMIND3);
+
+        button = new TextButton("EASTER EGGS", MyScreen.TEXT_BUTTON_STYLE);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                SpaceGame.sGame.showScreen(SpaceGame.Screens.EGGS);
+            }
+        });
+        stage.addActor(button); button.setVisible(false);
+        if(Gdx.input.isTouched(1)){ button.setVisible(true);button.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight());}
 
 
     }
