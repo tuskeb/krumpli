@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import java.util.Timer;
 
-public class BalazsScale extends ApplicationAdapter implements InputProcessor{
+public class   BalazsScale extends ApplicationAdapter implements InputProcessor{
     SpriteBatch batch;
     Texture img;
     int mag = 0;

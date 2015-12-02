@@ -22,20 +22,23 @@ public class ScreenHelp extends MyScreen{
     private Stage stage;
     private Table table;
     private TextField TABLE_NEVERMIND, TABLE_NEVERMIND2, TABLE_NEVERMIND3;
+    private TextField TABLE_SZOVEG1;
     public ScreenHelp() {
         super();
-
         stage = new Stage();
         ActorBackground b = new ActorBackground();
         b.setSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         stage.addActor(b);
         batch=new SpriteBatch();
         TABLE_NEVERMIND = new TextField("Hogyan Játszd?", MyScreen.JAVA_NYAVANYOG);
-        TABLE_NEVERMIND2 = new TextField(" ", MyScreen.JAVA_NYAVANYOG);
-        TABLE_NEVERMIND3 = new TextField("Készítők", MyScreen.JAVA_NYAVANYOG);
+        TABLE_NEVERMIND2 = new TextField("", MyScreen.JAVA_NYAVANYOG);
+        TABLE_NEVERMIND3 = new TextField("KÉSZÍTŐK", MyScreen.JAVA_NYAVANYOG2);
+        TABLE_SZOVEG1 = new TextField("", MyScreen.JAVA_NYAVANYOG2);
 
 
         table = new Table();
+        table.setWidth(VIRTUAL_WIDTH);
+        table.setHeight(VIRTUAL_HEIGHT);
         table.setFillParent(true);
         stage.addActor(table);
 
@@ -65,12 +68,12 @@ public class ScreenHelp extends MyScreen{
 
     @Override
     public void render(float delta) {
+        super();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
         batch.end();
     }
 }

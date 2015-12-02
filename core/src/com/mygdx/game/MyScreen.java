@@ -59,6 +59,14 @@ public class MyScreen implements Screen {
 		JAVA_NYAVANYOG.fontColor = Color.WHITE;
 	}
 
+	protected static final TextField.TextFieldStyle JAVA_NYAVANYOG2;
+
+	static	{
+		JAVA_NYAVANYOG2 = new TextField.TextFieldStyle();
+		JAVA_NYAVANYOG2.font = FONT_256_BYTES;
+		JAVA_NYAVANYOG2.fontColor = Color.WHITE;
+	}
+
 	protected static final TextButton.TextButtonStyle TEXT_BUTTON_STYLE;
 
 	static {
