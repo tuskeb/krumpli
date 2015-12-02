@@ -88,7 +88,7 @@ public class ActorSpaceship extends MyActor {
 		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//spriteRightFire = new Sprite(new Texture("Ball.png"));
 
-		//spriteLandingFire = new Sprite(new Texture("Ball.png"));
+		spriteLandingFire = new Sprite(new Texture("ball.png"));
 
 		spriteSpaceShip = new Sprite(textureSpaceShip);
 
@@ -144,11 +144,11 @@ public class ActorSpaceship extends MyActor {
 		spriteRightFire.setSize(getWidth() / 6, getHeight() / 4);
 		spriteRightFire.setPosition(getX() + getWidth() - spriteRightFire.getWidth(), getY() - spriteRightFire.getHeight());
 		spriteRightFire.setOrigin(-spriteSpaceShip.getWidth() / 2 + spriteRightFire.getWidth(), spriteSpaceShip.getOriginY() + spriteRightFire.getHeight());
-/*
+
 		spriteLandingFire.setSize(getWidth() / 3, getHeight() / 2);
 		spriteLandingFire.setPosition(getX() + getWidth() / 2 - spriteLandingFire.getWidth() / 2, getY() - spriteLandingFire.getHeight());
 		spriteLandingFire.setOrigin(spriteLandingFire.getWidth() / 2, spriteSpaceShip.getOriginY() + spriteLandingFire.getHeight());
-*/
+
 
 		spriteSmoke.setSize(getHeight(), getHeight());
 		spriteSmoke.setPosition(getX() + getWidth() / 2 - spriteSmoke.getWidth() / 2, getY() - spriteSmoke.getHeight() / 2);
