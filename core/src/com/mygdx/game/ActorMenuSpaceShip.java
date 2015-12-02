@@ -7,6 +7,9 @@ import com.badlogic.gdx.physics.box2d.World;
 public class ActorMenuSpaceShip extends ActorSpaceship {
     public ActorMenuSpaceShip() {
         super(new World(new Vector2(0, 0), true));
+        setRocketState(RocketType.landing, true);
+        setRocketState(RocketType.left,true);
+        setRocketState(RocketType.right,true);
     }
 
     private float i;
