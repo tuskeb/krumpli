@@ -27,8 +27,8 @@ public class ActorSpaceship extends MyActor {
 	TextureRegion textureSpaceShip;
 	Sprite spriteSpaceShip;
 	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire, spriteSmoke;
-	TextureAtlas textureAtlasLeftFire, textureAtlasRightFire, textureAtlasSmoke;
-	Animation animationLeftFire, animationRightFire, animationSmoke;
+	TextureAtlas textureAtlasLeftFire, textureAtlasRightFire, textureAtlasLandingFire, textureAtlasSmoke;
+	Animation animationLeftFire, animationLandingFire, animationRightFire, animationSmoke;
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
 	private float mMainRocketOverheatedTime = 0;
@@ -71,11 +71,13 @@ public class ActorSpaceship extends MyActor {
 		//Töltsük be az ATLAS fájlt!
 		textureAtlasLeftFire = new TextureAtlas("Left_fire.atlas");
 		textureAtlasRightFire = new TextureAtlas("Right_fire.atlas");
+		textureAtlasLandingFire = new TextureAtlas("CenterFire.atlas");
 
 
 		//Készítsünk hozzá animációt.
 		animationLeftFire = new Animation(1 / 15f, textureAtlasLeftFire.getRegions());
 		animationRightFire = new Animation(1 / 15f, textureAtlasLeftFire.getRegions());
+		animationLandingFire = new Animation(1 / 15f, textureAtlasLandingFire.getRegions());
 		//Készítsünk belőle spriteot, az első kép a 0. indexű legyen. Később majd a spriteban kell cserélgetni a képeket.
 		//Az animáció nem lenne fontos, ha nem számít, hogy melyik képet mikor játszuk le. (amúgy meg ki is lehetne számolni)
 		spriteLeftFire = new Sprite(animationLeftFire.getKeyFrame(0, true));
@@ -88,7 +90,7 @@ public class ActorSpaceship extends MyActor {
 		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//spriteRightFire = new Sprite(new Texture("Ball.png"));
 
-		spriteLandingFire = new Sprite(new Texture("ball.png"));
+		spriteLandingFire = new Sprite(animationLandingFire.getKeyFrame(0, true));
 
 		spriteSpaceShip = new Sprite(textureSpaceShip);
 
@@ -218,6 +220,7 @@ public class ActorSpaceship extends MyActor {
 		}
 
 		if (landingRocketState) {
+			spriteLandingFire.setRegion(animationLandingFire.getKeyFrame(elapsedTime, true));
 			spriteLandingFire.draw(batch);
 		}
 
@@ -231,6 +234,7 @@ public class ActorSpaceship extends MyActor {
 		}
 
 		if (rightRocketState) {
+			spriteRightFire.setRegion(animationRightFire.getKeyFrame(elapsedTime, true));
 			spriteRightFire.draw(batch);
 		}
 
