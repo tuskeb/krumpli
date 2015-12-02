@@ -2,11 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -18,6 +15,8 @@ import com.badlogic.gdx.utils.Align;
 public class ScreenMenu extends MyScreen {
     private final SpriteBatch batch = new SpriteBatch();
     private final Stage stage;
+
+    private Display display;
 
     public ScreenMenu() {
         super();
@@ -71,7 +70,7 @@ public class ScreenMenu extends MyScreen {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-	            SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
+                SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
             }
         });
         table.row().height(ROW_HEIGHT);
@@ -82,7 +81,7 @@ public class ScreenMenu extends MyScreen {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-	            SpaceGame.sGame.showScreen(SpaceGame.Screens.HELP);
+                SpaceGame.sGame.showScreen(SpaceGame.Screens.HELP);
             }
         });
         table.row().height(ROW_HEIGHT);
@@ -104,6 +103,9 @@ public class ScreenMenu extends MyScreen {
         spaceship.setPosition(Gdx.graphics.getWidth() - spaceship.getWidth(), Gdx.graphics.getHeight() - spaceship.getHeight());
         stage.addActor(spaceship);
 
+        display =new Display();
+        display.setTimeSlider(2f);
+        stage.addActor(display);
     }
 
     @Override
@@ -122,12 +124,12 @@ public class ScreenMenu extends MyScreen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+display.setMagassag(400);
         batch.begin();
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
+        display.setTimeSlider(display.getTimeSlider()-0.01f);
         batch.end();
     }
 
