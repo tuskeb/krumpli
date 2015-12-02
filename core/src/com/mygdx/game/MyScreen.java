@@ -53,9 +53,9 @@ public class MyScreen implements Screen {
 	}
 
 	static {
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ShowcardGothic.ttf"));
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("COOPBL.TTF"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 60;
+		parameter.size = 55;
 		parameter.characters = CHARS;
 		FONT_HOBO_STD_TOP = generator.generateFont(parameter);
 		FONT_HOBO_STD_TOP.setColor(0, 0, 0, 1f);
@@ -65,7 +65,7 @@ public class MyScreen implements Screen {
 	static {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("calibri.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 40;
+		parameter.size = 27;
 		parameter.characters = CHARS;
 		FONT_CALIBRI = generator.generateFont(parameter);
 		FONT_CALIBRI.setColor(0, 0, 0, 1f);
@@ -112,7 +112,7 @@ public class MyScreen implements Screen {
 
 	static {
 		LABEL_STYLE = new Label.LabelStyle();
-		LABEL_STYLE.font = FONT_256_BYTES;
+		LABEL_STYLE.font = FONT_256_BYTES; // 45
 		LABEL_STYLE.fontColor = Color.WHITE;
 	}
 
@@ -120,7 +120,7 @@ public class MyScreen implements Screen {
 
 	static {
 		LABEL_STYLE_TOP = new Label.LabelStyle();
-		LABEL_STYLE_TOP.font = FONT_HOBO_STD;
+		LABEL_STYLE_TOP.font = FONT_HOBO_STD_TOP;
 		LABEL_STYLE_TOP.fontColor = Color.WHITE;
 	}
 
@@ -128,7 +128,7 @@ public class MyScreen implements Screen {
 
 	static {
 		LABEL_STYLE2 = new Label.LabelStyle();
-		LABEL_STYLE2.font = FONT_CALIBRI;
+		LABEL_STYLE2.font = FONT_CALIBRI; //40
 		LABEL_STYLE2.fontColor = Color.WHITE;
 	}
 
