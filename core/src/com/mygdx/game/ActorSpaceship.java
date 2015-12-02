@@ -20,15 +20,17 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class ActorSpaceship extends MyActor {
 
-	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false, smoke = false, fireIsInProgress = false;;
-	private int smokeFrame=0, fireFrame=0;
+	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false, smoke = false, fireIsInProgress = false, bumm=false;;
+	private int smokeFrame=0, fireFrame=0, bummFrame=0;
+
 
 
 	TextureRegion textureSpaceShip;
 	Sprite spriteSpaceShip;
-	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire, spriteSmoke;
-	TextureAtlas textureAtlasLeftFire, textureAtlasRightFire, textureAtlasLandingFire, textureAtlasSmoke;
-	Animation animationLeftFire, animationLandingFire, animationRightFire, animationSmoke;
+	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire, spriteSmoke, spriteBumm;
+	TextureAtlas textureAtlasLeftFire, textureAtlasRightFire, textureAtlasLandingFire, textureAtlasSmoke, textureAtlasBumm;
+	Animation animationLeftFire, animationLandingFire, animationRightFire, animationSmoke, animationBumm;
+
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
 	private float mMainRocketOverheatedTime = 0;
@@ -74,6 +76,7 @@ public class ActorSpaceship extends MyActor {
 		textureAtlasLandingFire = new TextureAtlas("CenterFire.atlas");
 
 
+
 		//Készítsünk hozzá animációt.
 		animationLeftFire = new Animation(1 / 15f, textureAtlasLeftFire.getRegions());
 		animationRightFire = new Animation(1 / 15f, textureAtlasLeftFire.getRegions());
@@ -82,6 +85,7 @@ public class ActorSpaceship extends MyActor {
 		//Az animáció nem lenne fontos, ha nem számít, hogy melyik képet mikor játszuk le. (amúgy meg ki is lehetne számolni)
 		spriteLeftFire = new Sprite(animationLeftFire.getKeyFrame(0, true));
 		spriteRightFire = new Sprite(animationLeftFire.getKeyFrame(0, true));
+
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
 //---- ANIMÁCIÓ ----------------------------------------------------------------------------
@@ -99,6 +103,11 @@ public class ActorSpaceship extends MyActor {
 		textureAtlasSmoke = new TextureAtlas("smoke.atlas");
 		animationSmoke = new Animation(1 / 30f, textureAtlasSmoke.getRegions());
 		spriteSmoke = new Sprite(animationSmoke.getKeyFrame(2, true));
+
+
+		textureAtlasBumm = new TextureAtlas("bumm.atlas");
+		//animationBumm = new Animation(1 / 30f, textureAtlasBumm.getRegions());
+		spriteBumm = new Sprite(textureAtlasBumm.getRegions().get(0));
 
 		setSize(spriteSpaceShip.getWidth(), spriteSpaceShip.getHeight());
 
@@ -156,6 +165,8 @@ public class ActorSpaceship extends MyActor {
 		spriteSmoke.setPosition(getX() + getWidth() / 2 - spriteSmoke.getWidth() / 2, getY() - spriteSmoke.getHeight() / 2);
 
 
+		spriteBumm.setSize(getHeight() * 3, getHeight() * 3);
+		spriteBumm.setPosition(getX()-spriteBumm.getWidth()/2+getWidth()/2,getY()-spriteBumm.getHeight()/2+getHeight()/2);
 	}
 
 	public enum RocketType {landing, left, right}
@@ -185,9 +196,17 @@ public class ActorSpaceship extends MyActor {
 		smoke=true;
 
 		//animationSmoke.setPlayMode(Animation.PlayMode.NORMAL);
-
-
 	}
+
+	public void setBumm() {
+		bumm=true;
+	}
+
+	public void setRepair() {
+		bumm=false;
+		bummFrame=0;
+	}
+
 	public void setRocket(){
 		if(fireIsInProgress == false) fireFrame = 0;
 		fireIsInProgress=true;
@@ -196,47 +215,57 @@ public class ActorSpaceship extends MyActor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		spriteSpaceShip.draw(batch);
 
-		if (smoke)
-		{
-			spriteSmoke.setRegion(textureAtlasSmoke.getRegions().get(smokeFrame));
-			smokeFrame++;
-			spriteSmoke.draw(batch);
-			if (smokeFrame>=textureAtlasSmoke.getRegions().size)
-			{
-				smoke=false;
+		if (!bumm || textureAtlasBumm.getRegions().size / 2 > bummFrame) {
+
+			spriteSpaceShip.draw(batch);
+
+			if (smoke) {
+				spriteSmoke.setRegion(textureAtlasSmoke.getRegions().get(smokeFrame));
+				smokeFrame++;
+				spriteSmoke.draw(batch);
+				if (smokeFrame > textureAtlasSmoke.getRegions().size) {
+					smoke = false;
+				}
+			}
+			if (fireIsInProgress) {
+				spriteLeftFire.setRegion(textureAtlasLeftFire.getRegions().get(fireFrame));
+				spriteRightFire.setRegion(textureAtlasRightFire.getRegions().get(fireFrame));
+				fireFrame++;
+				spriteLeftFire.draw(batch);
+				spriteRightFire.draw(batch);
+				if (fireFrame >= textureAtlasRightFire.getRegions().size && fireFrame >= textureAtlasLeftFire.getRegions().size) {
+					fireIsInProgress = false;
+				}
+			}
+
+			if (landingRocketState) {
+				spriteLandingFire.setRegion(animationLandingFire.getKeyFrame(elapsedTime, true));
+				spriteLandingFire.draw(batch);
+			}
+
+			if (leftRocketState) {
+//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
+//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
+				spriteLeftFire.setRegion(animationLeftFire.getKeyFrame(elapsedTime, true));
+//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
+//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
+				spriteLeftFire.draw(batch);
+			}
+
+			if (rightRocketState) {
+				spriteRightFire.setRegion(animationRightFire.getKeyFrame(elapsedTime, true));
+				spriteRightFire.draw(batch);
 			}
 		}
-		if(fireIsInProgress){
-			spriteLeftFire.setRegion(textureAtlasLeftFire.getRegions().get(fireFrame));
-			spriteRightFire.setRegion(textureAtlasRightFire.getRegions().get(fireFrame));
-			fireFrame++;
-			spriteLeftFire.draw(batch);
-			spriteRightFire.draw(batch);
-			if(fireFrame >= textureAtlasRightFire.getRegions().size && fireFrame >= textureAtlasLeftFire.getRegions().size){
-				fireIsInProgress = false;
+		if (bumm) {
+			spriteBumm.setRegion(textureAtlasBumm.getRegions().get(bummFrame));
+			spriteBumm.draw(batch);
+			if (textureAtlasBumm.getRegions().size-1 > bummFrame) {
+				bummFrame++;
 			}
 		}
 
-		if (landingRocketState) {
-			spriteLandingFire.setRegion(animationLandingFire.getKeyFrame(elapsedTime, true));
-			spriteLandingFire.draw(batch);
-		}
-
-		if (leftRocketState) {
-//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
-//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
-			spriteLeftFire.setRegion(animationLeftFire.getKeyFrame(elapsedTime, true));
-//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
-//-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
-			spriteLeftFire.draw(batch);
-		}
-
-		if (rightRocketState) {
-			spriteRightFire.setRegion(animationRightFire.getKeyFrame(elapsedTime, true));
-			spriteRightFire.draw(batch);
-		}
 
 	}
 

@@ -16,6 +16,10 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
 
     @Override
     public void act(float delta) {
+        if (getY() < 200)
+        {
+            setBumm();
+        }
 
         if (getY() > 0) {
             i += 0.02;
