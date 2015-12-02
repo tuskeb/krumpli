@@ -1,10 +1,8 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -13,12 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-
-import sun.rmi.runtime.Log;
-import sun.security.jgss.GSSCaller;
 
 //36303948028 tuskeb Tel
 /**
@@ -29,8 +23,9 @@ public class ScreenHelp extends MyScreen{
     private Skin skin;
     private Stage stage;
     private Table table;
-    private Label TABLE_NEVERMIND, TABLE_NEVERMIND2, TABLE_NEVERMIND3, TABLE_SZOVEG1, TABLE_SZOVEG2, TABLE_SZOVEG3;
+    private Label TABLE_NEVERMIND, TABLE_NEVERMIND2,  TABLE_SZOVEG1, TABLE_SZOVEG2;
     private TextButton button;
+    static int PUDING = 30;
     public ScreenHelp() {
         super();
         stage = new Stage();
@@ -38,11 +33,10 @@ public class ScreenHelp extends MyScreen{
         b.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.addActor(b);
         batch=new SpriteBatch();
-        TABLE_NEVERMIND = new Label("Hogyan Játszd?", MyScreen.LABEL_STYLE);
-        TABLE_NEVERMIND2 = new Label("", MyScreen.LABEL_STYLE);
-        TABLE_NEVERMIND3 = new Label("KÉSZÍTŐK", MyScreen.LABEL_STYLE);
-        TABLE_SZOVEG1 = new Label("ASDFGHJKLKJHGFDFGHJKLJHGFDFGHJ\nASDFGHJKLKJHGFDFGHJKLJHGFDFGHJ\nASDFGHJKLKJHGFDFGHJKLJHGFDFGHJ", MyScreen.LABEL_STYLE2); //30 kar
-        TABLE_SZOVEG2 = new Label("", MyScreen.LABEL_STYLE2);
+        TABLE_NEVERMIND = new Label("A JÁTÉK MENETE:", MyScreen.LABEL_STYLE);
+        TABLE_SZOVEG1 = new Label("Az Új játék gombot megérintve indul el a játék.\n Ha képernyőt megérintjük, akkor az űrhajó rakétái bekapcsolnak \nígy szabályozva az űrhajó sebességét és magasságát.\nHa az űrhajó rakétái túl melegednek (ezt egy csík jelzi a képernyőn),\nakkor azok leállnak 3 másodpercig. Ha túl gyorsan száll le a talajra az űrhajó, felrobban.", MyScreen.LABEL_STYLE2);
+        TABLE_NEVERMIND2 = new Label("PROGRAMOZÓK: ", MyScreen.LABEL_STYLE); //30 kar
+        TABLE_SZOVEG2 = new Label("Horváth Bálint\t Könyves Bálint\n Rácz Krisztián \t Ruszin Dániel \n Felkészítő tanár: Tüske Balázs", MyScreen.LABEL_STYLE2);
 
 
 
@@ -56,12 +50,12 @@ public class ScreenHelp extends MyScreen{
         table.add(label1).width(500f).height(130f);
         table.row();
         table.add(TABLE_NEVERMIND);
-        table.row();
+        table.row().pad(PUDING);
         table.add(TABLE_SZOVEG1);
         table.row();
         table.add(TABLE_NEVERMIND2);
-        table.row();
-        table.add(TABLE_NEVERMIND3);
+        table.row().pad(PUDING-15);
+        table.add(TABLE_SZOVEG2);
         table.row();
 
         button = new TextButton("EGYÉB FUNKCIÓK", MyScreen.TEXT_BUTTON_STYLE);
@@ -71,18 +65,14 @@ public class ScreenHelp extends MyScreen{
                 SpaceGame.sGame.showScreen(SpaceGame.Screens.EGGS);
             }
         });
-        button.setPosition(0,0);
+        button.setPosition(0, 0);
         stage.addActor(button);
-
-
-
     }
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
         stage.getViewport().update(width, height);
     }
-
     @Override
     public void show() {
         Gdx.input.setInputProcessor(new InputProcessor() {
@@ -92,9 +82,10 @@ public class ScreenHelp extends MyScreen{
                 {
                     case Input.Keys.BACK:
                     case Input.Keys.ESCAPE:
-                        SpaceGame.sGame.showScreen(SpaceGame.Screens.HELP);
+                        SpaceGame.sGame.showScreen(SpaceGame.Screens.MENU);
                         break;
                 }
+
                 return false;
             }
 
@@ -110,11 +101,13 @@ public class ScreenHelp extends MyScreen{
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                stage.touchDown(screenX, screenY, pointer, button);
                 return false;
             }
 
             @Override
             public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+                stage.touchUp(screenX, screenY, pointer, button);
                 return false;
             }
 
@@ -133,9 +126,8 @@ public class ScreenHelp extends MyScreen{
                 return false;
             }
         });
-        Gdx.input.setInputProcessor(stage);
+        //Gdx.input.setInputProcessor(stage);
     }
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);

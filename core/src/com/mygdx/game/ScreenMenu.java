@@ -100,8 +100,8 @@ public class ScreenMenu extends MyScreen {
         table.add(button);
 
         ActorMenuSpaceShip spaceship = new ActorMenuSpaceShip();
-        spaceship.setSize(50, 100);
-        spaceship.setPosition(Gdx.graphics.getWidth() - spaceship.getWidth(), Gdx.graphics.getHeight() - spaceship.getHeight());
+        spaceship.setSize(150, 250);
+        spaceship.setPosition(Gdx.graphics.getWidth() - spaceship.getWidth()*4, Gdx.graphics.getHeight() - spaceship.getHeight()/2);
         stage.addActor(spaceship);
 
     }

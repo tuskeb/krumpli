@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 
 /**
@@ -17,6 +18,8 @@ public class ScreenEasterEggs extends MyScreen {
     private SpriteBatch batch;
     private Skin skin;
     private Stage stage;
+    private Table table;
+    private Label TABLE_NEVERMIND, TABLE_SZOVEG1;
     ScreenEasterEggs(){
             super();
             stage = new Stage();
@@ -24,9 +27,22 @@ public class ScreenEasterEggs extends MyScreen {
             b.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             stage.addActor(b);
             batch=new SpriteBatch();
-            Label nevermind = new Label("COMING SOON!", LABEL_STYLE_TOP);
-            nevermind.setAlignment(Align.center, Align.center);
+            Label nevermind = new Label("IN PROGRESS...", LABEL_STYLE_TOP);
+            nevermind.setAlignment(Align.top, Align.top);
             stage.addActor(nevermind);
+            TABLE_NEVERMIND = new Label ("\"TITKOS\" FUNKCIÓK", MyScreen.LABEL_STYLE_TOP);
+            TABLE_SZOVEG1 = new Label ("Ha 3 ujjal megérinted a képernyőt, \namikor a menüben vagy, akkor az űrhajó felrobban!", MyScreen.LABEL_STYLE2);
+
+
+            table = new Table();
+            table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            table.setFillParent(true);
+            stage.addActor(table);
+
+            table.add(TABLE_NEVERMIND);
+            table.row().pad(ScreenHelp.PUDING);
+            table.add(TABLE_SZOVEG1);
+            table.row();
 
         }
 
