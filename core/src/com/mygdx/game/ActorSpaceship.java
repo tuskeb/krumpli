@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -30,6 +31,7 @@ public class ActorSpaceship extends MyActor {
 	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire, spriteSmoke, spriteBumm, spriteOverHeating;
 	TextureAtlas textureAtlasLeftFire, textureAtlasRightFire, textureAtlasLandingFire, textureAtlasSmoke, textureAtlasBumm, textureAtlasOverHeating;
 	Animation animationLeftFire, animationLandingFire, animationRightFire, animationSmoke, animationBumm, animationOverHeating;
+	Sound s;
 
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
@@ -275,7 +277,7 @@ public class ActorSpaceship extends MyActor {
 		}
 		if (bumm) {
 			spriteBumm.setRegion(textureAtlasBumm.getRegions().get(bummFrame));
-			spriteBumm.draw(batch);
+			spriteBumm.draw(batch); //s.play(parentAlpha );
 			if (textureAtlasBumm.getRegions().size-1 > bummFrame) {
 				bummFrame++;
 			}
