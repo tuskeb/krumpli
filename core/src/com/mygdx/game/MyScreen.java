@@ -23,7 +23,7 @@ import java.awt.*;
 
 public class MyScreen implements Screen {
 	public static final float VIRTUAL_WIDTH = 640, VIRTUAL_HEIGHT = 480;
-	private static String CHARS = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[],";
+	private static String CHARS = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[],-.";
 	protected static final BitmapFont FONT_256_BYTES, FONT_HOBO_STD, FONT_HOBO_STD_TOP, FONT_CALIBRI;
 
 	//Ezek a MyScreen osztályban deklaráltak, mert az összes osztályban akarom őket használni, és statikus, mivel elég csak egyszer betölteni őket.

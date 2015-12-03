@@ -39,7 +39,7 @@ public class ScreenHelp extends MyScreen{
         TABLE_NEVERMIND = new Label("A JÁTÉK MENETE:", MyScreen.LABEL_STYLE);
         TABLE_SZOVEG1 = new Label("Az Új játék gombot megérintve indul el a játék.\n Ha képernyőt megérintjük, akkor az űrhajó rakétái bekapcsolnak \nígy szabályozva az űrhajó sebességét és magasságát.\nHa az űrhajó rakétái túl melegednek (ezt egy csík jelzi a képernyőn),\nakkor azok leállnak 3 másodpercig. Ha túl gyorsan száll le a talajra az űrhajó, akkor felrobban.", MyScreen.LABEL_STYLE2);
         TABLE_NEVERMIND2 = new Label("PROGRAMOZÓK: ", MyScreen.LABEL_STYLE); //30 kar
-        TABLE_SZOVEG2 = new Label("Horváth Bálint\t Könyves Bálint\n Rácz Krisztián \t Ruszin Dániel \n Felkészítő tanár: Tüske Balázs", MyScreen.LABEL_STYLE2);
+        TABLE_SZOVEG2 = new Label("Horváth Bálint\t - \tKönyves Bálint\n Rácz Krisztián\t - \tRuszin Dániel \n Felkészítő tanár: Tüske Balázs", MyScreen.LABEL_STYLE2);
 
 
 
@@ -61,7 +61,8 @@ public class ScreenHelp extends MyScreen{
         table.add(TABLE_SZOVEG2);
         table.row();
 
-        button = new TextButton("EGYÉB FUNKCIÓK", MyScreen.TEXT_BUTTON_STYLE);
+        button = new TextButton("Tovább...", MyScreen.TEXT_BUTTON_STYLE);
+
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
