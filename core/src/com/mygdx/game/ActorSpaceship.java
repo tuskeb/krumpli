@@ -32,6 +32,8 @@ public class ActorSpaceship extends MyActor {
 	TextureAtlas textureAtlasLeftFire, textureAtlasRightFire, textureAtlasLandingFire, textureAtlasSmoke, textureAtlasBumm, textureAtlasOverHeating;
 	Animation animationLeftFire, animationLandingFire, animationRightFire, animationSmoke, animationBumm, animationOverHeating;
 	final Sound overheating_alarm = Gdx.audio.newSound(Gdx.files.internal("overheating_alarm.wav"));
+	final Sound bumm_sound = Gdx.audio.newSound(Gdx.files.internal("Sound/bumm_sound.mp3"));
+	final Sound landing = Gdx.audio.newSound(Gdx.files.internal("Sound/landing.mp3"));
 
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
@@ -203,7 +205,12 @@ public class ActorSpaceship extends MyActor {
 
 	public void setSmoke()
 	{
-		if (smoke==false) smokeFrame=0;
+
+		if (smoke==false)
+		{
+			smokeFrame=0;
+			landing.play();
+		}
 		smoke=true;
 
 		//animationSmoke.setPlayMode(Animation.PlayMode.NORMAL);
@@ -211,7 +218,14 @@ public class ActorSpaceship extends MyActor {
 
 
 	public void setBumm() {
-		bumm=true;
+		if (!bumm) {
+			bumm_sound.play();
+			bumm = true;
+		}
+	}
+
+	public static boolean getBumm() {
+		return bumm;
 	}
 
 	public void setRepair() {

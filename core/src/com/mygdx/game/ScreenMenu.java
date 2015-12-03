@@ -43,7 +43,7 @@ public class ScreenMenu extends MyScreen {
                 return false;
             }
         };
-        final Sound s = Gdx.audio.newSound(Gdx.files.internal("Sound/game_theme_min.wav"));
+        final Sound s = Gdx.audio.newSound(Gdx.files.internal("Sound/game_theme_min.mp3"));
         final Sound click = Gdx.audio.newSound(Gdx.files.internal("Sound/click_sound.mp3"));
 
 
