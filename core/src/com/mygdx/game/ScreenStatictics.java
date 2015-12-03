@@ -3,12 +3,14 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -21,6 +23,8 @@ public class ScreenStatictics extends MyScreen{
     private SpriteBatch batch;
     private Skin skin;
     private Stage stage;
+    private Label SZOVEG1, SZOVEG2, SZOVEG3, SZOVEG4, SZOVEG5, SZOVEG6, SZOVEG7, SZOVEG8, SZOVEG9, SZOVEG10;
+    final Sound click_back = Gdx.audio.newSound(Gdx.files.internal("Sound/click_sound_back.mp3"));
     ScreenStatictics(){
         super();
         stage = new Stage();
@@ -28,9 +32,47 @@ public class ScreenStatictics extends MyScreen{
         b.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.addActor(b);
         batch=new SpriteBatch();
-        Label nevermind = new Label("COMING SOON!", LABEL_STYLE_TOP);
-        nevermind.setAlignment(Align.center, Align.center);
-        stage.addActor(nevermind);
+        //Label nevermind = new Label("IN PROGRESS...", LABEL_STYLE_TOP);
+        //nevermind.setAlignment(Align.top, Align.top);
+        //stage.addActor(nevermind);
+
+
+        Table table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        Label label = new Label("REKORD", MyScreen.LABEL_STYLE_TOP);
+        label.setAlignment(Align.top, Align.center);
+        table.add(label).width(500f).height(130f);
+        table.row();
+
+        SZOVEG1 = new Label("LEGJOBB PONT\t\t\t", MyScreen.LABEL_STYLE);
+
+        table.add(SZOVEG1);
+
+        SZOVEG2 = new Label("LEGJOBB FUTAM", MyScreen.LABEL_STYLE);
+
+        table.add(SZOVEG2);
+        table.row();
+
+        SZOVEG3 = new Label(ScreenGame.WIN_POINT+"\t\t\t", MyScreen.LABEL_STYLE);
+
+        table.add(SZOVEG3);
+
+        SZOVEG4 = new Label(ScreenGame.BEST_TIME+"", MyScreen.LABEL_STYLE);
+
+        table.add(SZOVEG4);
+        table.row();
+
+
+
+
+
+
+
+
+
+
     }
     @Override
     public void resize(int width, int height) {
@@ -48,6 +90,8 @@ public class ScreenStatictics extends MyScreen{
                     case Input.Keys.BACK:
                     case Input.Keys.ESCAPE:
                         SpaceGame.sGame.showScreen(SpaceGame.Screens.MENU);
+                        click_back.play();
+
                         break;
                 }
                 return false;

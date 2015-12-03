@@ -116,7 +116,7 @@ public class ActorSurface extends Actor {
 
 		PolygonShape polygonShape = new PolygonShape();
 		Vector2[] vertices = new Vector2[8];
-// http://stackoverflow.com/questions/9579724/creating-a-polygonshape-in-libgdx-using-the-box2d-ligdx-modified-classes-but
+		// http://stackoverflow.com/questions/9579724/creating-a-polygonshape-in-libgdx-using-the-box2d-ligdx-modified-classes-but
 		// ennek nem így kellene megjelennie minden bizonnyal...
 		// http://stackoverflow.com/questions/16721382/collision-in-libgdx-box2d-failing-for-some-bodies
 		// ez egy nem járható út, hogy...
@@ -140,11 +140,10 @@ public class ActorSurface extends Actor {
 
 	@Override
 	public void act(float delta) {
-		//DaniProm:Szerintem nem kell mozognia a földnek
+
 	}
 
-	// KÉRLEK NE IROGASSATOK BELE FONTOS INFORMÁCIÓKAT, MERT SZÁJBARÚGOK VALAKIT! EZEK MINDENKI SZÁMÁRA LÁTSZÓDNAK. KÖSZÖNÖM! (bocsánat, csak így is mérges vagyok már)
-    // 3630mármindegy
+	// KÉRLEK NE IROGASSATOK BELE FONTOS INFORMÁCIÓKAT, MERT SZÁJBARÚGOK VALAKIT! EZEK MINDENKI SZÁMÁRA LÁTSZÓDNAK. KÖSZÖNÖM! (bocsánat, csak így is mérges vagyok már) //OK, VETTETM! DP
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
@@ -155,7 +154,7 @@ public class ActorSurface extends Actor {
 		shapeRenderer.end();
 		*/
 		polyBatch.begin();
-		//poly.draw(polyBatch);
+		poly.draw(polyBatch);
 		polyBatch.end();
 
 	}

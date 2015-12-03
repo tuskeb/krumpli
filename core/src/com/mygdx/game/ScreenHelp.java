@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -26,6 +27,8 @@ public class ScreenHelp extends MyScreen{
     private Label TABLE_NEVERMIND, TABLE_NEVERMIND2,  TABLE_SZOVEG1, TABLE_SZOVEG2;
     private TextButton button;
     static int PUDING = 30;
+    final Sound click = Gdx.audio.newSound(Gdx.files.internal("Sound/click_sound.mp3"));
+    final Sound click_back = Gdx.audio.newSound(Gdx.files.internal("Sound/click_sound_back.mp3"));
     public ScreenHelp() {
         super();
         stage = new Stage();
@@ -34,7 +37,7 @@ public class ScreenHelp extends MyScreen{
         stage.addActor(b);
         batch=new SpriteBatch();
         TABLE_NEVERMIND = new Label("A JÁTÉK MENETE:", MyScreen.LABEL_STYLE);
-        TABLE_SZOVEG1 = new Label("Az Új játék gombot megérintve indul el a játék.\n Ha képernyőt megérintjük, akkor az űrhajó rakétái bekapcsolnak \nígy szabályozva az űrhajó sebességét és magasságát.\nHa az űrhajó rakétái túl melegednek (ezt egy csík jelzi a képernyőn),\nakkor azok leállnak 3 másodpercig. Ha túl gyorsan száll le a talajra az űrhajó, felrobban.", MyScreen.LABEL_STYLE2);
+        TABLE_SZOVEG1 = new Label("Az Új játék gombot megérintve indul el a játék.\n Ha képernyőt megérintjük, akkor az űrhajó rakétái bekapcsolnak \nígy szabályozva az űrhajó sebességét és magasságát.\nHa az űrhajó rakétái túl melegednek (ezt egy csík jelzi a képernyőn),\nakkor azok leállnak 3 másodpercig. Ha túl gyorsan száll le a talajra az űrhajó, akkor felrobban.", MyScreen.LABEL_STYLE2);
         TABLE_NEVERMIND2 = new Label("PROGRAMOZÓK: ", MyScreen.LABEL_STYLE); //30 kar
         TABLE_SZOVEG2 = new Label("Horváth Bálint\t Könyves Bálint\n Rácz Krisztián \t Ruszin Dániel \n Felkészítő tanár: Tüske Balázs", MyScreen.LABEL_STYLE2);
 
@@ -63,6 +66,7 @@ public class ScreenHelp extends MyScreen{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 SpaceGame.sGame.showScreen(SpaceGame.Screens.EGGS);
+                click.play();
             }
         });
         button.setPosition(0, 0);
@@ -83,6 +87,7 @@ public class ScreenHelp extends MyScreen{
                     case Input.Keys.BACK:
                     case Input.Keys.ESCAPE:
                         SpaceGame.sGame.showScreen(SpaceGame.Screens.MENU);
+                        click_back.play();
                         break;
                 }
 

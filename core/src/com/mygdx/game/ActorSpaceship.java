@@ -21,9 +21,9 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class ActorSpaceship extends MyActor {
 
-	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false, smoke = false, fireIsInProgress = false, bumm=false, overHeating=false;
+	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false, smoke = false, fireIsInProgress = false, overHeating=false;
 	private int smokeFrame=0, fireFrame=0, bummFrame=0;
-
+	static boolean bumm=false;
 
 
 	TextureRegion textureSpaceShip;
@@ -31,7 +31,7 @@ public class ActorSpaceship extends MyActor {
 	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire, spriteSmoke, spriteBumm, spriteOverHeating;
 	TextureAtlas textureAtlasLeftFire, textureAtlasRightFire, textureAtlasLandingFire, textureAtlasSmoke, textureAtlasBumm, textureAtlasOverHeating;
 	Animation animationLeftFire, animationLandingFire, animationRightFire, animationSmoke, animationBumm, animationOverHeating;
-	Sound s;
+	final Sound overheating_alarm = Gdx.audio.newSound(Gdx.files.internal("overheating_alarm.wav"));
 
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
@@ -249,11 +249,13 @@ public class ActorSpaceship extends MyActor {
 				if (fireFrame >= textureAtlasRightFire.getRegions().size && fireFrame >= textureAtlasLeftFire.getRegions().size) {
 					fireIsInProgress = false;
 				}
+
 			}
 
 			if (landingRocketState) {
 				spriteLandingFire.setRegion(animationLandingFire.getKeyFrame(elapsedTime, true));
 				spriteLandingFire.draw(batch);
+
 			}
 
 			if (leftRocketState) {
@@ -263,16 +265,19 @@ public class ActorSpaceship extends MyActor {
 //-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
 //-------------- Renderelés közben cseréljük ki az ábrát. Az animation adja az indexét annak, amire cserélni kell, az eltelt idő függvényében.
 				spriteLeftFire.draw(batch);
+
 			}
 
 			if (rightRocketState) {
 				spriteRightFire.setRegion(animationRightFire.getKeyFrame(elapsedTime, true));
 				spriteRightFire.draw(batch);
+
 			}
 
 			if(overHeating){
 				spriteOverHeating.setRegion(animationOverHeating.getKeyFrame(elapsedTime, true));
 				spriteOverHeating.draw(batch);
+				overheating_alarm.play();
 			}
 		}
 		if (bumm) {

@@ -23,7 +23,7 @@ import java.awt.*;
 
 public class MyScreen implements Screen {
 	public static final float VIRTUAL_WIDTH = 640, VIRTUAL_HEIGHT = 480;
-	private static String CHARS = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[]";
+	private static String CHARS = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[],";
 	protected static final BitmapFont FONT_256_BYTES, FONT_HOBO_STD, FONT_HOBO_STD_TOP, FONT_CALIBRI;
 
 	//Ezek a MyScreen osztályban deklaráltak, mert az összes osztályban akarom őket használni, és statikus, mivel elég csak egyszer betölteni őket.
@@ -45,7 +45,7 @@ public class MyScreen implements Screen {
 	static {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ShowcardGothic.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 40;
+		parameter.size = 50;
 		parameter.characters = CHARS;
 		FONT_HOBO_STD = generator.generateFont(parameter);
 		FONT_HOBO_STD.setColor(0, 0, 0, 1f);

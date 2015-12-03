@@ -1,12 +1,11 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class ActorMenuSpaceShip extends ActorSpaceship {
-    private float baseX, baseY, newX, newY, currentX, currentY;
-    private boolean spriteSpaceShipB;
     private float toX=-1, toY=-1;
     public ActorMenuSpaceShip() {
         super(new World(new Vector2(0, 0), true));
@@ -16,10 +15,12 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
     }
 
     private float i;
-
+    final Sound bumm_sound = Gdx.audio.newSound(Gdx.files.internal("Sound/bumm_sound.mp3"));
+    final Sound landing = Gdx.audio.newSound(Gdx.files.internal("Sound/landing.mp3"));
     @Override
     public void act(float delta) {
-        if (Gdx.input.isTouched(3)) {setBumm();}
+        if (Gdx.input.isTouched(3)) {setBumm(); bumm_sound.play();}
+
         if (Gdx.input.isTouched())
         {
             toX=Gdx.input.getX() - getWidth()/2;
@@ -33,6 +34,7 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
             } else if (getY() == 0) {
                 setY(-1);
                 setSmoke();
+                landing.play();
             }
         }
         else
@@ -40,6 +42,7 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
             if (getY()<0)
             {
                 setSmoke();
+                landing.play();
                 setY(0);
                 toY=0;
             }
