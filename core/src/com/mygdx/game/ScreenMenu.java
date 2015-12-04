@@ -23,6 +23,7 @@ public class ScreenMenu extends MyScreen {
     private final Stage stage;
 
 
+    final Music s = Gdx.audio.newMusic(Gdx.files.internal("moonlightshadow.mp3"));
 
     private Display display;
 
@@ -43,7 +44,6 @@ public class ScreenMenu extends MyScreen {
                 return false;
             }
         };
-        final Music s = Gdx.audio.newMusic(Gdx.files.internal("moonlightshadow.mp3"));
 
         final Sound click = Gdx.audio.newSound(Gdx.files.internal("Sound/click_sound.mp3"));
 
@@ -121,8 +121,7 @@ public class ScreenMenu extends MyScreen {
         table.add(button);
 
         //s.loop();
-        s.setVolume(0.5f);
-        s.play();
+
 
 
         /*
@@ -140,9 +139,19 @@ public class ScreenMenu extends MyScreen {
 
 
     @Override
+    public void hide() {
+        super.hide();
+        s.pause();
+    }
+
+    @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+        s.setVolume(0.5f);
+        s.play();
     }
+
+
 
     @Override
     public void render(float delta) {

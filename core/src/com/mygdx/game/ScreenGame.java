@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -93,6 +94,8 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
     private ActorSurface surface = new ActorSurface(world);
     private ActorBackground space = new ActorBackground();
     private TextButton button;
+    final Music s = Gdx.audio.newMusic(Gdx.files.internal("game_theme_min.mp3"));
+
     static float WIN_POINT, BEST_TIME;
 /*
 
@@ -186,6 +189,8 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
 
     @Override
     public void show() {
+        s.play();
+        s.setVolume(0.5f);
         Gdx.input.setInputProcessor(new InputProcessor() {
             @Override
             public boolean keyDown(int keycode) {
@@ -240,6 +245,7 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
     @Override
     public void hide() {
         super.hide();
+        s.pause();
         pause();
     }
 
