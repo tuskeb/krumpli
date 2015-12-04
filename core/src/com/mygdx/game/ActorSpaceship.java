@@ -21,7 +21,7 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class ActorSpaceship extends MyActor {
 
-	private boolean landingRocketState = false, leftRocketState = false, rightRocketState = false, smoke = false, fireIsInProgress = false, overHeating=false;
+	protected boolean landingRocketState = false, leftRocketState = false, rightRocketState = false, smoke = false, fireIsInProgress = false, overHeating=false;
 	private int smokeFrame=0, fireFrame=0, bummFrame=0;
 	static boolean bumm=false;
 
