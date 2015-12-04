@@ -34,6 +34,21 @@ public class ScreenGame extends MyScreen {
     // http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
     Box2DDebugRenderer	debugger = new Box2DDebugRenderer();
 
+    private void setWinPoint()
+    {
+        if (WIN_POINT==-1)
+        {
+            WIN_POINT=(int)(mElapsedTime-flyingStartTime);
+        }
+        else
+        {
+            if (mElapsedTime-flyingStartTime<WIN_POINT)
+            {
+                WIN_POINT=(int)(mElapsedTime-flyingStartTime);
+            }
+        }
+    }
+
     private World world = new World(new Vector2(0, -10), true);
 
     {
@@ -49,6 +64,7 @@ public class ScreenGame extends MyScreen {
                     surface = (ActorNewSurface) bodyA.getUserData();
                     spaceship = (ActorSpaceship) bodyB.getUserData();
                     if (surface.mLandingArea && spaceShip.body.getLinearVelocity().len() < 30f) {
+                        setWinPoint();
                         SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
                     } else {
                         spaceship.setBumm();
@@ -61,6 +77,7 @@ public class ScreenGame extends MyScreen {
                     spaceship = (ActorSpaceship) bodyA.getUserData();
 
                     if (surface.mLandingArea && spaceShip.body.getLinearVelocity().len() < 30f) {
+                        setWinPoint();
                         SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
                     } else {
                         spaceship.setBumm();
@@ -102,7 +119,7 @@ public class ScreenGame extends MyScreen {
     private  Label END_GAME;
     final Music s = Gdx.audio.newMusic(Gdx.files.internal("game_theme_min.mp3"));
     public float flyingStartTime=0;
-    public static float WIN_POINT;
+    public static int WIN_POINT=-1;
 /*
 
 
@@ -220,6 +237,8 @@ public class ScreenGame extends MyScreen {
         s.play();
         s.setLooping(true);
         s.setVolume(0.5f);
+        spaceShip.reset();
+        resume();
         Gdx.input.setInputProcessor(new InputProcessor() {
             @Override
             public boolean keyDown(int keycode) {

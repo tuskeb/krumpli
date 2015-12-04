@@ -41,7 +41,7 @@ public class ScreenStatictics extends MyScreen{
         table.setFillParent(true);
         stage.addActor(table);
 
-        SZOVEG1 = new Label("Legjobb idő: ", MyScreen.LABEL_STYLE);
+        SZOVEG1 = new Label("Legjobb ido: ", MyScreen.LABEL_STYLE);
 
         table.add(SZOVEG1);
 
@@ -50,7 +50,7 @@ public class ScreenStatictics extends MyScreen{
         table.add(SZOVEG2);*/
         table.row();
 
-        SZOVEG3 = new Label(ScreenGame.WIN_POINT+"\t\t\t", MyScreen.LABEL_STYLE);
+        SZOVEG3 = new Label("Még nem volt leszállás!", MyScreen.LABEL_STYLE);
 
         table.add(SZOVEG3);
 /*
@@ -85,6 +85,10 @@ public class ScreenStatictics extends MyScreen{
 
     @Override
     public void show() {
+        if (ScreenGame.WIN_POINT!=-1)
+        {
+            SZOVEG3.setText(String.valueOf(ScreenGame.WIN_POINT));
+        }
         Gdx.input.setInputProcessor(stage);
         s.setVolume(0.5f);
         s.play();
