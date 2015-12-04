@@ -38,6 +38,7 @@ public class Display extends MyActor {
     String t;
 
     double time;
+    int perc;
     Label labelTime;
     String stringTime;
 
@@ -107,7 +108,6 @@ public class Display extends MyActor {
         labelSebesseg.draw(batch, 100f);
 
         labelTime.draw(batch,1f);
-        setTime();
 
         //spriteMoon.draw(batch, 1f);
 
@@ -151,9 +151,13 @@ public class Display extends MyActor {
         labelMagassag.setText(s);*/
     }
 
-    void setTime(){
-        time++;
-        stringTime = "Time: " + Math.rint(time/60.0*100)/100;
+    public void setTime(int time){
+        this.time = time;
+        stringTime = "Time: "+perc+" : " + Math.rint(this.time/60.0*100)/100;
+        if (this.time>=60){
+            this.time=0;
+            perc++;
+        }
         labelTime.setText(stringTime);
     }
 
