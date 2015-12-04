@@ -32,9 +32,6 @@ public class ScreenStatictics extends MyScreen{
         b.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.addActor(b);
         batch=new SpriteBatch();
-        //Label nevermind = new Label("IN PROGRESS...", LABEL_STYLE_TOP);
-        //nevermind.setAlignment(Align.top, Align.top);
-        //stage.addActor(nevermind);
 
 
         Table table = new Table();

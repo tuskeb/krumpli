@@ -17,8 +17,12 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
+
+import java.awt.Color;
 
 /**
  * A játék képernyője
@@ -93,6 +97,7 @@ public class ScreenGame extends MyScreen {
     private ActorSpaceship spaceShip = new ActorSpaceship(world);
     private ActorBackground space = new ActorBackground();
     private TextButton button;
+    private  Label END_GAME;
     final Music s = Gdx.audio.newMusic(Gdx.files.internal("game_theme_min.mp3"));
 
     static float WIN_POINT, BEST_TIME;
@@ -123,7 +128,7 @@ public class ScreenGame extends MyScreen {
             }
         });
 
-       // gameStage.addActor(space);
+        gameStage.addActor(space);
         //gameStage.addActor(surface);
         gameStage.addActor(spaceShip);
 
@@ -145,9 +150,11 @@ public class ScreenGame extends MyScreen {
 
         gameStage.addActor(button);
         gameStage.addActor(display);
-
-        if (Gdx.input.isTouched()) spaceShipGoUP();
-        else spaceShipGoDown();
+        {
+            if (Gdx.input.isTouched()) spaceShipGoUP();
+            else spaceShipGoDown();
+            BEST_TIME=+1f;
+        }
     }
 
 
@@ -172,7 +179,9 @@ public class ScreenGame extends MyScreen {
     private void spaceShipGoDown() {
         if (!Gdx.input.isTouched()) spY -= 0.01;
         //if (spaceShip.getY() == surface.getY()) SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
+
     }
+
 
 
     private boolean mIsRunning = true;
@@ -280,19 +289,22 @@ public class ScreenGame extends MyScreen {
                 spaceShip.setBumm();
                 pause();
             }
-
+            display.setMagassag((int) spaceShip.getY());
+            display.setSebesseg((int) spaceShip.body.getLinearVelocity().len());
+            display.setTimeSlider(spaceShip.mMainRocketUsingTime);
             debugRenderer.render(world, camera.combined);
         } else {
             button.setVisible(true);
+            display.setMagassag(0);
+            display.setSebesseg(0);
+            display.setTimeSlider(spaceShip.mMainRocketUsingTime);
         }
         gameStage.act(Gdx.graphics.getDeltaTime());
         gameStage.draw();
         batch.end();
 
 
-        display.setMagassag((int) spaceShip.getY());
-        display.setSebesseg((int) spaceShip.body.getLinearVelocity().len());
-        display.setTimeSlider(spaceShip.mMainRocketUsingTime);
+
     }
 
 }
