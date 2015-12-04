@@ -37,7 +37,7 @@ public class Display extends MyActor {
     Label labelSebesseg;
     String t;
 
-    double time;
+    int time;
     int perc;
     Label labelTime;
     String stringTime;
@@ -64,8 +64,8 @@ public class Display extends MyActor {
 
 
 
-        time = 0.0;
-        stringTime = time/60.0+"";
+        time = 0;
+        stringTime ="Time: 0 : 0";
         labelTime = new Label (stringTime, MyScreen.LABEL_STYLE);
         labelTime.setPosition(10,120);
         labelTime.setFontScale(0.5f);
@@ -153,7 +153,7 @@ public class Display extends MyActor {
 
     public void setTime(int time){
         this.time = time;
-        stringTime = "Time: "+perc+" : " + this.time;
+        stringTime = "Time: "+" : " + this.time;
         if (this.time>=60){
             this.time=0;
             perc++;

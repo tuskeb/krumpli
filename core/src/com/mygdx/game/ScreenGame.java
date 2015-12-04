@@ -295,10 +295,10 @@ public class ScreenGame extends MyScreen {
             debugRenderer.render(world, camera.combined);
         } else {
             button.setVisible(true);
-            display.setMagassag(0);
+            //display.setMagassag(0); //Ezt nem kell 0-ra állítani.
             display.setSebesseg(0);
             //ActorSpaceship
-            display.setTimeSlider(spaceShip.mMainRocketUsingTime);
+            //display.setTimeSlider(spaceShip.mMainRocketUsingTime); //Utána már nincs értelme ezt is kiírni.
         }
         gameStage.act(Gdx.graphics.getDeltaTime());
         gameStage.draw();
