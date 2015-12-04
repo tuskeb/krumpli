@@ -153,7 +153,7 @@ public class Display extends MyActor {
 
     public void setTime(int time){
         this.time = time;
-        stringTime = "Time: "+perc+" : " + Math.rint(this.time/60.0*100)/100;
+        stringTime = "Time: "+perc+" : " + this.time;
         if (this.time>=60){
             this.time=0;
             perc++;
