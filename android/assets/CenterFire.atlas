@@ -12,8 +12,8 @@ repeat: none
 1
   rotate: false
   xy: 47, 162
-  size: 108, 162
-  orig: 108, 162
+  size: 108, 150
+  orig: 108, 150
   offset: 0, 0
   index: -1
 2
