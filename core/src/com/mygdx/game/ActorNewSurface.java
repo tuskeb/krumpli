@@ -24,7 +24,6 @@ public class ActorNewSurface extends MyActor {
         mLandingArea = LandingArea;
         this.world = world;
 
-
         Pixmap pix = new Pixmap((int)width, (int)height, Pixmap.Format.RGBA8888);
         pix.setColor(0x10df06ff);
         pix.fill();

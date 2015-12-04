@@ -48,7 +48,7 @@ public class ActorSpaceship extends MyActor {
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
-		bodyDef.position.x = Gdx.graphics.getWidth() - getWidth() / 2;
+		bodyDef.position.x = Gdx.graphics.getWidth() / 2 - getWidth();
 		bodyDef.position.y = Gdx.graphics.getHeight() - getHeight() / 4;
 
 
@@ -60,7 +60,7 @@ public class ActorSpaceship extends MyActor {
 		this.body.setUserData(this);
 
 		PolygonShape polygonShape = new PolygonShape();
-		polygonShape.setAsBox(50, 80);
+		polygonShape.setAsBox(50, 75, new Vector2(50,75), 0);
 
 		Fixture fix = body.createFixture(polygonShape, 50);
 		fix.setDensity(10);
@@ -138,6 +138,7 @@ public class ActorSpaceship extends MyActor {
 	@Override
 	public void setPosition(float x, float y) {
 		super.setPosition(x, y);
+
 		spriteSpaceShip.setPosition(x - getOriginX(), y - getOriginX());
 		//setOrigin(getX() + getWidth() / 2, getY() - getHeight() / 2);
 		//setOrigin(0, 0);
@@ -193,11 +194,11 @@ public class ActorSpaceship extends MyActor {
 				break;
 			case left:
 				leftRocketState = state;
-				if (leftRocketState) rightRocketState = true;
+				if (leftRocketState) rightRocketState = false;
 				break;
 			case right:
 				rightRocketState = state;
-				if (rightRocketState) leftRocketState = true;
+				if (rightRocketState) leftRocketState = false;
 				break;
 		}
 	}
@@ -210,12 +211,12 @@ public class ActorSpaceship extends MyActor {
 	public void setSmoke()
 	{
 
-		if (smoke==false)
+		if (!smoke)
 		{
 			smokeFrame=0;
 			landing.play();
+            smoke = true;
 		}
-		smoke=true;
 
 		//animationSmoke.setPlayMode(Animation.PlayMode.NORMAL);
 	}
@@ -238,8 +239,10 @@ public class ActorSpaceship extends MyActor {
 	}
 
 	public void setRocket(){
-		if(fireIsInProgress == false) fireFrame = 0;
-		fireIsInProgress=true;
+		if(!fireIsInProgress) {
+            fireFrame = 0;
+		    fireIsInProgress=true;
+        }
 	}
 
 	@Override
@@ -248,7 +251,7 @@ public class ActorSpaceship extends MyActor {
 
 		if (!bumm || textureAtlasBumm.getRegions().size / 2 > bummFrame) {
 
-			spriteSpaceShip.draw(batch, parentAlpha);
+			spriteSpaceShip.draw(batch);
 
 			if (smoke) {
 				spriteSmoke.setRegion(textureAtlasSmoke.getRegions().get(smokeFrame));
@@ -270,7 +273,7 @@ public class ActorSpaceship extends MyActor {
 
 			}
 
-			if (landingRocketState) {
+			if (landingRocketState && mMainRocketOverheatedTime == 0) {
 				spriteLandingFire.setRegion(animationLandingFire.getKeyFrame(elapsedTime, true));
 				spriteLandingFire.draw(batch);
 
@@ -313,7 +316,7 @@ public class ActorSpaceship extends MyActor {
 	public void act(float delta) {
 
 		final float elapsedTime = Gdx.graphics.getDeltaTime();
-		setRotation((float) Math.toDegrees(body.getAngle()));
+		//setRotation((float) Math.toDegrees(body.getAngle()));
 
 		if (landingRocketState && mMainRocketOverheatedTime == 0) { // be van kapcsolva a rakéta, és nincs túlmelegedve
 			mMainRocketUsingTime += elapsedTime;
@@ -333,8 +336,9 @@ public class ActorSpaceship extends MyActor {
                 Gdx.app.log("Rocket", "Lehűlt");
 			}
 
-		}
-
+		} else {
+            mMainRocketUsingTime = 0;
+        }
 
 		if (leftRocketState) {
 			body.applyForceToCenter(2e7f, 0, false);
@@ -343,7 +347,7 @@ public class ActorSpaceship extends MyActor {
 		}
 
 		final Vector2 pos = body.getPosition();
-		setPosition(pos.x, pos.y);
+        setPosition(pos.x, pos.y);
 
 
 	}
