@@ -37,7 +37,7 @@ public class ScreenHelp extends MyScreen{
         stage.addActor(b);
         batch=new SpriteBatch();
         TABLE_NEVERMIND = new Label("A JÁTÉK MENETE:", MyScreen.LABEL_STYLE);
-        TABLE_SZOVEG1 = new Label("Az Új játék gombot megérintve indul el a játék.\n Ha képernyőt megérintjük, akkor az űrhajó rakétái bekapcsolnak,\n így szabályozva az űrhajó sebességét és magasságát.\nHa az űrhajó rakétái túl melegednek (ezt egy csík jelzi a képernyőn),\nakkor azok leállnak 3 másodpercig.\n Ha túl gyorsan száll le a talajra az űrhajó, akkor felrobban.", MyScreen.LABEL_STYLE2);
+        TABLE_SZOVEG1 = new Label("Az Új játék gombot megérintve indul el a játék.\n Ha képernyőt megérintjük, akkor az űrhajó rakétái bekapcsolnak,\n így szabályozva az űrhajó sebességét és magasságát.\nHa az űrhajó rakétái túlmelegednek (ezt egy csík jelzi a képernyőn),\nakkor azok leállnak 3 másodpercig.\n Az űrhajó a készülék döntésével kormányozható.\nHa 10 m/s-nél gyorsabban száll le a talajra az űrhajó, akkor felrobban.\nA sziklára kell letenni, a sajt nem biztonságos!", MyScreen.LABEL_STYLE2);
         TABLE_NEVERMIND2 = new Label("PROGRAMOZÓK: ", MyScreen.LABEL_STYLE); //30 kar
         TABLE_SZOVEG2 = new Label("Horváth Bálint\t - \tKönyves Bálint\n Rácz Krisztián\t - \tRuszin Dániel \n Felkészítő tanár: Tüske Balázs", MyScreen.LABEL_STYLE2);
         TABLE_SZOVEG1.setAlignment(Align.center);

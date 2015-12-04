@@ -65,7 +65,7 @@ public class Display extends MyActor {
 
 
         time = 0;
-        stringTime ="Time: 0 : 0";
+        stringTime ="Ido: -";
         labelTime = new Label (stringTime, MyScreen.LABEL_STYLE);
         labelTime.setPosition(10,120);
         labelTime.setFontScale(0.5f);
@@ -129,7 +129,7 @@ public class Display extends MyActor {
     }
 
     public void setMagassag(int magassag) {
-        s = "Magasság: "+magassag;
+        s = "Magasság: "+magassag + " m";
         labelMagassag.setText(s);
         this.magassag = magassag;
     }
@@ -139,7 +139,7 @@ public class Display extends MyActor {
     }
 
     public void setSebesseg(int sebesseg) {
-        s = "Sebesség: "+sebesseg;
+        s = "Sebesség: "+sebesseg + " m/s";
         labelSebesseg.setText(s);
         this.sebesseg = sebesseg;
     }
@@ -153,11 +153,7 @@ public class Display extends MyActor {
 
     public void setTime(int time){
         this.time = time;
-        stringTime = "Time: "+" : " + this.time;
-        if (this.time>=60){
-            this.time=0;
-            perc++;
-        }
+        stringTime = "Ido: " + this.time + " s";
         labelTime.setText(stringTime);
     }
 

@@ -28,8 +28,8 @@ public class ScreenEasterEggs extends MyScreen {
             stage.addActor(b);
             batch=new SpriteBatch();
             TABLE_NEVERMIND = new Label ("TITKOS FUNKCIÓK", MyScreen.LABEL_STYLE_TOP);
-            TABLE_SZOVEG1 = new Label ("Ha 4 ujjal megérinted a képernyőt, \nakkor az űrhajó felrobban!", MyScreen.LABEL_STYLE2);
-            TABLE_SZOVEG2 = new Label("Tudod mozgatni az űrhajót!", MyScreen.LABEL_STYLE2);
+            TABLE_SZOVEG1 = new Label ("Ha 4 ujjal megérinted a képernyőt, \nakkor az űrhajó felrobban a menüben!", MyScreen.LABEL_STYLE2);
+            TABLE_SZOVEG2 = new Label("Tudod mozgatni az űrhajót a menüben!\nHa hozzácsapod a képernyő aljához, por száll fel!", MyScreen.LABEL_STYLE2);
             TABLE_SZOVEG3 = new Label("Az eszköz döntésével mozgathatók a csillagok!", MyScreen.LABEL_STYLE2);
             TABLE_SZOVEG1.setAlignment(Align.center);
             TABLE_SZOVEG2.setAlignment(Align.center);

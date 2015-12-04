@@ -26,7 +26,7 @@ public class ScreenMenu extends MyScreen {
     final Music s = Gdx.audio.newMusic(Gdx.files.internal("moonlightshadow.mp3"));
 
     private Display display;
-
+    ActorMenuSpaceShip spaceship;
     public ScreenMenu() {
         super();
 
@@ -53,7 +53,7 @@ public class ScreenMenu extends MyScreen {
         actorBackground.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.addActor(actorBackground);
 
-        ActorMenuSpaceShip spaceship = new ActorMenuSpaceShip();
+        spaceship = new ActorMenuSpaceShip();
         spaceship.setSize(150, 250);
         spaceship.setPosition(Gdx.graphics.getWidth() - spaceship.getWidth() * 4, Gdx.graphics.getHeight() - spaceship.getHeight() / 2);
         stage.addActor(spaceship);
@@ -146,9 +146,14 @@ public class ScreenMenu extends MyScreen {
 
     @Override
     public void show() {
+        if(spaceship.getBumm())
+        {
+            spaceship.setRepair();
+        }
         Gdx.input.setInputProcessor(stage);
         s.setVolume(0.5f);
         s.play();
+
         s.setLooping(true);
     }
 
