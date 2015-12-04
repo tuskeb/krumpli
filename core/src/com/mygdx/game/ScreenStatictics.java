@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,6 +25,8 @@ public class ScreenStatictics extends MyScreen{
     private Skin skin;
     private Stage stage;
     private Label SZOVEG1, SZOVEG2, SZOVEG3, SZOVEG4, SZOVEG5, SZOVEG6, SZOVEG7, SZOVEG8, SZOVEG9, SZOVEG10;
+    final Music s = Gdx.audio.newMusic(Gdx.files.internal("Paperboy.mp3"));
+
     final Sound click_back = Gdx.audio.newSound(Gdx.files.internal("Sound/click_sound_back.mp3"));
     ScreenStatictics(){
         super();
@@ -38,22 +41,22 @@ public class ScreenStatictics extends MyScreen{
         table.setFillParent(true);
         stage.addActor(table);
 
-        SZOVEG1 = new Label("LEGJOBB PONT    \t\t\t", MyScreen.LABEL_STYLE);
+        SZOVEG1 = new Label("Legjobb idő: ", MyScreen.LABEL_STYLE);
 
         table.add(SZOVEG1);
 
-        SZOVEG2 = new Label("LEGJOBB FUTAM", MyScreen.LABEL_STYLE);
+/*        SZOVEG2 = new Label("LEGJOBB FUTAM", MyScreen.LABEL_STYLE);
 
-        table.add(SZOVEG2);
+        table.add(SZOVEG2);*/
         table.row();
 
         SZOVEG3 = new Label(ScreenGame.WIN_POINT+"\t\t\t", MyScreen.LABEL_STYLE);
 
         table.add(SZOVEG3);
-
+/*
         SZOVEG4 = new Label(ScreenGame.BEST_TIME+"", MyScreen.LABEL_STYLE);
 
-        table.add(SZOVEG4);
+        table.add(SZOVEG4);*/
         table.row();
 
 
@@ -73,7 +76,19 @@ public class ScreenStatictics extends MyScreen{
     }
 
     @Override
+    public void hide() {
+        super.hide();
+        s.pause();
+    }
+
+
+
+    @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
+        s.setVolume(0.5f);
+        s.play();
+        s.setLooping(true);
         Gdx.input.setInputProcessor(new InputProcessor() {
             @Override
             public boolean keyDown(int keycode) {

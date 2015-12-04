@@ -149,6 +149,7 @@ public class ScreenMenu extends MyScreen {
         Gdx.input.setInputProcessor(stage);
         s.setVolume(0.5f);
         s.play();
+        s.setLooping(true);
     }
 
 

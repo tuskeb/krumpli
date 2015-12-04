@@ -26,6 +26,8 @@ public class ActorSpaceship extends MyActor {
 	static boolean bumm=false;
 
 
+
+
 	TextureRegion textureSpaceShip;
 	Sprite spriteSpaceShip;
 	Sprite spriteLeftFire, spriteRightFire, spriteLandingFire, spriteSmoke, spriteBumm, spriteOverHeating;
@@ -34,6 +36,7 @@ public class ActorSpaceship extends MyActor {
 	final Sound overheating_alarm = Gdx.audio.newSound(Gdx.files.internal("overheating_alarm.wav"));
 	final Sound bumm_sound = Gdx.audio.newSound(Gdx.files.internal("Sound/bumm_sound.mp3"));
 	final Sound landing = Gdx.audio.newSound(Gdx.files.internal("Sound/landing.mp3"));
+	final Sound rocket = Gdx.audio.newSound(Gdx.files.internal("rocket_sound.wav"));
 
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
@@ -60,7 +63,7 @@ public class ActorSpaceship extends MyActor {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.x = Gdx.graphics.getWidth() / 2 - getWidth();
-		bodyDef.position.y = Gdx.graphics.getHeight() - getHeight() / 4;
+		bodyDef.position.y = Gdx.graphics.getHeight() - 160;
 
 
 		//bodyDef.linearDamping = .1f;
@@ -204,7 +207,22 @@ public class ActorSpaceship extends MyActor {
 
 	public enum RocketType {landing, left, right}
 
+
+	public boolean vRocket=false;
 	public void setRocketState(RocketType type, boolean state) {
+		if (state)
+		{
+			if (vRocket==false) {
+				rocket.play();
+			}
+		}
+		else
+		{
+			if (vRocket==true) {
+				//rocket.pause();
+			}
+		}
+		vRocket=state;
 		switch (type) {
 			case landing:
 				landingRocketState = state;
@@ -355,11 +373,12 @@ public class ActorSpaceship extends MyActor {
 			if (mMainRocketOverheatedTime < 0) {
 				mMainRocketOverheatedTime = 0;
                 mMainRocketUsingTime = 0;
-				overHeating=false;
+
                 Gdx.app.log("Rocket", "Lehűlt");
 			}
 
 		} else {
+			overHeating=false;
 			if (mMainRocketUsingTime>=0)
             	mMainRocketUsingTime -= elapsedTime;
         }

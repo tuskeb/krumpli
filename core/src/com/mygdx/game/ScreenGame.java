@@ -101,8 +101,8 @@ public class ScreenGame extends MyScreen {
     private TextButton button;
     private  Label END_GAME;
     final Music s = Gdx.audio.newMusic(Gdx.files.internal("game_theme_min.mp3"));
-
-    static float WIN_POINT, BEST_TIME;
+    public float flyingStartTime=0;
+    public static float WIN_POINT;
 /*
 
 
@@ -115,7 +115,7 @@ public class ScreenGame extends MyScreen {
 
     public ScreenGame() {
         super();
-
+        flyingStartTime +=mElapsedTime;
         spaceShip.setSize(100, 150);
         spaceShip.setPosition(Gdx.graphics.getWidth() - spaceShip.getWidth() / 2,
                 Gdx.graphics.getHeight());
@@ -129,9 +129,9 @@ public class ScreenGame extends MyScreen {
                 click.play();
             }
         });
-
+        ActorBackground actorBackground = new ActorBackground();
         gameStage.addActor(space);
-        //gameStage.addActor(surface);
+        gameStage.addActor(actorBackground);
         gameStage.addActor(spaceShip);
 
         boolean landingArea=false;
@@ -161,7 +161,7 @@ public class ScreenGame extends MyScreen {
         {
             if (Gdx.input.isTouched()) spaceShipGoUP();
             else spaceShipGoDown();
-            BEST_TIME=+1f;
+            //BEST_TIME=+1f;
         }
     }
 
@@ -179,8 +179,14 @@ public class ScreenGame extends MyScreen {
             }
             if (Gdx.input.isTouched()) time++;
             if (Gdx.input.getAccelerometerX() > 0) spX += 0.1;
-            if (spX == Gdx.graphics.getWidth() || spY == Gdx.graphics.getHeight())
+            /*
+            if (spX == Gdx.graphics.getWidth() || spY == Gdx.graphics.getHeight()) {
                 ActorSpaceship.bumm = true;
+            }
+            */
+            if (spX-spaceShip.getWidth() >= Gdx.graphics.getWidth() || spY-spaceShip.getHeight() >= Gdx.graphics.getHeight() || spX<=0) {
+                ActorSpaceship.bumm = true;
+            }
         } while (time == 0);
     }
 
@@ -203,6 +209,7 @@ public class ScreenGame extends MyScreen {
     }
 
     public void resume() {
+        flyingStartTime =mElapsedTime;
         if (mIsRunning) return;
         mIsRunning = true;
 
@@ -211,6 +218,7 @@ public class ScreenGame extends MyScreen {
     @Override
     public void show() {
         s.play();
+        s.setLooping(true);
         s.setVolume(0.5f);
         Gdx.input.setInputProcessor(new InputProcessor() {
             @Override
@@ -295,10 +303,11 @@ public class ScreenGame extends MyScreen {
 
             // kiértünk a képernyőn kívülre
             final Vector2 pos = spaceShip.body.getPosition();
-            if(pos.x < 0 || pos.x > Gdx.graphics.getWidth()) {
+            if(pos.x < 0 || pos.x > Gdx.graphics.getWidth()-spaceShip.getWidth() || Gdx.graphics.getHeight()<pos.y+spaceShip.getHeight()) {
                 spaceShip.setBumm();
                 pause();
             }
+            display.setTime((int)(mElapsedTime-flyingStartTime));
             display.setMagassag((int) spaceShip.getY());
             display.setSebesseg((int) (spaceShip.body.getLinearVelocity().len()/3));
             display.setTimeSlider(spaceShip.mMainRocketUsingTime);
@@ -319,7 +328,7 @@ public class ScreenGame extends MyScreen {
         gameStage.act(Gdx.graphics.getDeltaTime());
         gameStage.draw();
         camera.update();
-        debugger.render( world, camera.combined);
+        //debugger.render( world, camera.combined);
 
         batch.end();
 

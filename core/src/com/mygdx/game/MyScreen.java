@@ -129,7 +129,7 @@ public class MyScreen implements Screen {
 	protected final OrthographicCamera camera;
 	protected final Viewport viewport;
 	protected final SpriteBatch batch;
-	//protected float mElapsedTime = 0;
+	protected float mElapsedTime = 0;
 
 	public MyScreen() {
 		batch = new SpriteBatch();
@@ -149,7 +149,7 @@ public class MyScreen implements Screen {
 	public void render(float delta) {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
-
+		mElapsedTime += Gdx.graphics.getDeltaTime();
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
