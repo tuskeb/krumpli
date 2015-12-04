@@ -24,6 +24,9 @@ public class Display extends MyActor {
     Texture img2;
     Sprite sprite2;
 
+    /*Texture moon;
+    Sprite spriteMoon;*/
+
     float mTimeSlider =0;
 
     int magassag;
@@ -70,21 +73,28 @@ public class Display extends MyActor {
         //labelSebesseg.setSize(10, 10);
         labelSebesseg.setFontScale(0.5f);
 
+        /*moon = new Texture("Felszin.png");
+        spriteMoon = new Sprite(moon);
+        spriteMoon.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        spriteMoon.setPosition(0,0);*/
+
 
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        sprite1.draw(batch, 100000000000f);
+        sprite1.draw(batch, 1f);
 
         super.draw(batch, parentAlpha);
         sprite.draw(batch);
 
-        sprite2.draw(batch, 100000000000f);
+        sprite2.draw(batch, 1f);
 
         labelMagassag.draw(batch, 100f);
         magassag();
         labelSebesseg.draw(batch, 100f);
+
+        //spriteMoon.draw(batch, 1f);
 
     }
 

@@ -337,7 +337,8 @@ public class ActorSpaceship extends MyActor {
 			}
 
 		} else {
-            mMainRocketUsingTime = 0;
+			if (mMainRocketUsingTime>=0)
+            	mMainRocketUsingTime -= elapsedTime;
         }
 
 		if (leftRocketState) {
