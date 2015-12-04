@@ -148,7 +148,7 @@ public class Display extends MyActor {
         /*if(magassag>=0)
         magassag-=1;
         s = "Magasság: "+magassag;
-        labelMagassag.setText(s);*/
+        labelMagassag.setText(s);*/ //
     }
 
     public void setTime(int time){
