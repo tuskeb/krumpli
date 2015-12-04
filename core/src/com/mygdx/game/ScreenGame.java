@@ -108,6 +108,9 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
         super();
 
         spaceShip.setSize(100, 150);
+        spaceShip.setPosition(Gdx.graphics.getWidth() - spaceShip.getWidth() / 2,
+                Gdx.graphics.getHeight());
+
 
         button = new TextButton("START/RESUME", MyScreen.TEXT_BUTTON_STYLE);
         button.addListener(new ClickListener() {
