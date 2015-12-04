@@ -40,12 +40,23 @@ public class ActorSpaceship extends MyActor {
 	private float mMainRocketOverheatedTime = 0;
 	public float mMainRocketUsingTime = 0;
 
-	final Body body;
+	Body body;
 	final World world;
 
-	ActorSpaceship(World world) {
-		this.world = world;
+	public void reset()
+	{
+		world.destroyBody(body);
+		setRepair();
+		createBody();
+	}
 
+	public boolean isBumming()
+	{
+		return bummFrame==0;
+	}
+
+	void createBody()
+	{
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.x = Gdx.graphics.getWidth() / 2 - getWidth();
@@ -56,7 +67,7 @@ public class ActorSpaceship extends MyActor {
 		//bodyDef.angularDamping = .5f;
 
 		this.body = this.world.createBody(bodyDef);
-        this.body.setFixedRotation(true);
+		this.body.setFixedRotation(true);
 		this.body.setUserData(this);
 
 		PolygonShape polygonShape = new PolygonShape();
@@ -67,6 +78,12 @@ public class ActorSpaceship extends MyActor {
 		fix.setFriction(2f);
 
 		polygonShape.dispose();
+	}
+
+	ActorSpaceship(World world) {
+		this.world = world;
+
+		createBody();
 
 		//Több képet tartalmazó PNG feldarabolása és betöltése
 		//textureFire = new TextureAtlas(Gdx.files.internal("fireanimation.atlas"));

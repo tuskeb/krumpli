@@ -46,7 +46,7 @@ public class ScreenGame extends MyScreen {
                 if (bodyA.getUserData() instanceof ActorNewSurface && bodyB.getUserData() instanceof ActorSpaceship) {
                     surface = (ActorNewSurface) bodyA.getUserData();
                     spaceship = (ActorSpaceship) bodyB.getUserData();
-                    if (surface.mLandingArea && spaceShip.body.getLinearVelocity().len() < 10f) {
+                    if (surface.mLandingArea && spaceShip.body.getLinearVelocity().len() < 30f) {
                         SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
                     } else {
                         spaceship.setBumm();
@@ -58,7 +58,7 @@ public class ScreenGame extends MyScreen {
                     surface = (ActorNewSurface) bodyB.getUserData();
                     spaceship = (ActorSpaceship) bodyA.getUserData();
 
-                    if (surface.mLandingArea && spaceShip.body.getLinearVelocity().len() < 10f) {
+                    if (surface.mLandingArea && spaceShip.body.getLinearVelocity().len() < 30f) {
                         SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
                     } else {
                         spaceship.setBumm();
@@ -132,8 +132,9 @@ public class ScreenGame extends MyScreen {
         //gameStage.addActor(surface);
         gameStage.addActor(spaceShip);
 
-        boolean landingArea = false;
+        boolean landingArea=false;
         int x = 0;
+        float egyseg=Gdx.graphics.getWidth()/6;
         do {
             float width, height;
             if (Math.random() < .3) {
@@ -141,6 +142,7 @@ public class ScreenGame extends MyScreen {
             } else {
                 width = 20 + (float) Math.random() * 60;
             }
+            landingArea = (x>egyseg*2 && x<egyseg*3) || (x>egyseg*4 && x<egyseg*5);
             height = 30 + (float) Math.random() * 150;
             gameStage.addActor(new ActorNewSurface(world, width, height, x, landingArea));
             x += width;
@@ -177,7 +179,9 @@ public class ScreenGame extends MyScreen {
     }
 
     private void spaceShipGoDown() {
-        if (!Gdx.input.isTouched()) spY -= 0.01;
+        if (mIsRunning) {
+            if (!Gdx.input.isTouched()) spY -= 0.01;
+        }
         //if (spaceShip.getY() == surface.getY()) SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
 
     }
@@ -290,7 +294,7 @@ public class ScreenGame extends MyScreen {
                 pause();
             }
             display.setMagassag((int) spaceShip.getY());
-            display.setSebesseg((int) spaceShip.body.getLinearVelocity().len());
+            display.setSebesseg((int) (spaceShip.body.getLinearVelocity().len()/3));
             display.setTimeSlider(spaceShip.mMainRocketUsingTime);
             debugRenderer.render(world, camera.combined);
         } else {
@@ -298,6 +302,13 @@ public class ScreenGame extends MyScreen {
             display.setMagassag(0);
             display.setSebesseg(0);
             display.setTimeSlider(spaceShip.mMainRocketUsingTime);
+            if (spaceShip.isBumming()==false) {
+                if (Gdx.input.isTouched()) {
+
+                    resume();
+                    spaceShip.reset();
+                }
+            }
         }
         gameStage.act(Gdx.graphics.getDeltaTime());
         gameStage.draw();
