@@ -68,17 +68,18 @@ public class ActorNewSurface extends MyActor {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.x = x;
+        bodyDef.position.x = x+width/2;
         bodyDef.position.y = 0;
         sprite.setPosition(x,0f);
         sprite.setSize(width,height);
         setX(x);
 
         this.body = this.world.createBody(bodyDef);
+        this.body.setFixedRotation(true);
         this.body.setUserData(this);
 
         PolygonShape polygonShape = new PolygonShape();
-        polygonShape.setAsBox(width, height);
+        polygonShape.setAsBox(width/2, height);
 
         Fixture fix = body.createFixture(polygonShape, 0);
 

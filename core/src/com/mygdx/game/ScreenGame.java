@@ -29,6 +29,7 @@ import java.awt.Color;
  */
 public class ScreenGame extends MyScreen {
 
+
     // https://github.com/libgdx/libgdx/wiki/A-simple-game
     // http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
     Box2DDebugRenderer	debugger = new Box2DDebugRenderer();
@@ -145,6 +146,10 @@ public class ScreenGame extends MyScreen {
             }
             landingArea = (x>egyseg*2 && x<egyseg*3) || (x>egyseg*4 && x<egyseg*5);
             height = 30 + (float) Math.random() * 150;
+            if (landingArea)
+            {
+                width=130;
+            }
             gameStage.addActor(new ActorNewSurface(world, width, height, x, landingArea));
             x += width;
 

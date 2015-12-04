@@ -342,6 +342,11 @@ public class ActorSpaceship extends MyActor {
 
 			if (mMainRocketUsingTime > 2) { // többet használtuk, mint 2 másodperc
 				mMainRocketOverheatedTime = 3;
+				if (overHeating==false) {
+					overheating_alarm.play(0.4f);
+				}
+				overHeating = true;
+
                 Gdx.app.log("Rocket", "Felmelegedett");
 			}
 
@@ -350,6 +355,7 @@ public class ActorSpaceship extends MyActor {
 			if (mMainRocketOverheatedTime < 0) {
 				mMainRocketOverheatedTime = 0;
                 mMainRocketUsingTime = 0;
+				overHeating=false;
                 Gdx.app.log("Rocket", "Lehűlt");
 			}
 
