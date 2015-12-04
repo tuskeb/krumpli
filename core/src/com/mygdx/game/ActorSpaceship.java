@@ -98,7 +98,7 @@ public class ActorSpaceship extends MyActor {
 
 		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//EZ VOLNA A TOVÁBBI MUNKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//spriteRightFire = new Sprite(new Texture("Ball.png"));
+
 
 		spriteLandingFire = new Sprite(animationLandingFire.getKeyFrame(0, true));
 

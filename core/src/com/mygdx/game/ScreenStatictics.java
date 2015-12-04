@@ -41,7 +41,7 @@ public class ScreenStatictics extends MyScreen{
         table.setFillParent(true);
         stage.addActor(table);
 
-        SZOVEG1 = new Label("LEGJOBB PONT\t\t\t", MyScreen.LABEL_STYLE);
+        SZOVEG1 = new Label("LEGJOBB PONT    \t\t\t", MyScreen.LABEL_STYLE);
 
         table.add(SZOVEG1);
 

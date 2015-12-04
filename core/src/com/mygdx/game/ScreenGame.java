@@ -119,12 +119,13 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mIsRunning = true;
+                SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
                 click.play();
             }
         });
+        button.setPosition(Gdx.graphics.getWidth()*(float)0.5, Gdx.graphics.getHeight()*(float)0.5);
 
-        //gameStage.addActor(space);
+        gameStage.addActor(space);
         gameStage.addActor(surface);
         gameStage.addActor(spaceShip);
         gameStage.addActor(button);
@@ -216,11 +217,13 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                gameStage.touchDown(screenX, screenY, pointer, button);
                 return false;
             }
 
             @Override
             public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+                gameStage.touchUp(screenX, screenY, pointer, button);
                 return false;
             }
 
