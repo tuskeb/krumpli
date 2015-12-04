@@ -161,7 +161,7 @@ public class ScreenGame extends MyScreen {
             } else {
                 width = 20 + (float) Math.random() * 60;
             }
-            landingArea = (x>egyseg*3 && x<egyseg*4) || (x>egyseg*7 && x<egyseg*8);
+            landingArea = (x>egyseg*2 && x<egyseg*3) || (x>egyseg*7 && x<egyseg*9);
             height = 30 + (float) Math.random() * 150;
             if (landingArea)
             {
