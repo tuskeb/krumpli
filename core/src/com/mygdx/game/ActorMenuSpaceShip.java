@@ -9,20 +9,30 @@ public class ActorMenuSpaceShip extends ActorSpaceship {
     private float toX=-1, toY=-1;
     public ActorMenuSpaceShip() {
         super(new World(new Vector2(0, 0), true));
-        setRocketState(RocketType.landing, true);
-        setRocketState(RocketType.left,true);
-        setRocketState(RocketType.right, true);
+        setRocketState(true);
+    }
+
+    public void setRocketState(boolean state) {
+        leftRocketState=state;
+        rightRocketState=state;
+        landingRocketState=state;
     }
 
     private float i;
     @Override
     public void act(float delta) {
         if (!getBumm()) {
+
             if (Gdx.input.isTouched(3)) {
                 setBumm();
 
             }
-
+/*            if (getBumm())
+            {
+                if (Gdx.input.isTouched(1)) {
+                    setRepair();
+                }
+            }*/
             if (Gdx.input.isTouched()) {
                 toX = Gdx.input.getX() - getWidth() / 2;
                 toY = Gdx.graphics.getHeight() - Gdx.input.getY() - getHeight() / 2;
