@@ -54,7 +54,7 @@ public class ActorSurface extends Actor {
 		this.body = this.world.createBody(bodyDef);
 
 		Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-		pix.setColor(0x222222FF); // DE is red, AD is green and BE is blue.
+		pix.setColor(Color.GRAY); // DE is red, AD is green and BE is blue.
 		pix.fill();
 		textureSolid = new Texture(pix);
 

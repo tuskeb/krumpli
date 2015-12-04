@@ -119,7 +119,7 @@ public class ScreenMenu extends MyScreen {
         table.row().height(ROW_HEIGHT);
         table.add(button);
 
-
+        s.loop();
 
 
 

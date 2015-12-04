@@ -19,7 +19,7 @@ public class ScreenEasterEggs extends MyScreen {
     private Skin skin;
     private Stage stage;
     private Table table;
-    private Label TABLE_NEVERMIND, TABLE_SZOVEG1;
+    private Label TABLE_NEVERMIND, TABLE_SZOVEG1, TABLE_SZOVEG2;
     ScreenEasterEggs(){
             super();
             stage = new Stage();
@@ -29,6 +29,7 @@ public class ScreenEasterEggs extends MyScreen {
             batch=new SpriteBatch();
             TABLE_NEVERMIND = new Label ("TITKOS FUNKCIÓK", MyScreen.LABEL_STYLE_TOP);
             TABLE_SZOVEG1 = new Label ("Ha 4 ujjal megérinted a képernyőt, \nakkor az űrhajó felrobban!", MyScreen.LABEL_STYLE2);
+            TABLE_SZOVEG2 = new Label("Tudod mozgatni az űrhajót!", MyScreen.LABEL_STYLE2);
 
 
             table = new Table();
@@ -40,6 +41,7 @@ public class ScreenEasterEggs extends MyScreen {
             table.row().pad(ScreenHelp.PUDING);
             table.add(TABLE_SZOVEG1);
             table.row();
+            table.add(TABLE_SZOVEG2);
 
         }
 

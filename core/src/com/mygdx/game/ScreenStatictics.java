@@ -41,11 +41,6 @@ public class ScreenStatictics extends MyScreen{
         table.setFillParent(true);
         stage.addActor(table);
 
-        Label label = new Label("REKORD", MyScreen.LABEL_STYLE_TOP);
-        label.setAlignment(Align.top, Align.center);
-        table.add(label).width(500f).height(130f);
-        table.row();
-
         SZOVEG1 = new Label("LEGJOBB PONT\t\t\t", MyScreen.LABEL_STYLE);
 
         table.add(SZOVEG1);

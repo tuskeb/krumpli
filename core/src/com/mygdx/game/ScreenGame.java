@@ -5,13 +5,23 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+import java.awt.image.PixelGrabber;
 
 /**
  * A játék képernyője
@@ -31,7 +41,11 @@ public class ScreenGame extends MyScreen {
 	private ActorSpaceship spaceShip = new ActorSpaceship(world);
 	private ActorSurface surface = new ActorSurface(world);
 	private ActorBackground space = new ActorBackground();
+	private final SpriteBatch batch = new SpriteBatch();
+	private FixtureDef def = new FixtureDef();
 	private TextButton button;
+	private Texture little_earth;
+	private Label WIN = new Label("JÁTÉK VÉGE", MyScreen.LABEL_STYLE_TOP);
 	static float WIN_POINT, BEST_TIME;
 /*
 
@@ -43,9 +57,13 @@ public class ScreenGame extends MyScreen {
 	final Sound click_back = Gdx.audio.newSound(Gdx.files.internal("Sound/click_sound_back.mp3"));
 	public ScreenGame() {
 		super();
+		little_earth = new Texture(Gdx.files.internal("littleEarth.png"));
+
 		gameStage.addActor(space);
-		gameStage.addActor(spaceShip); spaceShip.setPosition(Gdx.graphics.getWidth() - spaceShip.getWidth() * 4, Gdx.graphics.getHeight() - spaceShip.getHeight() / 2); spaceShip.setSize(150, 250);
+		spaceShip.setPosition(Gdx.graphics.getWidth() - spaceShip.getWidth() * 4, Gdx.graphics.getHeight() - spaceShip.getHeight() / 2); spaceShip.setSize(150, 250);
+		gameStage.addActor(spaceShip);
 		gameStage.addActor(surface);
+
 
 		button = new TextButton("START/RESUME", MyScreen.TEXT_BUTTON_STYLE);
 		button.addListener(new ClickListener() {
@@ -74,11 +92,17 @@ public class ScreenGame extends MyScreen {
 			if(Gdx.input.getAccelerometerX()> 0) spX+=0.1;
 			if(spX == Gdx.graphics.getWidth() || spY == Gdx.graphics.getHeight()) ActorSpaceship.bumm = true;
 		}while (time==0);
-	}
 
+	}
+ private boolean isEnd = false;
 	private void spaceShipGoDown(){
 		if(!Gdx.input.isTouched()) spY-=0.01;
-		if(spaceShip.getY() == surface.getY()) SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
+		if(spaceShip.getY() == surface.getY()) {
+			BEST_TIME = 10;
+			WIN_POINT = 10;
+			if(isEnd) if (isEnd) WIN.draw(batch, 100); SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
+		}
+
 	}
 
 
@@ -157,8 +181,9 @@ public class ScreenGame extends MyScreen {
 	}
 
 
-	@Override
+ 	@Override
 	public void render(float delta) {
+
 		super.render(delta);
 
 		if(mIsRunning) {

@@ -200,6 +200,8 @@ public class ActorSpaceship extends MyActor {
 		}
 	}
 
+
+
 	// http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
 
 
@@ -244,7 +246,7 @@ public class ActorSpaceship extends MyActor {
 
 		if (!bumm || textureAtlasBumm.getRegions().size / 2 > bummFrame) {
 
-			spriteSpaceShip.draw(batch);
+			spriteSpaceShip.draw(batch, parentAlpha);
 
 			if (smoke) {
 				spriteSmoke.setRegion(textureAtlasSmoke.getRegions().get(smokeFrame));
