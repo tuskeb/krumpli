@@ -63,7 +63,7 @@ public class ActorNewSurface extends MyActor {
             }
         }
         textureSolid = new Texture(pix);
-       // textureSolid = new Texture(pix2);
+        // textureSolid = new Texture(pix2);
         //pix2.dispose();
 
         BodyDef bodyDef = new BodyDef();
