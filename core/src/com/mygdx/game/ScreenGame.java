@@ -43,7 +43,7 @@ public class ScreenGame extends MyScreen {
                     surface = (ActorNewSurface) bodyA.getUserData();
                     spaceship = (ActorSpaceship) bodyB.getUserData();
                     if (surface.mLandingArea && spaceShip.body.getLinearVelocity().len() < 10f) {
-SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
+                        SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
                     } else {
                         spaceship.setBumm();
                     }
@@ -91,7 +91,6 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
 
 
     private ActorSpaceship spaceShip = new ActorSpaceship(world);
-    private ActorSurface surface = new ActorSurface(world);
     private ActorBackground space = new ActorBackground();
     private TextButton button;
     final Music s = Gdx.audio.newMusic(Gdx.files.internal("game_theme_min.mp3"));
@@ -115,20 +114,18 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
                 Gdx.graphics.getHeight());
 
 
-        button = new TextButton("START/RESUME", MyScreen.TEXT_BUTTON_STYLE);
+        button = new TextButton("Indítás", MyScreen.TEXT_BUTTON_STYLE);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mIsRunning = true;
+                resume();
                 click.play();
             }
         });
 
-        //gameStage.addActor(space);
-        gameStage.addActor(surface);
+       // gameStage.addActor(space);
+        //gameStage.addActor(surface);
         gameStage.addActor(spaceShip);
-        gameStage.addActor(button);
-        gameStage.addActor(display);
 
         boolean landingArea = false;
         int x = 0;
@@ -142,7 +139,12 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
             height = 30 + (float) Math.random() * 150;
             gameStage.addActor(new ActorNewSurface(world, width, height, x, landingArea));
             x += width;
+
         } while (x < Gdx.graphics.getWidth());
+
+
+        gameStage.addActor(button);
+        gameStage.addActor(display);
 
         if (Gdx.input.isTouched()) spaceShipGoUP();
         else spaceShipGoDown();
@@ -169,7 +171,7 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
 
     private void spaceShipGoDown() {
         if (!Gdx.input.isTouched()) spY -= 0.01;
-        if (spaceShip.getY() == surface.getY()) SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
+        //if (spaceShip.getY() == surface.getY()) SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
     }
 
 
@@ -216,12 +218,14 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                return false;
+                spaceShip.setRocketState(ActorSpaceship.RocketType.landing, true);
+                return true;
             }
 
             @Override
             public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-                return false;
+                spaceShip.setRocketState(ActorSpaceship.RocketType.landing, false);
+                return true;
             }
 
             @Override
@@ -249,16 +253,13 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
         pause();
     }
 
-
     @Override
     public void render(float delta) {
         super.render(delta);
 
         batch.begin();
 
-
         if (mIsRunning) {
-
             button.setVisible(false);
             float accelY = Gdx.input.getAccelerometerY();
             if (accelY > 2) {
@@ -272,6 +273,13 @@ SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
 
             world.step(delta, 1, 1);
             gameStage.act(delta);
+
+            // kiértünk a képernyőn kívülre
+            final Vector2 pos = spaceShip.body.getPosition();
+            if(pos.x < 0 || pos.x > Gdx.graphics.getWidth()) {
+                spaceShip.setBumm();
+                pause();
+            }
 
             debugRenderer.render(world, camera.combined);
         } else {
