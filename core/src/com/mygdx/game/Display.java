@@ -54,7 +54,7 @@ public class Display extends MyActor {
         sprite.setSize(350, 28);
         sprite.setPosition(Gdx.graphics.getWidth()/86, Gdx.graphics.getHeight()/58);
 
-        magassag = -1235792983;
+        magassag = 0;
         s = "Magasság: "+magassag;
 
         labelMagassag = new Label(s, MyScreen.LABEL_STYLE);
