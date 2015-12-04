@@ -38,7 +38,7 @@ public class ActorSpaceship extends MyActor {
 	private final float LANDING_ROCKET_POWER = 40, SIDE_ROCKET_POWER = 10;
 
 	private float mMainRocketOverheatedTime = 0;
-	private float mMainRocketUsingTime = 0;
+	public float mMainRocketUsingTime = 0;
 
 	final Body body;
 	final World world;
@@ -48,14 +48,16 @@ public class ActorSpaceship extends MyActor {
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
-		bodyDef.position.x = Gdx.graphics.getWidth() / 2;
-		bodyDef.position.y = 100;
+		bodyDef.position.x = Gdx.graphics.getWidth() - getWidth() / 2;
+		bodyDef.position.y = Gdx.graphics.getHeight() - getHeight() / 4;
+
 
 		//bodyDef.linearDamping = .1f;
 		//bodyDef.angularDamping = .5f;
 
 		this.body = this.world.createBody(bodyDef);
         this.body.setFixedRotation(true);
+		this.body.setUserData(this);
 
 		PolygonShape polygonShape = new PolygonShape();
 		polygonShape.setAsBox(50, 80);
@@ -296,6 +298,7 @@ public class ActorSpaceship extends MyActor {
 				overheating_alarm.play();
 			}
 		}
+
 		if (bumm) {
 			spriteBumm.setRegion(textureAtlasBumm.getRegions().get(bummFrame));
 			spriteBumm.draw(batch); //s.play(parentAlpha );
@@ -303,7 +306,6 @@ public class ActorSpaceship extends MyActor {
 				bummFrame++;
 			}
 		}
-
 
 	}
 
@@ -342,6 +344,7 @@ public class ActorSpaceship extends MyActor {
 
 		final Vector2 pos = body.getPosition();
 		setPosition(pos.x, pos.y);
+
 
 	}
 

@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,9 +9,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.EarClippingTriangulator;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -54,9 +51,9 @@ public class ActorSurface extends Actor {
 		this.body = this.world.createBody(bodyDef);
 
 		Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-		pix.setColor(Color.GRAY); // DE is red, AD is green and BE is blue.
 		pix.fill();
 		textureSolid = new Texture(pix);
+		pix.setColor(0x10df06ff);
 
 		final ArrayList<Float> groundSegments = new ArrayList<Float>();
 
@@ -65,7 +62,7 @@ public class ActorSurface extends Actor {
 
 		final float MIN_HEIGHT = 100, HEIGHT_DIFF = 50, MIN_WIDTH = 30, MAX_WIDTH = 100;
 
-		float x = 0, y = (float)Math.random() * 100f;
+		float x = 300, y = (float)Math.random() * 100f;
 
 		groundSegments.add(x);
 		groundSegments.add(MIN_HEIGHT + y);
@@ -81,7 +78,7 @@ public class ActorSurface extends Actor {
 		groundSegments.add((float)Gdx.graphics.getWidth());
 		groundSegments.add(0f);
 
-		final float [] ground = new float[groundSegments.size()];
+		float [] ground = new float[groundSegments.size()];
 		//final float [] vertices = new float[] {10, 100, 60, 200, 120, 130, 150, 30, 90, 3 /* ezek szerint konkáv alakzatok nincsenek? állítsd 70-re/3-ra*/}; // Fák.
 		for (int i = 0;i < groundSegments.size();) {
 			ground[i] = groundSegments.get(i);
@@ -94,6 +91,7 @@ public class ActorSurface extends Actor {
 
 
 		}
+		ground = new float[] {0,0,300,100,500,300,600,0};
 
 		/*ArrayList<Short> triangles = new ArrayList<Short>();
 		for(int i = 0;i < groundSegments.size();) {
@@ -115,28 +113,12 @@ public class ActorSurface extends Actor {
 		// convert ground segments to vertices
 
 		PolygonShape polygonShape = new PolygonShape();
-		Vector2[] vertices = new Vector2[8];
-		// http://stackoverflow.com/questions/9579724/creating-a-polygonshape-in-libgdx-using-the-box2d-ligdx-modified-classes-but
-		// ennek nem így kellene megjelennie minden bizonnyal...
-		// http://stackoverflow.com/questions/16721382/collision-in-libgdx-box2d-failing-for-some-bodies
-		// ez egy nem járható út, hogy...
-		vertices[0] = new Vector2(82f  , 0f  );
-		vertices[1] = new Vector2(146f , 40f  );
-		vertices[2] = new Vector2(385f , 268f);
-		vertices[3] = new Vector2(322f , 341f);
-		vertices[4] = new Vector2(225f , 322f);
-		vertices[5] = new Vector2(282f , 398f);
-		vertices[6] = new Vector2(161f , 457f);
-		vertices[7] = new Vector2(135f , 298f);
-
-		polygonShape.set(vertices);
+		polygonShape.set(ground);
 
 		Fixture fix = body.createFixture(polygonShape, 0);
 
 		polygonShape.dispose();
 	}
-
-		//int velSzam (int a, int b){return (int)(Math.random()*(b-a+1)+a);}
 
 	@Override
 	public void act(float delta) {
@@ -147,15 +129,17 @@ public class ActorSurface extends Actor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+
+		//poly.draw(batch);
 /*
 		shapeRenderer.setColor(Color.BLACK);
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		shapeRenderer.polygon(ground);
 		shapeRenderer.end();
 		*/
-		polyBatch.begin();
-		poly.draw(polyBatch);
-		polyBatch.end();
+		//polyBatch.begin();
+		//poly.draw((PolygonSpriteBatch)batch);
+		//polyBatch.end();
 
 	}
 }
