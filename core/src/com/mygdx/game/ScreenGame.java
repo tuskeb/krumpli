@@ -31,6 +31,7 @@ public class ScreenGame extends MyScreen {
 
     // https://github.com/libgdx/libgdx/wiki/A-simple-game
     // http://pimentoso.blogspot.hu/2013/01/meter-and-pixel-units-in-box2d-game.html
+    Box2DDebugRenderer	debugger = new Box2DDebugRenderer();
 
     private World world = new World(new Vector2(0, -10), true);
 
@@ -312,6 +313,9 @@ public class ScreenGame extends MyScreen {
         }
         gameStage.act(Gdx.graphics.getDeltaTime());
         gameStage.draw();
+        camera.update();
+        debugger.render( world, camera.combined);
+
         batch.end();
 
 

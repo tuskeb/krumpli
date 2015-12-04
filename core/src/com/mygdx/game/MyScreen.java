@@ -133,10 +133,15 @@ public class MyScreen implements Screen {
 
 	public MyScreen() {
 		batch = new SpriteBatch();
-		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+		/*camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+
 		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		camera.zoom = VIRTUAL_HEIGHT / Gdx.graphics.getHeight();
 		camera.setToOrtho(false);
+		*/
+		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera.setToOrtho(false);
+		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		Gdx.input.setCatchBackKey(true);
 	}
 
