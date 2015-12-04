@@ -37,6 +37,10 @@ public class Display extends MyActor {
     Label labelSebesseg;
     String t;
 
+    double time;
+    Label labelTime;
+    String stringTime;
+
 
 
 
@@ -55,7 +59,15 @@ public class Display extends MyActor {
         img = new Texture("scale.png");
         sprite = new Sprite(img);
         sprite.setSize(350, 28);
-        sprite.setPosition(Gdx.graphics.getWidth()/86, Gdx.graphics.getHeight()/58);
+        sprite.setPosition(Gdx.graphics.getWidth() / 86, Gdx.graphics.getHeight() / 58);
+
+
+
+        time = 0.0;
+        stringTime = time/60.0+"";
+        labelTime = new Label (stringTime, MyScreen.LABEL_STYLE);
+        labelTime.setPosition(10,120);
+        labelTime.setFontScale(0.5f);
 
         magassag = 0;
         s = "Magasság: "+magassag;
@@ -69,7 +81,7 @@ public class Display extends MyActor {
         t = "Sebesség: "+sebesseg;
 
         labelSebesseg = new Label(t, MyScreen.LABEL_STYLE);
-        labelSebesseg.setPosition(10, 100);
+        labelSebesseg.setPosition(10, 85);
         //labelSebesseg.setSize(10, 10);
         labelSebesseg.setFontScale(0.5f);
 
@@ -93,6 +105,9 @@ public class Display extends MyActor {
         labelMagassag.draw(batch, 100f);
         magassag();
         labelSebesseg.draw(batch, 100f);
+
+        labelTime.draw(batch,1f);
+        setTime();
 
         //spriteMoon.draw(batch, 1f);
 
@@ -134,6 +149,12 @@ public class Display extends MyActor {
         magassag-=1;
         s = "Magasság: "+magassag;
         labelMagassag.setText(s);*/
+    }
+
+    void setTime(){
+        time++;
+        stringTime = "Time: " + Math.rint(time/60.0*100)/100;
+        labelTime.setText(stringTime);
     }
 
 

@@ -351,9 +351,10 @@ public class ActorSpaceship extends MyActor {
         setPosition(pos.x, pos.y);
 
 
+
 	}
-
-
-
+	public void setmMainRocketUsingTime(float mMainRocketUsingTime) {
+		this.mMainRocketUsingTime = mMainRocketUsingTime;
+	}
 
 }

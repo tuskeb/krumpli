@@ -297,6 +297,7 @@ public class ScreenGame extends MyScreen {
             button.setVisible(true);
             display.setMagassag(0);
             display.setSebesseg(0);
+            //ActorSpaceship
             display.setTimeSlider(spaceShip.mMainRocketUsingTime);
         }
         gameStage.act(Gdx.graphics.getDeltaTime());
