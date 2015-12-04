@@ -63,7 +63,7 @@ public class ScreenGame extends MyScreen {
                 if (bodyA.getUserData() instanceof ActorNewSurface && bodyB.getUserData() instanceof ActorSpaceship) {
                     surface = (ActorNewSurface) bodyA.getUserData();
                     spaceship = (ActorSpaceship) bodyB.getUserData();
-                    if (surface.mLandingArea && spaceShip.body.getLinearVelocity().len() < 30f) {
+                    if (surface.mLandingArea && spaceShip.body.getLinearVelocity().len() < 20f) {
                         setWinPoint();
                         SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
                     } else {
@@ -76,7 +76,7 @@ public class ScreenGame extends MyScreen {
                     surface = (ActorNewSurface) bodyB.getUserData();
                     spaceship = (ActorSpaceship) bodyA.getUserData();
 
-                    if (surface.mLandingArea && spaceShip.body.getLinearVelocity().len() < 30f) {
+                    if (surface.mLandingArea && spaceShip.body.getLinearVelocity().len() < 20f) {
                         setWinPoint();
                         SpaceGame.sGame.showScreen(SpaceGame.Screens.STAT);
                     } else {
@@ -153,7 +153,7 @@ public class ScreenGame extends MyScreen {
 
         boolean landingArea=false;
         int x = 0;
-        float egyseg=Gdx.graphics.getWidth()/6;
+        float egyseg=Gdx.graphics.getWidth()/10;
         do {
             float width, height;
             if (Math.random() < .3) {
@@ -161,7 +161,7 @@ public class ScreenGame extends MyScreen {
             } else {
                 width = 20 + (float) Math.random() * 60;
             }
-            landingArea = (x>egyseg*2 && x<egyseg*3) || (x>egyseg*4 && x<egyseg*5);
+            landingArea = (x>egyseg*3 && x<egyseg*4) || (x>egyseg*7 && x<egyseg*8);
             height = 30 + (float) Math.random() * 150;
             if (landingArea)
             {
@@ -328,7 +328,7 @@ public class ScreenGame extends MyScreen {
             }
             display.setTime((int)(mElapsedTime-flyingStartTime));
             display.setMagassag((int) spaceShip.getY());
-            display.setSebesseg((int) (spaceShip.body.getLinearVelocity().len()/3));
+            display.setSebesseg((int) (spaceShip.body.getLinearVelocity().len()/2));
             display.setTimeSlider(spaceShip.mMainRocketUsingTime);
             debugRenderer.render(world, camera.combined);
         } else {

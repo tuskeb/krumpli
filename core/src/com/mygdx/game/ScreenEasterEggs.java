@@ -77,8 +77,10 @@ public class ScreenEasterEggs extends MyScreen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                SpaceGame.sGame.showScreen(SpaceGame.Screens.MENU);
                 return false;
             }
+
 
             @Override
             public boolean touchUp(int screenX, int screenY, int pointer, int button) {
