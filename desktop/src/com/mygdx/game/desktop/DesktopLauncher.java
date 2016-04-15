@@ -9,8 +9,10 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		System.setProperty("user.name","pendroid");
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = (int)MyScreen.VIRTUAL_WIDTH;
-		config.height = (int)MyScreen.VIRTUAL_HEIGHT;
+		/*config.width = (int)MyScreen.VIRTUAL_WIDTH;
+		config.height = (int)MyScreen.VIRTUAL_HEIGHT;*/
+		config.width = 1024;
+		config.height = 768;
         config.resizable = false;
 		new LwjglApplication(SpaceGame.sGame, config);
 	}
